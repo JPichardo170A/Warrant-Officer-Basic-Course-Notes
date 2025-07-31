@@ -1,9 +1,10 @@
-# Warrant-Officer-Basic-Course-Notes
+# Warrant Officer Basic Course Notes
+🗂️ Purpose of This Repository
 
-🗂️ **Purpose of This Notebook**
+This repository is designed to serve as a structured, evolving resource for warrant officers—especially those attending or preparing for the Warrant Officer Basic Course (WOBC).
 
-This notebook serves as a centralized, structured repository for capturing all lessons, insights, and key takeaways throughout my time at the Warrant Officer Basic Course (WOBC). It is systematically organized by instructional modules and sub-modules, following the structure of each training block to ensure coherence and ease of navigation.
+Organized by instructional modules and training blocks, these notes capture key concepts, lessons learned, and insights gained throughout the course. The goal is not just to preserve information but to support continuous learning, professional development, and mission readiness.
 
-Beyond simply storing information, this notebook is intended to be an interactive tool—for reflection, refinement, and reference. It allows me to track my personal development, document lessons learned, and integrate feedback as I progress through the course.
+Whether you're a new warrant officer navigating your first course or a seasoned technician revisiting foundational knowledge, this collection aims to offer practical value. By sharing and maintaining these notes, we strengthen our collective understanding, reinforce the Warrant Officer Cohort’s expertise, and uphold the standard of lifelong learning in Army technical leadership.
 
-Importantly, this notebook is also designed as a resource for both myself and my fellow soldiers. By maintaining thorough, well-organized notes, I aim to support peer learning, foster shared understanding, and contribute to our collective professional growth. It will not only serve as a record of my time at WOBC but also as a valuable reference guide long after the course concludes.
+This is more than a personal notebook—it's a shared tool to support each other, guide future leaders, and contribute to the growth of the warrant officer community.
