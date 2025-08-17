@@ -1,0 +1,61 @@
+- Windows_PowerShell_Alias2 5
+What PowerShell command lists all of the contents of a directory? Answer is Get-childitem but it also can be Dir or ls since the question is very vauge. 
+
+- How to get the count of get-process properties in value: (Get-Process | Select-Object -First 1 | Get-Member -MemberType Property).Count
+- how to get the count of words in a file: (get-content .\words2.txt).count
+- how to get teh count for files inside the videos or an folder: (Get-childitem "C:\Users\CTF\Videos").count
+
+Compare files and output the difference:
+-> Compare-Object (Get-Content new.txt) (Get-content old.txt)
+
+Sort and find specific line from a file:
+-> (get-content .\words.txt | Sort-Object -Descending)[20]
+
+
+Count the number of unique words in words.txt: 
+-> (Get-Content words.txt | Sort-Object -Unique | Measure-Object).count 
+
+How many methods are available for the get-process cmdlet?
+
+Machine: Admin_Station
+
+-> (Get-Process | Get-Member -MemberType Method).count
+
+Count the number of times, case-insensitive, gaab is listed in words.txt **Note: File Location - C:\Users\CTF\Desktop\CTF:
+-> (Select-String -Path words.txt -Pattern "gaab").count
+
+Count the number of words, case-insensitive, with either a or z in a word, in the words.txt file:
+-> (Select-String -Path words.txt -Pattern "[az]").count
+
+Use a PowerShell loop to unzip the Omega file 1,000 times and read what is inside.
+
+Note: Make sure you back up the .zip file to a different directory before attempting this challenge
+-> for ($i = 1; $i -le 1000; $i++) { Expand-Archive -Path Omega1000.z
+ip -DestinationPath . -force; Write-host "unzipped layer: $i / 1000" } Write-Host "Loops is c
+omplete!"
+
+Count the number of words in words.txt that meet the following criteria:
+
+a appears at least twice consecutively
+and is followed immediately by any of the letters a through g
+Note: File Location - C:\Users\CTF\Desktop\CTF
+Example: aac...aaa...
+
+-> (Select-String -Path words.txt -Pattern "a{2,}[a-g]").Count
+
+
+What command would tell you if there was a profile loaded for All Users All Hosts?
+
+Flag is the full command syntax
+-> Test-Path $PROFILE.AllUsersAllHosts
+
+
+Challenge only allows ONE attempt
+
+Malware is running on a PowerShell profile on the File-Server. Based on PowerShell profile order of precedence (what is read first), find the correct flag.
+
+The flag is the string after the #, without the preceding space.
+
+-Step 1: $Profile
+-Step 2: Get-Content $Profile --->>> output of this should be your flag. 
+
