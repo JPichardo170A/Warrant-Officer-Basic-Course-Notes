@@ -1,0 +1,32 @@
+# (IAM) Identity Overview: Roles, Policies, MFA, and Best Practices:
+
+	Key Concepts:
+
+	IAM Roles: Identities with specific permissions, assumed by users/services. 
+
+	IAM Policies: Identity, resources, service control policy, permission boundaries, sessions policies.
+ 
+	IAM Best Practices: Leave Privilege, Enable MFA, Rotate Keys, No Root User for daily use, use roles instead. 
+
+
+# Zero trust Architecture (ZTA):
+	
+	Trust no one by Default- Inside or out of your organization. 
+
+	Protects against - Lateral movement credential theft insider threats and misconfigurations 
+
+
+# RBAC/ABAC:
+
+	Roles Based Access Controlled
+	Attribute Based Access Controlled: More flexible and dynamic. 
+
+# Multi-factor Authentication (MFA):
+
+	- Security mechanism that requires users to provide two or more verification factors to gain access to a system, 			application, or service. (SECURITY) 
+
+
+# Privileged Access Management (PAM):
+
+	PAM: Set of technologies, processes, and policies designed to manage and monitor access to critical systems and  			information by users with elevated privileges. (MANAGEMENT)
+

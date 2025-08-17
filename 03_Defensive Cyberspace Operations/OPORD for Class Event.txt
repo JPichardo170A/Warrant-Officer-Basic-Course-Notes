@@ -1,0 +1,12 @@
+# OPORD DCO CLASS MISSION:
+
+	- Situation: Execute phased Defense
+		
+	- Key Tasks: 1- Perform a network survey 
+		     2- Identify Cyber Key Terrain
+		     3- Execute hunt and threat intelligence
+		     4- Deliver Risk Mitigation Plan to 505th CAV BDE Mission Owner. 
+
+	- End State Network are documented and clear of enemy activity. 
+
+"Refer to DCO Phases guidance and due outs"
