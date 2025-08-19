@@ -1,185 +1,79 @@
-Linux minas-tirith.localdomain 4.9.0-16-amd64 #1 SMP Debian 4.9.272-2 (2021-07-19) x86_64
+1. What command lists the contents of directories in Linux/Unix systems?
+ -> Ls
 
-The programs included with the Debian GNU/Linux system are free software;
-the exact distribution terms for each program are described in the
-individual files in /usr/share/doc/*/copyright.
+2. For the ls command, what arguments, or switch options, will allow you to print human-readable file sizes in a long-list format?
+ ->
 
-Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
-permitted by applicable law.
-Last login: Tue Feb 11 20:20:52 2025
-bombadil@minas-tirith:~$ clear
-bombadil@minas-tirith:~$ pwd
-/home/bombadil
-bombadil@minas-tirith:~$ which pwd
-/bin/pwd
-bombadil@minas-tirith:~$ whoami
-bombadil
-bombadil@minas-tirith:~$ id
-uid=1001(bombadil) gid=1001(bombadil) groups=1001(bombadil)
-bombadil@minas-tirith:~$ hostname
-minas-tirith.localdomain
-bombadil@minas-tirith:~$ hostname -I
-10.10.0.7
-bombadil@minas-tirith:~$ uname -a
-Linux minas-tirith.localdomain 4.9.0-16-amd64 #1 SMP Debian 4.9.272-2 (2021-07-19) x86_64 GNU/Linux
-bombadil@minas-tirith:~$ who
-bombadil pts/0        2025-08-19 13:15 (10.10.0.2)
-bombadil@minas-tirith:~$ w
- 13:27:48 up 5 days, 18:07,  1 user,  load average: 0.00, 0.00, 0.00
-USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
-bombadil pts/0    10.10.0.2        13:15    0.00s  0.03s  0.00s w
-bombadil@minas-tirith:~$ who -b
-         system boot  2025-08-13 19:21
-bombadil@minas-tirith:~$ who -r
-         run-level 2  2025-08-13 19:21                   last=S
-bombadil@minas-tirith:~$ who -a
-                        2025-08-13 19:21               240 id=si    term=0 exit=0
-           system boot  2025-08-13 19:21
-           run-level 2  2025-08-13 19:21                   last=S
-                        2025-08-13 19:26              1131 id=l2    term=0 exit=0
-LOGIN      tty1         2025-08-13 19:26              1949 id=1
-LOGIN      tty6         2025-08-13 19:26              1954 id=6
-                        2025-08-13 19:26              1955 id=90
-LOGIN      tty4         2025-08-13 19:26              1952 id=4
-LOGIN      tty5         2025-08-13 19:26              1953 id=5
-                        2025-08-13 19:26              1956 id=91
-LOGIN      tty3         2025-08-13 19:26              1951 id=3
-LOGIN      tty2         2025-08-13 19:26              1950 id=2
-bombadil + pts/0        2025-08-19 13:15   .         11274 (10.10.0.2)
-bombadil@minas-tirith:~$ ip addr
-1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    inet 127.0.0.1/8 scope host lo
-       valid_lft forever preferred_lft forever
-    inet6 ::1/128 scope host
-       valid_lft forever preferred_lft forever
-2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
-    link/ether 00:50:56:8c:53:0d brd ff:ff:ff:ff:ff:ff
-    inet 10.10.0.7/24 brd 10.10.0.255 scope global eth0
-       valid_lft forever preferred_lft forever
-    inet6 fe80::250:56ff:fe8c:530d/64 scope link
-       valid_lft forever preferred_lft forever
-bombadil@minas-tirith:~$ ip route
-default via 10.10.0.1 dev eth0 onlink
-10.10.0.0/24 dev eth0 proto kernel scope link src 10.10.0.7
-bombadil@minas-tirith:~$ ip neigh
-10.10.0.2 dev eth0 lladdr 00:50:56:8c:0a:22 REACHABLE
-10.10.0.129 dev eth0  FAILED
-10.10.0.1 dev eth0 lladdr 02:50:56:56:44:52 REACHABLE
-bombadil@minas-tirith:~$ ss -tulm
-Netid State      Recv-Q Send-Q   Local Address:Port                    Peer Address:Port
-udp   UNCONN     0      0                    *:bootpc                             *:*
-         skmem:(r0,rb212992,t0,tb212992,f0,w0,o0,bl0,d0)
-udp   UNCONN     0      0            10.10.0.7:ntp                                *:*
-         skmem:(r0,rb212992,t0,tb212992,f0,w0,o0,bl0,d0)
-udp   UNCONN     0      0            127.0.0.1:ntp                                *:*
-         skmem:(r0,rb212992,t0,tb212992,f0,w0,o0,bl0,d0)
-udp   UNCONN     0      0                    *:ntp                                *:*
-         skmem:(r0,rb212992,t0,tb212992,f0,w0,o0,bl0,d0)
-udp   UNCONN     0      0      fe80::250:56ff:fe8c:530d%eth0:ntp                               :::*
+3. What character will pipe the standard output from echo "I’m a plumber" to another command, as standard input?
+ -> Pipe ( | )
 
-         skmem:(r0,rb212992,t0,tb212992,f0,w0,o0,bl0,d0)
-udp   UNCONN     0      0                  ::1:ntp                               :::*
-         skmem:(r0,rb212992,t0,tb212992,f0,w0,o0,bl0,d0)
-udp   UNCONN     0      0                   :::ntp                               :::*
-         skmem:(r0,rb212992,t0,tb212992,f0,w0,o0,bl0,d0)
-tcp   LISTEN     0      1                    *:9999                               *:*
-         skmem:(r0,rb87380,t0,tb16384,f0,w0,o0,bl0,d0)
-tcp   LISTEN     0      128                  *:ssh                                *:*
-         skmem:(r0,rb87380,t0,tb16384,f0,w0,o0,bl0,d0)
-tcp   LISTEN     0      128                 :::ssh                               :::*
-         skmem:(r0,rb87380,t0,tb16384,f0,w0,o0,bl0,d0)
-bombadil@minas-tirith:~$ netstat -ano
-Active Internet connections (servers and established)
-Proto Recv-Q Send-Q Local Address           Foreign Address         State       Timer
-tcp        0      0 0.0.0.0:9999            0.0.0.0:*               LISTEN      off (0.00/0/0)
-tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      off (0.00/0/0)
-tcp        0     36 10.10.0.7:22            10.10.0.2:54441         ESTABLISHED on (0.24/0/0)
-tcp6       0      0 :::22                   :::*                    LISTEN      off (0.00/0/0)
-udp        0      0 10.10.0.7:40110         10.50.255.254:53        ESTABLISHED off (0.00/0/0)
-udp        0      0 0.0.0.0:68              0.0.0.0:*                           off (0.00/0/0)
-udp        0      0 10.10.0.7:123           0.0.0.0:*                           off (0.00/0/0)
-udp        0      0 127.0.0.1:123           0.0.0.0:*                           off (0.00/0/0)
-udp        0      0 0.0.0.0:123             0.0.0.0:*                           off (0.00/0/0)
-udp6       0      0 fe80::250:56ff:fe8c:123 :::*                                off (0.00/0/0)
-udp6       0      0 ::1:123                 :::*                                off (0.00/0/0)
-udp6       0      0 :::123                  :::*                                off (0.00/0/0)
-Active UNIX domain sockets (servers and established)
-Proto RefCnt Flags       Type       State         I-Node   Path
-unix  2      [ ACC ]     STREAM     LISTENING     12548    /sys/fs/cgroup/cgmanager/sock
-unix  6      [ ]         DGRAM                    12607    /dev/log
-unix  2      [ ACC ]     SEQPACKET  LISTENING     1872     /run/udev/control
-unix  2      [ ACC ]     STREAM     LISTENING     11376    /var/run/nscd/socket
-unix  2      [ ACC ]     STREAM     LISTENING     11378    /var/run/.nscd_socket
-unix  2      [ ACC ]     STREAM     LISTENING     12746    /var/run/dbus/system_bus_socket
-unix  2      [ ]         DGRAM                    11409
-unix  3      [ ]         STREAM     CONNECTED     12776
-unix  3      [ ]         STREAM     CONNECTED     1584037
-unix  3      [ ]         STREAM     CONNECTED     1584164  /var/run/dbus/system_bus_socket
-unix  3      [ ]         DGRAM                    10068
-unix  3      [ ]         STREAM     CONNECTED     11446
-unix  2      [ ]         DGRAM                    12609
-unix  3      [ ]         STREAM     CONNECTED     12775
-unix  2      [ ]         DGRAM                    1584146
-unix  3      [ ]         STREAM     CONNECTED     1584070
-unix  3      [ ]         STREAM     CONNECTED     1584069
-unix  3      [ ]         DGRAM                    10067
-unix  3      [ ]         STREAM     CONNECTED     11447
-unix  2      [ ]         DGRAM                    1584018
-unix  2      [ ]         DGRAM                    11914
-bombadil@minas-tirith:~$ iptables -L
--bash: iptables: command not found
-bombadil@minas-tirith:~$ sudo su
-iptables -L
-^Cclear
+4. What argument/switch option, when used with man, will search the short descriptions and man-page-names for a keyword that you provide?
+   The flag is the complete command, with argument/switch.
+ -> man -k
+
+5. What is the absolute path to the root directory?
+ -> /
+
+6. What is the absolute path to the default location for configuration files?
+ -> /etc
+
+7. What is the directory that contains executable programs (binaries) which are needed in single user mode, to bring the system up or to repair it?
+ -> /bin
+
+8. What is the absolute path to the directory which contains non-essential binaries that are accessible by standard users as well as root?
+ -> usr/bin
+
+9. An absolute path to a directory which contains binaries only accessible by the root user, or users in the root group.
+ -> /sbin
+
+10. What is the absolute path for the binary cat man-page?
+ -> Step 1: whereis cat 
+    Output: cat: /bin/cat /usr/share/man/man1/cat.1.gz
+ -> Step 2: answer is /usr/share/man/man1/cat.1.gz
+
+11. Search the man pages for the keyword digest. Then, use one of the binaries listed to hash the string OneWayBestWay using the largest sha hash available.
+ -> Step 1: man -k digest
+ -> Step 2: Echo -n "OneWayBestWay" | sha512sum 
+    Output is Answer: "b818ef82dfdaec2e94ae8274482e253a32e454073e949308bf90580bf15675360d42fc03c314f3d50971b8fc829fa2b81293493e331e4d6771b7af46d1309fcf"
+
+12. Use File: /home/garviel/Encrypted This file contains encrypted contents. Identify its file type, then decode its contents.
+Hint: Use OpenSSL Research: https://www.openssl.org/docs/man1.1.1/man1/enc.html Reminder: All challenges are done using the Terra box.
+ -> Step 1: /home/garviel/Encrypted
+ -> Setp 2: file /home/garviel/Encrypted
+ -> step 2: unzip /home/garviel/Encrypted
+ -> Step 3: output 2 files Cipher and Symmetric
+ -> Step 4: Cat Cipher -> (Salted) and Cat Symmetric -> (AES128Key) these should give you the context for the next step
+ -> step 5: openssl enc -aes-128-cbc -d -in cipher -out decrypted.txt -pass pass:AES128Key
+ -> Step 6: Cat decrypted.txt
 
 
 
-sudo: unable to resolve host minas-tirith.localdomain: Connection timed out
-[sudo] password for bombadil:
-Sorry, try again.
-[sudo] password for bombadil:
-Sorry, try again.
-[sudo] password for bombadil:
-sudo: 2 incorrect password attempts
-bombadil@minas-tirith:~$ sudo -l
-sudo: unable to resolve host minas-tirith.localdomain: Connection timed out
-Matching Defaults entries for bombadil on minas-tirith:
-    env_reset, mail_badpass,
-    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
 
-User bombadil may run the following commands on minas-tirith:
-    (ALL) NOPASSWD: /bin/cat, /bin/ls, /usr/bin/find, /usr/bin/xxd * /dev/vda, /usr/bin/lsof
-bombadil@minas-tirith:~$ ls -lisa
-total 28
-142017 4 drwxr-xr-x  2 bombadil bombadil 4096 Oct 13  2021 .
- 32770 4 drwxr-xr-x 23 root     root     4096 Oct 13  2021 ..
-142179 4 -rw-------  1 bombadil bombadil  204 Oct 13  2021 .bash_history
-142020 4 -rw-r--r--  1 bombadil bombadil  220 May 15  2017 .bash_logout
-142018 4 -rw-r--r--  1 bombadil bombadil 3526 May 15  2017 .bashrc
-   336 4 -rw-r--r--  1 bombadil bombadil  512 Oct 13  2021 mbroken
-142019 4 -rw-r--r--  1 bombadil bombadil  675 May 15  2017 .profile
-bombadil@minas-tirith:~$ ls -shila
-total 28K
-142017 4.0K drwxr-xr-x  2 bombadil bombadil 4.0K Oct 13  2021 .
- 32770 4.0K drwxr-xr-x 23 root     root     4.0K Oct 13  2021 ..
-142179 4.0K -rw-------  1 bombadil bombadil  204 Oct 13  2021 .bash_history
-142020 4.0K -rw-r--r--  1 bombadil bombadil  220 May 15  2017 .bash_logout
-142018 4.0K -rw-r--r--  1 bombadil bombadil 3.5K May 15  2017 .bashrc
-   336 4.0K -rw-r--r--  1 bombadil bombadil  512 Oct 13  2021 mbroken
-142019 4.0K -rw-r--r--  1 bombadil bombadil  675 May 15  2017 .profile
-bombadil@minas-tirith:~$ ls -shilat
-total 28K
-142017 4.0K drwxr-xr-x  2 bombadil bombadil 4.0K Oct 13  2021 .
-142179 4.0K -rw-------  1 bombadil bombadil  204 Oct 13  2021 .bash_history
- 32770 4.0K drwxr-xr-x 23 root     root     4.0K Oct 13  2021 ..
-   336 4.0K -rw-r--r--  1 bombadil bombadil  512 Oct 13  2021 mbroken
-142020 4.0K -rw-r--r--  1 bombadil bombadil  220 May 15  2017 .bash_logout
-142018 4.0K -rw-r--r--  1 bombadil bombadil 3.5K May 15  2017 .bashrc
-142019 4.0K -rw-r--r--  1 bombadil bombadil  675 May 15  2017 .profile
-bombadil@minas-tirith:~$ ls -help
-ls: invalid option -- 'e'
-Try 'ls --help' for more information.
-bombadil@minas-tirith:~$ man ls
-bombadil@minas-tirith:~$ man man
-bombadil@minas-tirith:~$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
