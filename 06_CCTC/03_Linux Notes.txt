@@ -46,8 +46,24 @@ Hint: Use OpenSSL Research: https://www.openssl.org/docs/man1.1.1/man1/enc.html 
  -> step 5: openssl enc -aes-128-cbc -d -in cipher -out decrypted.txt -pass pass:AES128Key
  -> Step 6: Cat decrypted.txt
 
+13. Search the user home directories to find the file with the second-most lines in it. The flag is the number of lines in the file.
+ -> Step 1: find /home -type f -exec wc -l {} + 2>/dev/null | sort -nr | sed -n '2p'
+ -> Step 2: find /home -type f -exec wc -l {} + 2>/dev/null | awk '{print $1}' | sort -nr | sed -n '2p'
 
+14. Read the file that contains the user database for the machine. Identify a strange comment.
+ -> 
 
+15. Find the user with a unique login shell.
+ -> Step 1: awk -F: '{print $1, $7}' /etc/passwd | sort -k2 | uniq -f1 -u
+ -> Step 2: Answer is: (nobody) /bin/sh 
+
+16. Identify the algorithm, the amount of salted characters added, and the length of the hashed password in the file that stores passwords.
+ -> step 1: sudo cat /etc/passswd -> output of that is the Flag format
+ -> step 2: sudo cat /etc/shadow | cut -d: -f2 | grep '^\$' | head -n 1 | cut -d'$' -f3 | wc -c 
+ -> step 3: 
+
+17. Find the directory named Bibliotheca. Enter the absolute path to the directory.
+ -> Step 1: 
 
 
 
