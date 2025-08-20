@@ -228,7 +228,20 @@ ForEach-Object {
 
 ______________________________________________________________________________________________________________________
 
+# Windows Alternate Data Stream
+1. What is the smallest addressable unit on a hard disk?
+	-> 
+______________________________________________________________________________________________________________________
 # Windows Boots Process
+1. What is the smallest addressable unit on a hard disk?
+	-> Fiel System Format
+2. What are NTFS partition sectors grouped into?
+	-> cluster or clusters
+3. What contains the metadata about all of the files and directories on a NTFS partition?
+	-> master file table (MFT) 
+4. NTFS files are collections of what?
+	-> 
+
 
 
 
