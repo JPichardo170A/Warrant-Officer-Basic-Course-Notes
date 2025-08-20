@@ -229,18 +229,200 @@ ForEach-Object {
 ______________________________________________________________________________________________________________________
 
 # Windows Alternate Data Stream
-1. What is the smallest addressable unit on a hard disk?
-	-> 
-______________________________________________________________________________________________________________________
-# Windows Boots Process
-1. What is the smallest addressable unit on a hard disk?
-	-> Fiel System Format
+
+1. The ____ determines how the data is stored on disk.
+	-> Master File table (MFT)
 2. What are NTFS partition sectors grouped into?
 	-> cluster or clusters
 3. What contains the metadata about all of the files and directories on a NTFS partition?
 	-> master file table (MFT) 
 4. NTFS files are collections of what?
-	-> 
+	-> Attributes
+5. Which NTFS attribute would store an alternate data stream?
+	-> $DATA
+6. Which NTFS attribute holds information about a file's encrypted attributes?
+	-> $LOGGED_UTILITY_STREAM
+7. Which NTFS attribute that is composed of the file security and access control properties?
+	-> $SECURITY_DESCRIPTOR
+8. In NTFS, what is the type id, in hex, of the attribute that actually stores a NTFS files contents?
+	-> The type ID of the NTFS attribute that stores a file’s contents is 0x80 ($DATA).
+9. In NTFS what is the maximum number of bytes a MFT entry (containing the entirety of a file) can contain to be considered "Resident Data"?
+	-> Each MFT entry (record) is usually 1 KB (1024 bytes) by default (though it can be 2 KB or 4 KB depending on the volume format).
+10. NTFS permissions can be a assigned to a filesystem object in two ways. Which way is intentionally assigned on the file or folder?
+	-> Explicit permissions
+11. NTFS permissions can be a assigned to a filesystem object in two ways. Which way is the results of an object being assigned permissions as the result of being the child of another object?
+	-> Inhereted
+12. Which NTFS file level permission is missing from the following list? Write, Read & Execute, Modify, Full Control
+	-> Read
+13. Which NTFS folder level permission is missing from the following list?: Read, Write, Read & Execute, Modify, Full control?
+	-> List Folder Contents
+14. Which NTFS file level permission permits changing the contents of a file, deleting the file but does not allow the ability to change the permissions on the file?
+	-> Modify
+15. Which NTFS folder level permission allows changing permissions?
+	-> 👉 Full Control
+16. Which NTFS attribute stores the file times of an object?
+	-> $STANDARD_INFORMATION
+17. What CLI command will only show the letters of attached drives? **Hint command is 3 words
+	-> fsutil fsinfo drives
+18. Every file on a Windows system has attributes. What does the d attribute mean?
+	-> Directory
+19. Every file on a Windows system has attributes. What does the h attribute mean?
+	-> Hidden
+20. What PowerShell command will list all files in the current directory, regardless of their attributes?
+	-> Get-ChildItem -Force aliases: gci and ls
+21. What PowerShell command will give you the sha512 hash of a file?
+	-> Get-FileHash -Algorithm SHA512
+22. What PowerShell command will list permissions of a file?
+	-> Get-acl
+23. What Windows file maps hostnames to IP addresses?
+-> hosts
+24. Which group has ReadandExecute (RX) permissions to the file listed in the previous challenge, File_System_Basics_6?
+	-> BuiltIN\Users
+25. Find the last five characters of the MD5 hash of the hosts file.
+	-> Step 1: Get-FileHash -Path "C:\Windows\System32\drivers\etc\hosts" -Algorithm MD5
+	-> Step 2: (Get-FileHash "C:\Windows\System32\drivers\etc\hosts" -Algorithm MD5).Hash[-5..-1] -join ''
+	-> Step 3: Answer is 7566D
+26. Examine the readme file somewhere in the CTF user’s home directory.
+	-> Step 1: Get-ChildItem -Path "C:\users\ctf" -Recurse -File -Filter "*README*" (found in favorites folder)
+	-> step 2: Get-Content "C:\users\ctf\Favorites\README"
+	-> Answer: 123456
+27. There is a hidden directory in the CTF user's home directory. The directory contains a file. Read the file.
+	-> Step 1: Get-ChildItem -Path "C:\users\ctf" -Directory -Force 
+		OR	   Get-ChildItem -Path "C:\users\ctf" -Recurse -Directory -Force | Where-Object { $_.Attributes -match "Hidden" }
+	-> step 2: directory founds secetsauce-> so now we pivot into that directory 
+	-> step 3: cd secretsauce -? to find file suacey now we cat the file to read content
+	-> Step 4: Cat saucey -> asnwer is ketchup
+
+28. Find a file in a directory on the desktop with spaces in it. FLAG is the contents of the file
+	-> Step 1: cd into user Desktop -> then conduct a Ls command
+	-> Step 2: Run script to recurese the files with spaces since there could be several: Get-ChildItem -Path "C:\users\ctf\desktop" -Directory | Where-Object { $_.Name -match " " } |
+    ForEach-Object { Get-ChildItem -Path $_.FullName -Recurse -File }
+	-> Step 3: Found spaces.txt file -> This reads the content of the file we found: Get-ChildItem "C:\users\ctf\desktop" -Recurse -File | Where-Object { $_.DirectoryName -match " " } | Get-Content
+	-> Step 4: Answer from inside of spaces.txt: 987654321
+
+29. Find the Alternate Data Stream in the CTF user's home, and read it.
+	-> Step 1: Set-Location "C:\users\ctf" #sets the terminal to the user and directory we need to search in.
+	-> Step 2: Get-ChildItem -Recurse -Force -File  #this list all the files and even hideen ones.
+	-> Step 3: listent he files with ADS-> Get-ChildItem -Path "C:\users\ctf\Documents" -Force -File | ForEach-Object {
+    Get-Item -LiteralPath $_.FullName -Stream * -ErrorAction SilentlyContinue
+}
+	-> Step 4: Filter only files with ADS-> Get-ChildItem -Path "C:\users\ctf\Documents" -Force -File | ForEach-Object {
+    $streams = Get-Item -LiteralPath $_.FullName -Stream * -ErrorAction SilentlyContinue
+    if ($streams.Count -gt 1) { $streams }
+}
+	-> Step 5: Read the contents of the file -> Get-Content -LiteralPath "C:\users\ctf\Documents\nothing_here" -Stream "hidden"
+	-> Step 6: Answer P455W0RD
+
+30. "Fortune cookies" have been left around the system so that you won't find the hidden password...
+	-> Step 1: Navigate to the challenge directory
+				cd "C:\Users\ctf\Documents"
+
+	-> Step 2: List all files with metadata to identify decoys
+				Get-ChildItem -Force | Format-List Name,Length,Mode,LastWriteTime
+
+	Observation:
+			- Multiple empty files (likely decoys)
+			- One hidden file: "fortune cookie.txt" (168 bytes)
+
+	-> Step 3: Read the contents of "fortune cookie.txt"
+				Get-Content -Path "C:\Users\ctf\Documents\fortune cookie.txt" -Encoding Unicode
+
+	Output:
+			"only listen to The Fortune Cookie, and disregard all other fortune telling units."
+
+	Interpretation:
+					This file is the only valid clue source. All other similarly named files are distractions.
+
+	-> Step 4: Search system-wide for files matching "fortune"
+				Get-ChildItem "C:\" -Recurse -Force -ErrorAction SilentlyContinue | Where-Object { $_.Name -like "*fortune*" }
+
+	Findings:
+			- C:\Windows\PLA\not_anihc\The Fortune Cookie (136 bytes)
+			- C:\Windows\PLA\not_anihc\Fortune Cookie Crumb (80 bytes)
+			- Other hidden "fortune cookie.txt" files in System32 and SysWOW64
+
+	-> Step 5: Read contents of "The Fortune Cookie"
+				Get-Content "C:\Windows\PLA\not_anihc\The Fortune Cookie"
+
+	Output:
+			"The fortune you seek is inside The Fortune Cookie on this system."
+
+	Interpretation:
+			This file contains the actual password, likely hidden in metadata or an alternate stream.
+
+	-> Step 6: Inspect alternate data streams in "The Fortune Cookie"
+				Get-Item -LiteralPath "C:\Windows\PLA\not_anihc\The Fortune Cookie" -Stream *
+
+	Findings:
+			- Default stream :$DATA (136 bytes)
+			- Hidden stream "none" (26 bytes)
+
+	-> Step 7: Read the hidden stream "none"
+				Get-Content -Path "C:\Windows\PLA\not_anihc\The Fortune Cookie" -Stream "none"
+
+	Output:
+			Password: fortune_cookie
+
+Conclusion:
+The password was hidden in an alternate data stream of a system file named "The Fortune Cookie." Decoys were placed throughout the user directory and system folders to mislead the search. The challenge was solved by interpreting clues, inspecting metadata, and uncovering hidden streams.
+
+Flag/Password:
+**fortune_cookie**
+
+31. There are plenty of phish in the C:\Users\CTF, but sometimes they're hidden in plain site. Find the phish.
+	-> Step 1: Check for long lines in words.txt
+				Get-Content ".\words.txt" | Where-Object { $_.Length -gt 20 }
+				Get-Content ".\words.txt" | Where-Object { $_.Length -gt 50 }
+
+	-> Step 2: Search for non-alphabetic characters
+				Get-Content ".\words.txt" | Where-Object { $_ -match "[^a-zA-Z]" }
+				Get-Content ".\words2.txt" | Where-Object { $_ -match "[^a-zA-Z]" }
+
+	-> Step 3: Search for HTML tags or phishing clues
+				Get-ChildItem -Recurse -File | Select-String -Pattern "<html|<form|<input|<script|action="
+
+	-> Step 4: List all files sorted by size
+				Get-ChildItem -Recurse -File | Sort-Object Length -Descending | Select-Object Name, Length
+
+	-> Step 5: Inspect specific lines in words.txt
+				(Get-Content ".\words.txt")[1336]
+				(Get-Content ".\words.txt")[69]
+				(Get-Content ".\words.txt")[404]
+				(Get-Content ".\words.txt")[9001]
+
+	-> Step 6: Explore folders on Desktop
+				cd "..\1    -    99"
+				Get-ChildItem -Force
+
+			cd "..\100     -     199"
+			Get-ChildItem -Force
+
+			cd "..\a     -      z"
+			Get-ChildItem -Force
+
+	-> Step 7: Sweep all files in CTF folder
+				Get-ChildItem "C:\Users\CTF" -Recurse -Force -File
+
+	-> Step 8: Inspect password.txt
+				Get-Content "C:\Users\ctf\documents\password.txt" -TotalCount 20
+				Get-Content "C:\Users\ctf\documents\password.txt" | Where-Object { $_ -ne " I, CTCC Student, will not try to take the easy way out again ." }
+
+	-> Step 9: Explore WWW folder
+				cd "C:\Users\ctf\documents\WWW"
+				Get-ChildItem -Force
+
+	-> Step 10: Reveal hidden files with content
+				Get-ChildItem "C:\Users\ctf\documents\WWW" -Force | Where-Object { $_.Length -gt 0 }
+
+	-> Step 11: Read the phishy file
+				Get-Content "C:\Users\ctf\documents\WWW\200"
+
+				Flag: phi5hy
+_____________________________________________________________________________________________________________________
+
+1. What is the smallest addressable unit on a hard disk?
+	-> Sector
+2. 
 
 
 
