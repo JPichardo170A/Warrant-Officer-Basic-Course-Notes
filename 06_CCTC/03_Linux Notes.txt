@@ -765,7 +765,98 @@ ________________________________________________________________________________
 
 # LINUX BOOT PROCESS
 
+1.Solve the following equation:
+0x31A - 0x21B
+
+[Step-by-Step Breakdown]
+1. Convert both hexadecimal values to decimal:
+   - 0x31A = 794
+   - 0x21B = 539
+
+2. Perform the subtraction in decimal:
+   - 794 - 539 = 255
+
+3. Convert the result back to hexadecimal:
+   - 255 = 0xFF
+
+[Final Answer]
+0xFF
+
+2. How many bits are in a nibble, and a byte?
+
+[Answer]
+Flag format: 4,8
+
+[Step-by-Step Breakdown]
+
+1. [Definition of a Bit]
+   - A bit (binary digit) is the smallest unit of data in computing.
+   - It can hold a value of either 0 or 1.
+
+2. [What is a Nibble?]
+   - A nibble is defined as **4 bits**.
+   - It can represent 2⁴ = 16 possible values (0 to 15 in decimal, 0x0 to 0xF in hex).
+   - Commonly used in hexadecimal representation, where each hex digit maps to one nibble.
+
+3. [What is a Byte?]
+   - A byte is defined as **8 bits**.
+   - It can represent 2⁸ = 256 possible values (0 to 255 in decimal, 0x00 to 0xFF in hex).
+   - Standard unit for storing characters, instructions, and memory addressing in most architectures.
+
+4. [Why These Sizes?]
+   - Early computing systems standardized 8-bit bytes for compatibility and memory alignment.
+   - Nibbles are useful for splitting bytes in half, especially in low-level operations like bit masking, hex parsing, and binary encoding.
+
+[Historical Note]
+- The term "nibble" is a play on "byte" — a nibble is half a byte, just like a nibble is a small bite of food.
+
+[Final Flag]
+4,8
+
+3. How many bits does a single hexadecimal character represent?
+[Answer]
+4 bits
+
+[Step-by-Step Breakdown]
+
+1. [Hexadecimal System]
+   - Hexadecimal (base-16) uses 16 distinct symbols: 0–9 and A–F.
+   - Each symbol represents a value from 0 to 15.
+
+2. [Binary Mapping]
+   - To represent 16 values in binary, you need 4 bits:
+     - 2⁴ = 16 possible combinations
+     - Example: 
+       - Hex 'A' = Decimal 10 = Binary 1010
+       - Hex 'F' = Decimal 15 = Binary 1111
+
+3. [Usage]
+   - Each hex digit maps directly to a 4-bit binary chunk.
+   - This makes hex ideal for compact representation of binary data.
+
+[Flag Format]
+4
+
+4. How many bytes are contained in the range from 0x00000000 to 0x00000010?
+
+[Step-by-Step Breakdown]
+
+1. [Understanding the Range]
+   - The range starts at address: 0x00000000
+   - It ends at address: 0x00000010
+   - This includes both the starting and ending addresses.
+
+2. [Hex to Decimal Conversion]
+   - 0x00000000 = 0
+   - 0x00000010 = 16
+
+3. [Byte Count Calculation]
+   - Memory addresses are byte-addressable.
+   - So, the range from 0 to 16 includes **17 total bytes**:
+     - 0x00, 0x01, ..., 0x10 → 17 distinct positions
+
+[Final Answer]
+17 bytes
 
 
-
-
+5.
