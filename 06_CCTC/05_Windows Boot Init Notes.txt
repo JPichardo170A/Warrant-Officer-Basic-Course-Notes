@@ -7,14 +7,25 @@ What is the Process ID (PID) of the first Windows process?
 What is the second boot process to spawn, that then spawns csrss in both session 0 and session 1?
   -> smss.exe
 What session ID do Windows services operate in?
--> 0 
+  -> 0 
 What process creates access tokens?
--> lsass.exe
+  -> lsass.exe
 What is the parent process to all svchosts?
   -> services.exe
 What process is waiting with high priority for the Secure Attention Sequence (SAS)?
   -> winlogon.exe
 What user space process spawns explorer, then dies?
--> userinit.exe
+  -> userinit.exe
 What is the name of the bootloader, with extension, we are using on all of the Windows machines in this environment?
-  -> 
+  -> winload.exe
+Challenge only allows ONE attempt Based on the boot loader from Init_9, which firmware are we using (BIOS or UEFI) in our environment?
+  -> BIOS
+What file saves the memory state to the hard drive when going into hibernation?
+  -> hiberfil.sys
+What bootloader is responsible for restoring the system to its original state after hibernation?
+  -> Winresume.exe
+The system is booting into safe mode. Identify the flag from the command-line output of the command used to diagnose boot issues.
+  -> Windows Boot loader : Identifier (number) Description: (Flag 1RF5Zgf9P)
+The system is booting into safe mode. Correct that, and reboot into the desktop. The flag is on the desktop.
+  -> Step 1: Bcdedit /delete {<value of removal boot loeader>} 
+  -> Step 2:  
