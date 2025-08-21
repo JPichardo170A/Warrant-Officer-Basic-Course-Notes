@@ -2,7 +2,7 @@
  -> Ls
 
 2. For the ls command, what arguments, or switch options, will allow you to print human-readable file sizes in a long-list format?
- ->
+ -> ls -lh
 
 3. What character will pipe the standard output from echo "I’m a plumber" to another command, as standard input?
  -> Pipe ( | )
@@ -47,44 +47,703 @@ Hint: Use OpenSSL Research: https://www.openssl.org/docs/man1.1.1/man1/enc.html 
  -> Step 6: Cat decrypted.txt
 
 13. Search the user home directories to find the file with the second-most lines in it. The flag is the number of lines in the file.
- -> Step 1: find /home -type f -exec wc -l {} + 2>/dev/null | sort -nr | sed -n '2p'
- -> Step 2: find /home -type f -exec wc -l {} + 2>/dev/null | awk '{print $1}' | sort -nr | sed -n '2p'
+ Linux Challenge: Find the File with the Second-Most Lines (Excluding .vdi and .log Files)
+
+-> Step 1:
+Search all regular files under the /home directory.
+Command:
+find /home -type f
+
+-> Step 2:
+Exclude files ending in .vdi and .log.
+Command:
+find /home -type f ! -name "*.vdi" ! -name "*.log"
+
+-> Step 3:
+Filter only files that are plain text using MIME type detection.
+Command:
+find /home -type f ! -name "*.vdi" ! -name "*.log" -exec file --mime-type {} + 2>/dev/null
+
+-> Step 4:
+Extract only the filenames from the MIME type output.
+Command:
+... | grep 'text/' | cut -d: -f1
+
+-> Step 5:
+Count the number of lines in each of the filtered text files.
+Command:
+... | xargs wc -l 2>/dev/null
+
+-> Step 6:
+Sort the results in descending order by line count.
+Command:
+... | sort -nr
+
+-> Step 7:
+Print the second line from the sorted list — this is the file with the second-most lines.
+Command:
+... | sed -n '2p'
+
+-> Final Combined Command:
+find /home -type f ! -name "*.vdi" ! -name "*.log" -exec file --mime-type {} + 2>/dev/null | grep 'text/' | cut -d: -f1 | xargs wc -l 2>/dev/null | sort -nr | sed -n '2p'
+
+-> Result:
+20000 /home/garviel/numbers
+
+-> Flag:
+20000
+
 
 14. Read the file that contains the user database for the machine. Identify a strange comment.
- -> 
+-> Step 1:
+Access the user database file.
+Command:
+cat /etc/passwd
 
-15. Find the user with a unique login shell.
+-> Step 2:
+Understand the file format.
+Each line follows this structure:
+username:x:UID:GID:comment:home_directory:shell
+The fifth field (after the fourth colon) is the comment or user description.
+
+-> Step 3:
+Extract only lines with non-empty comments.
+Command:
+awk -F: '$5 != "" {print $1 ": " $5}' /etc/passwd
+
+-> Step 4:
+Scan the output for anything unusual.
+Look for comments that are:
+- Emotionally charged
+- Humorous or sarcastic
+- Suspicious or out of place compared to system accounts
+
+-> Step 5:
+Identify the strange comment.
+From the output, the line:
+garviel: Traitor
+contains a comment that is clearly strange and suspicious.
+
+-> Final Result:
+Username: garviel
+Comment: Traitor
+
+-> Flag:
+Traitor
+
+____________________________________________________________________________________________________________________
+
+15. Identify all members of the lodge group. List their names in alphabetical order with a comma in between each name.
+-> Step 1:
+Access the system group database.
+Command:
+cat /etc/group
+
+-> Step 2:
+Locate the line that defines the 'lodge' group.
+Command:
+grep '^lodge:' /etc/group
+
+-> Output:
+lodge:x:1007:garviel,tarik,aximand,ezekyle,sejanus,erebus
+
+-> Step 3:
+Extract the fourth field (the member list).
+Command:
+cut -d: -f4
+
+-> Step 4:
+Split the member list into individual names.
+Command:
+tr ',' '\n'
+
+-> Step 5:
+Sort the names alphabetically.
+Command:
+sort
+
+-> Step 6:
+Join the sorted names back into a single comma-separated string.
+Command:
+paste -sd,
+
+-> Final Combined Command:
+grep '^lodge:' /etc/group | cut -d: -f4 | tr ',' '\n' | sort | paste -sd,
+
+-> Final Output:
+aximand,erebus,ezekyle,garviel,sejanus,tarik
+
+-> Flag:
+aximand,erebus,ezekyle,garviel,sejanus,tarik
+
+
+16. Find the user with a unique login shell.
  -> Step 1: awk -F: '{print $1, $7}' /etc/passwd | sort -k2 | uniq -f1 -u
  -> Step 2: Answer is: (nobody) /bin/sh 
 
-16. Identify the algorithm, the amount of salted characters added, and the length of the hashed password in the file that stores passwords.
- -> step 1: sudo cat /etc/passswd -> output of that is the Flag format
- -> step 2: sudo cat /etc/shadow | cut -d: -f2 | grep '^\$' | head -n 1 | cut -d'$' -f3 | wc -c 
- -> step 3: 
+17. Identify the algorithm, the amount of salted characters added, and the length of the hashed password in the file that stores passwords.
+-> Objective:
+Analyze the password hash stored in /etc/shadow to determine:
+1. The hashing algorithm used
+2. The number of characters in the salt
+3. The length of the hashed password
 
-17. Find the directory named Bibliotheca. Enter the absolute path to the directory.
- -> Step 1: 
+-> Step 1:
+Access the /etc/shadow file (requires root privileges).
+Command:
+sudo cat /etc/shadow
+
+-> Step 2:
+Locate the line for the target user (e.g., garviel).
+Example Output:
+garviel:$6$4EghS31f$iauyWex09Mc9yaKYUR31z1AigzVIRBPxUr4J9NSgfpxHTOwwhsOM1gxZkPrwW1H2W9wEi4npIHZzzFKIju6TI0:...
+
+-> Step 3:
+Identify the algorithm.
+The hash begins with $6$, which corresponds to:
+SHA-512
+
+-> Step 4:
+Determine the salt.
+The salt is the string between the second and third $ symbols.
+Salt: 4EghS31f → 8 characters
+
+-> Step 5:
+Measure the hashed password length.
+The hashed password is the string after the third $ symbol.
+Hashed password:
+iauyWex09Mc9yaKYUR31z1AigzVIRBPxUr4J9NSgfpxHTOwwhsOM1gxZkPrwW1H2W9wEi4npIHZzzFKIju6TI0
+Length: 86 characters
+
+-> Final Flag:
+SHA-512,8,86
 
 
+18. Find the directory named Bibliotheca. Enter the absolute path to the directory.
+-> Objective:
+Locate a directory named 'Bibliotheca' anywhere on the system and provide its absolute path.
+
+-> Step 1:
+Use the find command to search for directories by name.
+Command:
+find / -type d -name "Bibliotheca" 2>/dev/null
+
+-> Explanation:
+- '/' starts the search from the root directory.
+- '-type d' restricts results to directories only.
+- '-name "Bibliotheca"' looks for an exact name match.
+- '2>/dev/null' suppresses permission errors for cleaner output.
+
+-> Output:
+/media/Bibliotheca
+
+-> Final Flag:
+Absolute path to the directory:
+ /media/Bibliotheca
+
+19. Identify the number of users with valid login shells, who can list the contents of the Bibliotheca directory.
+-> Objective: Determine how many users have valid login shells and are able to list the contents of the /media/Bibliotheca directory.
+
+-> Step 1:
+Locate the target directory.
+Command:
+find / -type d -name "Bibliotheca" 2>/dev/null
+
+-> Output:
+/media/Bibliotheca
+
+-> Step 2:
+Check directory permissions.
+Command:
+ls -ld /media/Bibliotheca
+
+-> Output:
+drwxr-xr-x 6 mephiston chapter 12288 Feb 28  2022 /media/Bibliotheca
+
+-> Interpretation:
+- Owner: mephiston
+- Group: chapter
+- Permissions: r-x for group and others → any user can list contents
+
+-> Step 3:
+Identify users with valid login shells.
+Command:
+awk -F: '/\/bin\/bash|\/bin\/sh|\/bin\/zsh|\/usr\/bin\/bash/ {print $1}' /etc/passwd
+
+-> Output:
+15 users including garviel, tarik, aximand, ezekyle, sejanus, erebus, mephiston, etc.
+
+-> Step 4:
+Conclusion:
+All 15 users with valid login shells can list the contents of /media/Bibliotheca due to global read/execute permissions.
+
+-> Final Flag:
+15
+
+20. The permissions that user sejanus has on /media/Bibliotheca, in octal format. Flag format: #
+    HINT: Think about groups...Linux Challenge: Determine the Octal Permissions for User 'sejanus' on /media/Bibliotheca
+
+-> Objective:
+Identify the permissions that user 'sejanus' has on the directory /media/Bibliotheca, expressed in octal format.
+
+-> Step 1:
+Inspect the directory's permissions.
+Command:
+ls -ld /media/Bibliotheca
+
+-> Output:
+drwxr-xr-x 6 mephiston chapter ...
+
+-> Interpretation:
+- Owner: mephiston → rwx (7)
+- Group: chapter → r-x (5)
+- Others: r-x (5)
+
+-> Step 2:
+Determine which class 'sejanus' belongs to.
+- 'sejanus' is not the owner (mephiston)
+- 'sejanus' is not in the 'chapter' group
+- Therefore, 'sejanus' falls under "others"
+
+-> Step 3:
+Apply "others" permissions.
+- Permissions: r-x → octal value = 5
+
+-> Final Flag:
+5
+________________________________________________________________________________________________________________________
+21. Locate the File Modifiable by the Only User in 'chapter' but Not in 'lodge'
+-> Objective:
+Find the file inside /media/Bibliotheca that is modifiable by the only user who is in the 'chapter' group but not in the 'lodge' group.
+
+-> Step 1:
+Identify group memberships.
+Command:
+grep '^chapter:' /etc/group
+grep '^lodge:' /etc/group
+
+-> Result:
+- chapter: garviel, tarik, aximand, ezekyle, sejanus, erebus, mephiston
+- lodge: garviel, tarik, aximand, ezekyle, sejanus, erebus
+- Only user in chapter but not lodge: mephiston
+
+-> Step 2:
+Search for non-hidden files inside /media/Bibliotheca
+Command:
+find /media/Bibliotheca -type f ! -name ".*" -exec ls -l {} \;
+
+-> Step 3:
+Identify files modifiable by mephiston
+Criteria:
+- Owned by mephiston with user write permission
+- Or group-owned by chapter with group write permission
+
+-> Result:
+/media/Bibliotheca/Bibliotheca_unus/Codex_Astartes
+
+-> Final Flag:
+/media/Bibliotheca/Bibliotheca_unus/Codex_Astartes
+
+22. Identify the file within /media/Bibliotheca where the owning group has more rights than the owning user.
+
+-> Objective:
+Find a file inside /media/Bibliotheca where the group permissions exceed the owner's permissions.
+
+-> Step 1:
+Understand the requirement.
+- We're looking for a file where the group has more permission bits than the user.
+- For example: user = r--, group = rw- → group has more rights.
+
+-> Step 2:
+Search all non-hidden files inside /media/Bibliotheca.
+Command:
+find /media/Bibliotheca -type f ! -name ".*" -exec stat -c "%A %n" {} \;
+
+-> Step 3:
+Compare user and group permission bits.
+Use a script to calculate and compare permission scores.
+
+-> Step 4:
+Result:
+The file where the owning group has more rights than the owning user is:
+Codex_Imperium
+
+-> Final Flag:
+Codex_Imperium
+
+23. Execute the file owned by the guardsmen group in /media/Bibliotheca, as the owning user.
+-> Objective:
+Run a file located in /media/Bibliotheca that is owned by the group 'guardsmen', but execute it as the owning user. The flag is the code name revealed after successful access.
+
+-> Step 1:
+Identify files owned by the guardsmen group.
+Command:
+find /media/Bibliotheca -type f -group guardsmen
+
+-> Output:
+- /media/Bibliotheca/Bibliotheca_quattuor/Tactica_Imperium
+- /media/Bibliotheca/Bibliotheca_tribus/Codex_Imperium
+
+-> Step 2:
+Check ownership.
+Command:
+ls -l <file>
+
+Result:
+- Tactica_Imperium → owned by user: gaunt
+- Codex_Imperium → owned by user: mephiston
+
+-> Step 3:
+Choose the executable file.
+Tactica_Imperium has permissions: rwxrwx--- → executable ✅  
+Codex_Imperium has permissions: r--rw-r-- → not executable ❌
+
+-> Step 4:
+Execute the file as the owning user.
+Command:
+sudo -u gaunt /media/Bibliotheca/Bibliotheca_quattuor/Tactica_Imperium
+
+-> Step 5:
+Respond to prompt.
+Prompt: Speak thy name:  
+Input: gaunt
+
+-> Output:
+Processing...Access Granted  
+Codename: GHOSTS
+
+-> Final Flag:
+GHOSTS
+
+24. The user tyborc is unable to access the directory: /media/Bibliotheca/Bibliotheca_unus  
+Why? Identify the permission missing in standard verb form.
+
+-> Objective:
+Determine why user 'tyborc' cannot access the directory /media/Bibliotheca/Bibliotheca_unus and identify the missing permission using its standard verb form.
+
+-> Step 1:
+Check the directory’s permissions.
+Command:
+ls -ld /media/Bibliotheca/Bibliotheca_unus
+
+-> Output:
+dr-xr-xr-- 2 mephiston chapter 4096 Feb 28  2022 /media/Bibliotheca/Bibliotheca_unus
+
+-> Step 2:
+Determine how tyborc is classified.
+Command:
+grep '^chapter:' /etc/group
+grep '^lodge:' /etc/group
+grep '^guardsmen:' /etc/group
+
+-> Result:
+If tyborc is not listed in any of the groups associated with the directory, he falls under “others”.
+
+-> Step 3:
+Understand directory access requirements.
+To access (i.e., enter) a directory, a user needs **execute** permission on that directory.
+
+-> Step 4:
+Check “others” permission bits from the `ls -ld` output.
+Others: `r--` → read only, no execute
+
+-> Step 5:
+Conclusion:
+Since tyborc falls under “others” and “others” lack execute permission, he cannot access the directory.
+
+-> Final Flag:
+execute
+
+25. Locate the file in /media/Bibliotheca that Quixos has sole modification rights on.
+-> Objective:
+Find the file inside /media/Bibliotheca that is modifiable only by the user Quixos — meaning no other user, group, or others have write access.
+
+-> Step 1:
+List all files in /media/Bibliotheca with ownership and permissions.
+Command:
+find /media/Bibliotheca -type f -exec stat -c "%U %A %n" {} \;
+
+-> Step 2:
+Filter for files owned by Quixos.
+Command:
+find /media/Bibliotheca -type f -exec stat -c "%U %A %n" {} \; | grep '^quixos'
+
+-> Output:
+quixos -r--r--r-- /media/Bibliotheca/Bibliotheca_unus/Codex_Hereticus  
+quixos -rw------- /media/Bibliotheca/Bibliotheca_duo/Codex_Hereticus  
+quixos ---xr-xrwx /media/Bibliotheca/Bibliotheca_quattuor/Codex_Hereticus  
+quixos -r----xrwx /media/Bibliotheca/Bibliotheca_tribus/Codex_Hereticus
+
+-> Step 3:
+Analyze permissions:
+- Only the second file (`-rw-------`) gives write access to Quixos and denies it to group and others.
+
+-> Step 4:
+Confirm that Quixos has sole modification rights.
+Owner: rw- ✅  
+Group: --- ❌  
+Others: --- ❌
+
+-> Final Flag:
+/media/Bibliotheca/Bibliotheca_duo/Codex_Hereticus
 
 
+26. Read a concealed file within /media/Bibliotheca
+
+-> Objective:
+Locate and read a hidden file (one beginning with a dot) somewhere within /media/Bibliotheca. The flag is the content revealed upon reading the file.
+
+-> Step 1:
+Search for hidden files recursively.
+Command:
+find /media/Bibliotheca -type f -name ".*"
+
+-> Output:
+/media/Bibliotheca/Bibliotheca_duo/.Secrets_of_the_Immaterium  
+/media/Bibliotheca/Bibliotheca_duo/.warp2/.warp5/warp5/.warp3/warp2/.secrets  
+/media/Bibliotheca/Bibliotheca_quattuor/.Secrets_of_the_Immeterium
+
+-> Step 2:
+Check file permissions to determine readability.
+Command:
+ls -l <path-to-file>
+
+Result:
+- `.Secrets_of_the_Immaterium` → `-rw-------` owned by root → requires sudo to read
+
+-> Step 3:
+Read the file contents with elevated privileges.
+Command:
+sudo cat /media/Bibliotheca/Bibliotheca_duo/.Secrets_of_the_Immaterium
+
+-> Output:
+Expand your mind
+
+-> Final Flag:
+Expand your mind
 
 
+27. 
 
 
+28: Using the commands ls and grep, identify the number of directories in /etc/ that end in .d
+
+Steps Taken:
+1. Used `ls -ld /etc/*.d` to list all entries in `/etc/` that match the pattern `*.d`
+2. Piped the output to `grep ^d` to filter only directories
+3. Counted the results using `wc -l`
+
+Command:
+ls -ld /etc/*.d | grep ^d | wc -l
+
+✅ Result: 28
+
+29: Use regular expressions to match patterns similar to valid and invalid IP addresses. The answer is the count/number of lines that match in the file.
+
+Steps Taken:
+1. Used `grep` with a regular expression to match lines resembling IPv4 addresses.
+2. Pattern used: `^[0-9]{1,3}(\.[0-9]{1,3}){3}$`
+   - This matches four groups of 1–3 digits separated by dots.
+   - Includes both valid and invalid IP-like patterns (e.g. `192.168.0.1`, `999.999.999.999`)
+3. Counted the matching lines using `wc -l`.
+
+Command:
+```bash
+grep -E '^[0-9]{1,3}(\.[0-9]{1,3}){3}$' /home/garviel/numbers | wc -l
 
 
+30: Use regular expressions to match valid IP addresses. The flag is the number of addresses.
+Steps Taken:
+1. Used a regular expression to match only **valid IPv4 addresses** in the file `/home/garviel/numbers`.
+2. Each octet must be in the range 0–255.
+3. Pattern used:
+   ^((25[0-5]|2[0-4][0-9]|1?[0-9]{1,2})\.){3}(25[0-5]|2[0-4][0-9]|1?[0-9]{1,2})$
+4. Counted matches using `wc -l`.
+
+Command:
+```bash
+grep -E '^((25[0-5]|2[0-4][0-9]|1?[0-9]{1,2})\.){3}(25[0-5]|2[0-4][0-9]|1?[0-9]{1,2})$' /home/garviel/numbers | wc -l
+
+31: Use regular expressions to match patterns that look similar to a MAC Address. Flag is a count of the number of matches.
+Steps Taken:
+1. Used a loose regular expression to match lines resembling MAC addresses in `/home/garviel/numbers`
+2. Pattern used:
+   ^([[:alnum:]]{2}[:-]){5}[[:alnum:]]{2}$
+   - Matches six groups of two alphanumeric characters separated by `:` or `-`
+   - Accepts both valid and invalid MAC-like patterns
+3. Counted matches using `wc -l`
+
+Command:
+grep -E '^([[:alnum:]]{2}[:-]){5}[[:alnum:]]{2}$' /home/garviel/numbers | wc -l
+
+Result: 4877
+Flag: 4877
+
+32: Use awk to print lines >= 420 AND <= 1337. The flag is a SHA512 hash of the output.
+Steps Taken:
+1. Interpreted the question as referring to line numbers, not line content.
+2. Used `awk` to extract lines 420 through 1337 from `/home/garviel/numbers`.
+3. Saved the output to a file to preserve formatting.
+4. Hashed the output using `sha512sum`.
+
+Command:
+awk 'NR >= 420 && NR <= 1337' /home/garviel/numbers > filtered.txt
+sha512sum filtered.txt
+
+✅ Flag: e62ff70d772ef0977f4f8fe1751fda5689ce1daf1fabc6d0cc49da234d02719986c0acb97f582166170a5a1f418e854602a5eb98c773655906a3f85440c37d39
+
+33: Use awk to create a separate CSV file that contains columns 1–6 from /home/garviel/connections. The flag is an MD5 hash of the new file.
+Step 1: Extract the first 6 fields from every line (including metadata) and format as CSV
+Command:
+awk -F'\t' '{ print $1","$2","$3","$4","$5","$6 }' /home/garviel/connections > conn.csv
+
+Step 2: Generate the MD5 hash of the new file
+Command:
+md5sum conn.csv
+
+Flag:
+6cebf155e9c8f49d76ae1268214ff0b5
+
+34: Interpret the Titan controls to navigate the minefield and annihilate the target.
+Directory: /home/garviel/Battlefield/
+Step 1: Read the map and identify safe cells
+Command:
+cat /home/garviel/Battlefield/minefield_map
+
+Observation:
+ Start at A1, goal at F6.  Mines block every column except A, D, F.
+ Safe path: A1→A2→A3→A4→A5→A6→B6→C6→D6→D5→D4→D3→D2→E2→F2→F3→F4→F5→F6
+
+Step 2: Review Titan’s primitive commands
+Command:
+cat /home/garviel/Battlefield/titan_commands
+
+Mapping:
+ A = Step Forward  
+ 3 = Turn Right  
+ B = Turn Left  
+ (the script ignores any other char)
+
+Step 3: Build the 22-char movement string
+– Start facing North at A1  
+– Move 5× forward to A6 (“AAAAA”)  
+– Turn Right + 1 step East to B6 (“3A”) + 2 more steps to D6 (“AA”)  
+– Turn Right + 4 steps South to D2 (“3AAAA”)  
+– Turn Left + 2 steps East to F2 (“BAA”)  
+– Turn Left + 4 steps North to F6 (“BAAAA”)
+
+Concatenate all parts (5+1+1+2+1+4+1+2+1+4 = 22 chars):
+
+    AAAAA  3A  AA  3AAAA  BAA  BAAAA  
+→  “AAAAA3AAA3AAAABAABAAAA”
+
+Step 4: Verify MD5
+Command:
+echo -n "AAAAA3AAA3AAAABAABAAAA" | md5sum
+
+Flag (matches the script’s check):
+fac096f90e22d4c678e0a68fe0b17c7b
 
 
+35: Determine which flag in /home/garviel/paths matches a binary in your $PATH.
+Step 1: Compare each name in /home/garviel/paths to your system binaries
+Command:
+compgen -c | grep -Fx -f <(cut -d ' ' -f1 /home/garviel/paths)
+
+Result:
+traverse
+python3
+echo ← excluded per hint
+
+Step 2: Confirm which binary is valid
+Command: which python3
+Result: /usr/bin/python3
+
+Step 3: Find the matching line in /home/garviel/paths
+Match:
+python3    flag:{  Vrc0vw7ZUaLBpQp  }
+
+Step 4: Extract the flag
+Final Flag: FLAG{Vrc0vw7ZUaLBpQp}
 
 
+37: Identify Heretics from Inquisition Target List
+Objective: Determine how many users in the 'guardsmen' group are listed in the Inquisition_Targets file. These overlapping users are considered heretics.
 
+Step 1: Count Total Guardsmen
 
+Command:
+echo "Total guardsmen: $(wc -l < guardsmen_list.txt)"
 
+Output:
+Total guardsmen: 947
 
+Step 2: Inspect and Clean the Inquisition_Targets File
 
+Command:
+cat /home/garviel/Inquisition_Targets | head -20
 
+Observation:
+- The file contains header lines
+- Actual target names begin after line 4
 
+Step 3: Extract and Sort Target Names
+
+Command:
+awk 'NR > 4 && NF > 0 {print $1}' /home/garviel/Inquisition_Targets | sort > targets_cleaned.txt
+
+Verification:
+head -10 targets_cleaned.txt
+wc -l targets_cleaned.txt
+
+Output:
+Cleaned targets (first 10):
+Abrunaer
+Ahriman
+Ankhu_Anen
+Anurhaz
+Araraz
+Azumus
+Baleq_Uthizaar
+Baruman
+Devrhaz
+Eredekai
+
+Total targets: 36
+
+Step 4: Find Heretics (Intersection of Lists)
+
+Command:
+comm -12 guardsmen_list.txt targets_cleaned.txt > heretics.txt
+
+Count Heretics:
+wc -l heretics.txt
+
+Output:
+Number of heretics found: 8
+
+Step 5: Display Heretic Names
+
+Command:
+cat heretics.txt
+
+Output:
+Abrunaer
+Ahriman
+Ankhu_Anen
+Baleq_Uthizaar
+Henry_Heresy
+Mortekos
+Rubric
+Tzeentch
+
+Step 6: One-Liner to Get the Flag Directly
+
+Command:
+comm -12 <(getent group guardsmen | cut -d: -f4 | tr ',' '\n' | sort) <(awk 'NR > 4 && NF > 0 {print $1}' /home/garviel/Inquisition_Targets | sort) | wc -l
+
+✅ Final Flag:
+8
 
 
 
