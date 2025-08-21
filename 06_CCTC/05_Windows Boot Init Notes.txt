@@ -1,1 +1,20 @@
+# Windows Boot INIT
 
+What is the first process to spawn on Windows systems after the kernel loads?
+  -> System
+What is the Process ID (PID) of the first Windows process?
+  -> 4
+What is the second boot process to spawn, that then spawns csrss in both session 0 and session 1?
+  -> smss.exe
+What session ID do Windows services operate in?
+-> 0 
+What process creates access tokens?
+-> lsass.exe
+What is the parent process to all svchosts?
+  -> services.exe
+What process is waiting with high priority for the Secure Attention Sequence (SAS)?
+  -> winlogon.exe
+What user space process spawns explorer, then dies?
+-> userinit.exe
+What is the name of the bootloader, with extension, we are using on all of the Windows machines in this environment?
+  -> 
