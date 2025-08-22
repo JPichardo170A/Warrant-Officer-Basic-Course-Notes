@@ -228,6 +228,57 @@ ForEach-Object {
 
 ______________________________________________________________________________________________________________________
 
+# Windows Boot INIT
+
+1. 1. What is the smallest addressable unit on a hard disk?
+	-> Sector
+2. 
+
+What is the first process to spawn on Windows systems after the kernel loads?
+  -> System
+What is the Process ID (PID) of the first Windows process?
+  -> 4
+What is the second boot process to spawn, that then spawns csrss in both session 0 and session 1?
+  -> smss.exe
+What session ID do Windows services operate in?
+  -> 0 
+What process creates access tokens?
+  -> lsass.exe
+What is the parent process to all svchosts?
+  -> services.exe
+What process is waiting with high priority for the Secure Attention Sequence (SAS)?
+  -> winlogon.exe
+What user space process spawns explorer, then dies?
+  -> userinit.exe
+What is the name of the bootloader, with extension, we are using on all of the Windows machines in this environment?
+  -> winload.exe
+Challenge only allows ONE attempt Based on the boot loader from Init_9, which firmware are we using (BIOS or UEFI) in our environment?
+  -> BIOS
+What file saves the memory state to the hard drive when going into hibernation?
+  -> hiberfil.sys
+What bootloader is responsible for restoring the system to its original state after hibernation?
+  -> Winresume.exe
+The system is booting into safe mode. Identify the flag from the command-line output of the command used to diagnose boot issues.
+  -> Windows Boot loader : Identifier (number) Description: (Flag 1RF5Zgf9P)
+
+The system is booting into safe mode. Correct that, and reboot into the desktop. The flag is on the desktop.
+  -> Step 1: Navigate to the QEMU directory where the VM is stored:
+     cd "Program Files"
+     cd qemu
+     (Adjust path based on where the challenge VDI was downloaded and extracted.)
+  -> Step 2: Launch the VM using QEMU with the appropriate disk image:
+     qemu-system-x86_64 -hda path\to\challenge.vdi -m 2048
+  -> Step 3: Inside the VM, open Command Prompt and remove Safe Mode flags using the full boot entry identifier:
+     bcdedit /deletevalue {349aadec-dale-11e6-99b2-c4612eddd5ae} safeboot
+     bcdedit /deletevalue {349aadec-dale-11e6-99b2-c4612eddd5ae} safebootalternateshell
+  -> Step 4: Reboot the VM to apply changes and boot into normal desktop mode:
+     shutdown /r /t 0
+  -> Step 5: Confirm full desktop access. The flag located on the desktop is:
+             76Drp6hB
+
+
+_______________________________________________________________________________________________________________________
+
 # Windows Alternate Data Stream
 
 1. The ____ determines how the data is stored on disk.
@@ -418,13 +469,6 @@ Flag/Password:
 				Get-Content "C:\Users\ctf\documents\WWW\200"
 
 				Flag: phi5hy
-_____________________________________________________________________________________________________________________
-
-1. What is the smallest addressable unit on a hard disk?
-	-> Sector
-2. 
-
-
 
 ___________________________________________________________________________________________________________________________
 # Linux Challenges Notes
