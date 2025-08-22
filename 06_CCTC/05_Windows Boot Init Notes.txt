@@ -40,7 +40,7 @@ The system is booting into safe mode. Correct that, and reboot into the desktop.
   -> Step 4: Reboot the VM to apply changes and boot into normal desktop mode:
      shutdown /r /t 0
   -> Step 5: Confirm full desktop access. The flag located on the desktop is:
-     76Drp6hB
+             76Drp6hB
  
 
 
