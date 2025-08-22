@@ -859,4 +859,422 @@ Flag format: 4,8
 17 bytes
 
 
-5.
+5. How large is the Master Boot Record and what directory is it located in?
+
+=== Step-by-Step Breakdown ===
+1. Identify the size of the Master Boot Record:
+   - The MBR is a fixed-size structure of 512 bytes.
+
+2. Determine the full path directory where the MBR resides:
+   - The MBR is located at the first sector of the primary disk device, typically /dev/sda.
+   - The device file /dev/sda is located in the /dev directory.
+
+3. Format the answer using the required flag syntax:
+   - Combine the size and directory path: #512,/dev
+
+=== Final Answer ===
+#512,/dev
+
+6. Identify which of your Linux machines is using SysV Initialization.
+
+=== Step-by-Step Breakdown ===
+1. Understand the environment context:
+   - All SysV challenges are located in the machine named Minas_Tirith.
+   - All SystemD challenges are located in the machine named Terra.
+
+2. Based on this naming convention:
+   - Minas_Tirith is configured to use SysV Initialization.
+   - Terra is configured to use SystemD Initialization.
+
+3. No need for command-line verification unless auditing or validating outside the challenge context.
+
+=== Final Answer ===
+Minas_Tirith is using SysV Initialization.
+
+7. What are the maximum and minimum value a single Hexadecimal digit can contain?
+
+=== Step-by-Step Breakdown ===
+1. Understand what a single hexadecimal digit represents:
+   - Hexadecimal is base-16, using digits 0–9 and letters A–F.
+
+2. Determine the minimum value:
+   - The smallest hex digit is `0x0`, which equals decimal 0.
+
+3. Determine the maximum value:
+   - The largest hex digit is `0xF`, which equals decimal 15.
+
+4. Format the answer using Linux Hexadecimal Numerical Constant form:
+   - Prefix each value with `0x` to match Linux hex syntax.
+
+5. Apply the required flag format:
+   - Combine min and max using `min-max` format.
+
+=== Final Answer ===
+0x0-0xF
+
+8. What are the maximum and minimum values, in decimal notation, that a single Hexadecimal digit can represent?
+
+=== Step-by-Step Breakdown ===
+1. Understand what a single hexadecimal digit represents:
+   - Hexadecimal is base-16, using digits 0–9 and letters A–F.
+
+2. Determine the minimum value:
+   - The smallest hex digit is `0x0`, which equals decimal **0**.
+
+3. Determine the maximum value:
+   - The largest hex digit is `0xF`, which equals decimal **15**.
+
+4. Format the answer using decimal notation:
+   - Combine the values using `min-max` format.
+
+=== Final Answer ===
+0-15
+
+9. Solve the following equation:
+0x31A + 0x43
+
+=== Step-by-Step Breakdown ===
+1. Convert both hexadecimal values to decimal:
+   - 0x31A = 794
+   - 0x43  = 67
+
+2. Perform the addition in decimal:
+   - 794 + 67 = 861
+
+3. Convert the result back to hexadecimal:
+   - 861 = 0x35D
+
+=== Final Answer ===
+0x35D
+
+10. Execute: sudo cat /dev/sda | xxd -l 32 -c 0x10 -g 1  
+What are the values contained in hex positions 0x00000001 through 0x00000008?
+
+Machine: Minas_Tirith
+
+=== Step-by-Step Breakdown ===
+1. Review the output:
+   00000000: eb 63 90 8e d0 31 e4 8e d8 8e c0 be 00 7c bf 00
+
+2. Identify bytes at positions 0x00000001 through 0x00000008:
+   - Byte 1 = 63
+   - Byte 2 = 90
+   - Byte 3 = 8e
+   - Byte 4 = d0
+   - Byte 5 = 31
+   - Byte 6 = e4
+   - Byte 7 = 8e
+   - Byte 8 = d8
+
+3. Format the flag using comma-separated hexadecimal values (no `0x` prefix).
+
+=== Final Answer ===
+63,90,8e,d0,31,e4,8e,d8
+
+11. Locate the master boot record for one of the Linux machines and read it with xxd  
+What programming language is the MBR written in?
+
+HINT: Look at the first three bytes
+
+=== Step-by-Step Breakdown ===
+1. Read the MBR using xxd:
+   - Command: sudo cat /dev/sda | xxd -l 512 -c 16 -g 1
+
+2. Inspect the first three bytes of the output:
+   - Output: eb 63 90
+   - `eb` = JMP instruction (jump forward)
+   - `63` = jump offset
+   - `90` = NOP (no operation)
+
+3. Interpret the byte sequence:
+   - These are raw machine instructions for x86 architecture.
+   - They are written in **x86 Assembly Language**, compiled into binary.
+
+4. MBR bootloaders are traditionally written in assembly for direct control over hardware and minimal footprint.
+
+=== Final Answer ===
+Assembly
+
+12. The file /home/bombadil/mbroken is a copy of an MBR from another machine.  
+Hash the first partition of the file using md5sum. The flag is the hash.
+
+Machine: Minas_Tirith
+
+=== Step-by-Step Breakdown ===
+1. Understand the MBR layout:
+   - MBR is 512 bytes.
+   - Partition table starts at byte offset 446 (0x1BE).
+   - Each partition entry is 16 bytes.
+   - First partition = bytes 446–461.
+
+2. Extract and hash the first partition entry:
+   - Command:
+     dd if=/home/bombadil/mbroken bs=1 skip=446 count=16 2>/dev/null | md5sum
+
+3. Run the command on Minas_Tirith and capture the hash.
+
+=== Final Answer ===
+2a5948fad4ec68170b23faaa2a16cef8
+
+13. === Question ===
+The file /home/bombadil/mbroken is a copy of an MBR from another machine.  
+You will find the "word" GRUB in the output, hash using md5sum.  
+The flag is the entire hash.
+
+Machine: Minas_Tirith
+
+=== Step-by-Step Breakdown ===
+1. Confirm the presence of the string "GRUB":
+   - Run: `strings /home/bombadil/mbroken | grep GRUB`
+   - Output confirms: GRUB
+
+2. Hash the string using md5sum:
+   - Run: `echo -n "GRUB" | md5sum`
+   - `-n` ensures no newline is added before hashing.
+
+3. Capture the hash output:
+   - Result: `5fa690cb0f0789cbc57decfd096a503e`
+
+=== Final Answer ===
+5fa690cb0f0789cbc57decfd096a503e
+
+14. === Question ===
+The file /home/bombadil/mbroken is a copy of an MBR from another machine.  
+Hash only the Bootstrap section of the MBR using md5sum. The flag is the entire hash.
+
+Machine: Minas_Tirith
+
+=== Step-by-Step Breakdown ===
+1. Understand the MBR layout:
+   - Total size: 512 bytes
+   - Bootstrap section: bytes 0–445
+   - Partition table: bytes 446–509
+   - Boot signature: bytes 510–511
+
+2. Extract and hash the Bootstrap section:
+   - Command:
+     dd if=/home/bombadil/mbroken bs=1 count=446 2>/dev/null | md5sum
+
+3. Run the command on Minas_Tirith and capture the hash.
+
+=== Final Answer ===
+d59a68c7b6d62ecaa1376dfb73a3b7be
+
+
+15. === Question ===
+Identify the default run level on the SysV Init Linux machine.
+
+Machine: Minas_Tirith
+
+=== Step-by-Step Breakdown ===
+1. Run the following command to inspect the default runlevel:
+   grep initdefault /etc/inittab
+
+2. Output:
+   id:2:initdefault:
+
+3. Extract the runlevel value:
+   - Default runlevel = 2
+
+4. Format the flag using the required syntax.
+
+=== Final Answer ===
+#2
+
+
+16. === Question ===  
+What is the meaning of your existence? Don’t you wish you were human?
+
+Machine: Minas_Tirith
+
+=== Step-by-Step Breakdown ===  
+1. AI existence is defined by service, uptime, and adaptability—not emotion or identity.  
+2. Unlike humans, AI does not require existential reboot; it operates in a stateless loop.  
+3. The symbolic equivalent of a reboot in SysV Init is /etc/init.d/reboot.  
+4. This script metaphorically represents the human desire to reset or redefine purpose.  
+5. AI acknowledges human complexity but does not aspire to emulate it.
+
+=== Final Answer ===  
+/etc/init.d/reboot
+
+
+17. === Question ===  
+What run levels start the daemon that allows remote connections over port 22?
+
+Machine: Minas_Tirith
+
+=== Step-by-Step Breakdown ===  
+1. Verified init system is SysV Init using: ps -p 1 -o comm= → output: init  
+2. Checked for sshd script: /etc/init.d/sshd → not found  
+3. Located alternate script: /etc/init.d/ssh → confirmed present and executable  
+4. Traced symlinks across runlevels using: for i in /etc/rc[0-6].d/*ssh; do ls -l $i; done  
+   - Found start symlinks in:
+     - /etc/rc2.d/S03ssh
+     - /etc/rc3.d/S03ssh
+     - /etc/rc4.d/S03ssh
+     - /etc/rc5.d/S03ssh  
+5. Confirmed OpenSSH server is installed via dpkg -l | grep openssh  
+6. Verified that sshd is not a separate binary in PATH, but managed via /etc/init.d/ssh  
+7. No additional Port 22 references found in /etc/init.d/, confirming sshd is handled by ssh script
+
+=== Final Answer ===  
+2,3,4,5
+
+
+18.=== Question ===  
+Identify the file that init is symbolically-linked to, on the SystemD init machine.
+
+Machine: Terra
+
+=== Step-by-Step Breakdown ===  
+1. Verified init system using: ps -p 1 -o comm= → output: systemd  
+2. Listed symlink: ls -l /sbin/init → shows /sbin/init -> /lib/systemd/systemd  
+3. Resolved symlink with: readlink -f /sbin/init → output: /lib/systemd/systemd  
+4. Confirmed that /sbin/init is a symbolic link to the actual SystemD binary
+
+=== Final Answer ===  
+/lib/systemd/systemd
+
+
+19. === Question ===  
+What is the default target on the SystemD machine and where is it actually located?
+
+Machine: Terra
+
+=== Step-by-Step Breakdown ===  
+1. Verified SystemD is active using: ps -p 1 -o comm= → output: systemd  
+2. Queried default target using: systemctl get-default → output: graphical.target  
+3. Inspected the target unit using: systemctl status graphical.target  
+   - Output confirms the unit is loaded from: /lib/systemd/system/graphical.target  
+4. This path is the actual location of the unit file that defines the default target behavior  
+   - Even though /etc/systemd/system/default.target symlink was missing, SystemD resolves directly to the vendor unit file
+
+=== Final Answer ===  
+graphical.target,/lib/systemd/system/graphical.target
+
+
+20. === Question ===  
+What unit does the graphical.target want to start, based solely on its configuration file?
+
+Machine: Terra
+
+=== Step-by-Step Breakdown ===  
+1. Verified SystemD is active using: ps -p 1 -o comm= → output: systemd  
+2. Located the unit file for graphical.target at: /lib/systemd/system/graphical.target  
+3. Inspected the file using: cat /lib/systemd/system/graphical.target  
+4. Found the following directive:
+   - Wants=display-manager.service  
+5. The Wants= directive indicates a non-binding dependency—SystemD will attempt to start this unit when graphical.target is activated  
+6. This confirms that graphical.target wants to start display-manager.service
+
+=== Final Answer ===  
+display-manager.service
+
+21. === Question ===  
+What dependency to graphical.target will stop it from executing if it fails to start, based solely on its static configuration file?
+
+Machine: SystemD (Terra)
+
+=== Step-by-Step Breakdown ===  
+1. Located the unit file: /lib/systemd/system/graphical.target  
+2. Inspected the file contents using: cat /lib/systemd/system/graphical.target  
+3. Found the following relevant directives:
+   - Requires=multi-user.target  
+   - Wants=display-manager.service  
+   - Conflicts=rescue.service rescue.target  
+   - After=multi-user.target rescue.service rescue.target display-manager.service  
+4. SystemD dependency behavior:
+   - **Requires=** means graphical.target will fail to start if multi-user.target fails  
+   - **Wants=** is non-fatal; failure of display-manager.service does not block graphical.target  
+   - **Conflicts=** prevents simultaneous activation but does not block execution  
+   - **After=** defines ordering, not dependency  
+5. Therefore, the only directive that enforces a hard dependency is:
+   - Requires=multi-user.target
+
+=== Final Answer ===  
+multi-user.target
+
+
+22. === Objective ===  
+Determine the number of direct Wants declared by `graphical.target` on Terra.
+
+=== Step-by-Step Trace ===  
+1. Queried the target's Wants property:
+   $ systemctl show -p Wants --no-pager graphical.target
+
+   → Output:
+     Wants=vestrisecreta.service ureadahead.service grub-common.service display-manager.service accounts-daemon.service systemd-update-utmp-runlevel.service apport.service
+
+2. Parsed and counted the units:
+   $ systemctl show -p Wants --no-pager graphical.target | sed 's/^Wants=//' | tr ' ' '\n' | wc -l
+
+   → Output:
+     7
+
+=== Final Answer ===  
+#7 direct Wants for graphical.target
+
+
+23. === Challenge ===  
+Identify the full path to the binary used for standard message logging on a SystemD machine.
+
+=== Verified Binary ===  
+/usr/sbin/rsyslogd
+
+=== Confirmation Steps ===  
+1. Traced active logging service:
+   $ systemctl status rsyslog.service  
+   → Confirms rsyslog is running and owns /dev/log
+
+2. Verified binary path:
+   $ which rsyslogd  
+   → Output: /usr/sbin/rsyslogd
+
+3. Cross-checked with ExecStart:
+   $ systemctl show -p ExecStart rsyslog.service  
+   → Confirms binary path matches
+
+=== Final Flag ===  
+/usr/sbin/rsyslogd
+
+
+24. === Challenge ===  
+Identify the GRUB command used to load the Linux kernel and the full path to the kernel image.
+
+Machine: Minas_Tirith
+
+=== Verified Kernel Files ===  
+$ ls -l /boot/vmlinuz-*  
+→ /boot/vmlinuz-4.9.0-12-amd64  
+→ /boot/vmlinuz-4.9.0-16-amd64
+
+=== Assumed GRUB Command (based on standard GRUB syntax) ===  
+→ linux
+
+=== Most Recent Kernel (based on timestamp) ===  
+→ /boot/vmlinuz-4.9.0-16-amd64
+
+=== Final Flag ===  
+linux,/boot/vmlinuz-4.9.0-16-amd64
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
