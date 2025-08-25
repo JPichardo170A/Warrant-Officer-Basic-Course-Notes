@@ -1689,3 +1689,76 @@ $ ls -l /boot/vmlinuz-*
 
 === Final Flag ===  
 linux,/boot/vmlinuz-4.9.0-16-amd64
+_________________________________________________________________________________________________________________________________
+
+## Windows Processes Basics
+
+
+
+_________________________________________________________________________________________________________________________________
+
+## Windows UAC
+
+1. What Sysinternals tool will allow you to view a file's manifest?
+	-> cmd: sigcheck
+2. What is the RequestedExecutionLevel for an application to run with the same permissions as the process that started it?
+	-> asInvoker
+3. What RequestedExecutionLevel will prompt the user for Administrator credentials if they're not a member of the Administrator's group?
+	-> requireAdministrator
+4. What registry key holds UAC values?
+	-> HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
+5. The flag is the RequestedExecutionLevel of the schtasks.exe file.
+	-> asInvoker
+6. Determine which UAC subkey property shows whether UAC is enabled or not. The flag is the data value in that property. Hint: Make sure you're on the file-server.
+	-> cmd: (Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System").EnableLUA
+	-> Flag: 4919
+7. Provide the name of the UAC [Registry subkey] property that determines what level UAC is set to for admin privileges (Example UAC levels: Default, Always, Notify).
+	-> Cmd: Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name ConsentPromptBehaviorAdmin
+	-> Flag: ConsentPromptBehaviorAdmin
+8. Query the registry subkey where UAC settings are stored, and provide the flag.
+	->  Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policie
+s\System"
+	-> Flag: NiceJob
+
+_________________________________________________________________________________________________________________________________
+
+## Windows Services
+
+1. What command-line (cmd) command will show service information?
+	-> sc query
+2. What command-line (cmd) command will show all services, running or not running? The flag is the full command, for all services.
+	-> sc query state= all
+3. What PowerShell command will list all services?
+	-> Get-Service
+4. What registry location holds all service data?
+	-> HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services
+5. What registry subkey holds a service's .dll location? The flag is the subkey name (full path not needed).
+	-> Parameters
+6. Services have a name and display name, which could be different. What is the service name of the only Totally-Legit service Reminder: All challenges are done using the file-server.
+	-> Get-Service | Where-Object { $_.DisplayName -eq "Totally-Legit" }
+	-> Flag is: Legit
+7. Figure out the SID of the only Totally-Legit service. Example: S-1-5-80-159957745-2084983471-2137709666-960844832-[4182961472]
+Submit only the [bracketed] portion of the SID. HINT: Run the command on the service name, not the display name.
+	-> command: (New-Object System.Security.Principal.NTAccount ("NT SERVICE\Legit")).Translate([System.Security.Principal.SecurityIden
+tifier]).Value
+	-> Output: S-1-5-80-159957745-2084983471-2137709666-960844832-1182961511
+	-> Flag: 1182961511
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
