@@ -234,8 +234,7 @@ The system is booting into safe mode. Correct that, and reboot into the desktop.
   -> Step 5: Confirm full desktop access. The flag located on the desktop is:
              76Drp6hB
 
-
-_______________________________________________________________________________________________________________________
+______________________________________________________________________________________________________________________
 
 # Windows Alternate Data Stream
 
@@ -428,7 +427,8 @@ Flag/Password:
 
 				Flag: phi5hy
 
-___________________________________________________________________________________________________________________________
+______________________________________________________________________________________________________________________
+
 # Linux Challenges Notes
 
 1. What command lists the contents of directories in Linux/Unix systems?
@@ -563,8 +563,6 @@ Comment: Traitor
 
 -> Flag:
 Traitor
-
-____________________________________________________________________________________________________________________
 
 15. Identify all members of the lodge group. List their names in alphabetical order with a comma in between each name.
 -> Step 1:
@@ -744,7 +742,7 @@ Apply "others" permissions.
 
 -> Final Flag:
 5
-________________________________________________________________________________________________________________________
+
 21. Locate the File Modifiable by the Only User in 'chapter' but Not in 'lodge'
 -> Objective:
 Find the file inside /media/Bibliotheca that is modifiable by the only user who is in the 'chapter' group but not in the 'lodge' group.
@@ -966,8 +964,6 @@ garviel@terra:/$ find /media/Bibliotheca/Bibliotheca_duo -type f -name ".*" 2>/d
 garviel@terra:/$ cat /media/Bibliotheca/Bibliotheca_duo/.warp2/.warp5/warp5/.warp3/warp2/.secrets
 
  Flag: Ph'nglui mglw'nafh Cthulhu
-
-
 
 28: Using the commands ls and grep, identify the number of directories in /etc/ that end in .d
 Steps Taken:
@@ -1194,7 +1190,7 @@ comm -12 <(getent group guardsmen | cut -d: -f4 | tr ',' '\n' | sort) <(awk 'NR 
 ✅ Final Flag:
 8
 
-_______________________________________________________________________________________________________________________
+______________________________________________________________________________________________________________________
 
 # LINUX BOOT PROCESS
 
@@ -1691,6 +1687,12 @@ $ ls -l /boot/vmlinuz-*
 linux,/boot/vmlinuz-4.9.0-16-amd64
 _________________________________________________________________________________________________________________________________
 
+## Linux Process Validity
+
+
+______________________________________________________________________________________________________________________
+
+
 ## Windows Processes Basics
 
 
@@ -1743,6 +1745,7 @@ Submit only the [bracketed] portion of the SID. HINT: Run the command on the ser
 tifier]).Value
 	-> Output: S-1-5-80-159957745-2084983471-2137709666-960844832-1182961511
 	-> Flag: 1182961511
+
 
 
 
