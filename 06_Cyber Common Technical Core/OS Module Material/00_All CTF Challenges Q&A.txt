@@ -1,4 +1,4 @@
-# Windows Powershell 
+# 01_Windows_Powershell 
 
 Windows_PowerShell_Alias:
     -> 5
@@ -66,7 +66,6 @@ foreach ($file in $finalFiles) {
     Get-Content $file.FullName
 }
 	- Step 2: Answer is Kung-Fu
-###############################################################################################################
 
 Count the number of words in words.txt that meet the following criteria:
 a appears at least twice consecutively and is followed immediately by any of the letters a through g
@@ -1689,17 +1688,130 @@ ________________________________________________________________________________
 
 ## Linux Process Validity
 
+1. What is the process ID (PID) of the SysV Init daemon?
+	-> 
+2. How many child processes did SysV Init daemon spawn?
+	-> 
+3. Identify all of the arguments given to the ntpd daemon (service) using ps. Format: List all options with parameters (include numbers)
+	->
+4. What is the parent process to Bombadil’s Bash process? (name of the binary, not the absolute path)
+	->
+5. Identify the file mapped to the fourth file descriptor (handle) of the cron process. HINT: There might be multiple cron processes, but only one with the answer. Flag format: /absolute/path
+	->
+6. Identify the permissions that cron has on the file identified in Processes 5. HINT: Read the man page for lsof to understand permissions. Flag format: If more than one, list the permissions comma separated, no spaces
+	-> 
+7. Identify the names of the orphan processes on the SysV system. NOTE: Remember, orphan processes spawn and die periodically. Try monitoring the processes list with top or htop to find them. Flag format: in alphabetical order with all non-alphabetic characters removed: Name,Name,Name,Name HINT: Only character names!
+	->
+8. Locate zombie processes on the SysV system. Identify the zombie processes' parent process. NOTE: Remember, zombie processes only live until the parent process kills and removes them from the system’s process table. Try monitoring the processes list with top or htop to find them. Flag format: /absolute/path
+	-> 
+9. Locate the strange open port on the SysV system. Identify the command line executable and its arguments.
+Flag format: /executable/path -arguments
+	->
+
+10. Examine the process list to find the ssh process. Then, identify the symbolic link to the absolute path for its executable in the /proc directory. The flag is the absolute path to the symbolic link, and the file it is linked to.
+Flag format: /absolute/path,/absolute/path
+	->
+
+11. Identify the file that contains udp connection information. Identify the process using port 123.
+For the flag, enter: Process name File descriptor number for the udp socket Its permissions as shown in lsof
+Flag format: name,#,permission
+	-> 
+12. Identify one of the human-readable file handles by the other program that creates a zombie process. NOTE: Remember, zombie processes only live until the parent process kills them. Try monitoring the processes list with top or htop to find them. The flag is the text from one of the files it reads.
+	-> 
+13. Scenario: The Villains group has been chanting offerings to their new leader at regular intervals over a TCP connection. Task: Identify their method of communication and how it is occurring. Locate the following artifacts: ** The chant/text used by each villain (include spaces) ** The new Lord receiving the offering ** The IP address and port that the offering is received over
+
+Flag format: chant text,new Lord,IP:port
+Machine: Minas_Tirith
+	-> 
+
+14. Scenario: Someone or something is stealing files with a .txt extension from user directories. Determine how these thefts are occurring. Task: Identify the command being ran and how it occurs. Flag format: command,how it occurs
+Machine: Terra Hint: Explore persistence mechanisms and services.
+	-> 
+
+15. Scenario: Text files are being exfiltrated from the machine using a network connection. The connections still occur post-reboot, according to network analysts.
+The junior analysts are having a hard time with attribution because no strange programs or ports are running, and the connection seems to only occur in 60-second intervals, every 15 minutes.
+Task: Determine the means of persistence used by the program, and the port used. The flag is the command that allows exfiltration, and the file its persistence mechanism uses.
+Flag format: command,persistence
+Machine: Terra
+	-> 
+16. Scenario: The web server has been modified by an unknown hacktivist group. Users accessing the web server are reporting crashes and insane disk usage.
+Task: Identify the Cyber Attack Method used by the group, and the command running.
+Flag format: AttackMethod,command
+Machine: Terra
+Try not to break your machine on this one...
+	->
+17. Scenario: Analysts have found a dump of commands on the Internet that refer to the Terra machine. The command history for one of the users with an interactive login is being stolen via unknown means. The network analysts can’t find any persistent connections, but notice a spike in traffic on logon and logoff.
+Task: Identify how the command history is stolen from the machine.
+The flag is the file used to execute the commands, and where they are sent.
+Flag format: /absolute/path/to/file,IP:port
+Machine: Terra
+	->
+
 
 ______________________________________________________________________________________________________________________
 
 
-## Windows Processes Basics
+## 09_Windows Processes Validity
+
+What is the full path to folder used when Windows redirects 32 bit applications running on a 64bit system?
+	-> C:\Windows\SysWOW64
+What Windows System Service starts the kernel and user mode subsystems?
+	-> smss.exe
+What Windows system process: Runs in session 0 is responsible for enforcing the security policy on the system
+Performs all logon functions Handles password changes, Creates access tokens, Writes to the Windows Security Log.
+	-> Local Security Authority Subsystem Service (LSASS)
+
+Which is spoolsv.exe? 
+	-> Server-mode service
+Which service type is explorer.exe?
+	-> user-mode service
+During a reconnaissance mission you enumerated a host running the dns.exe service. Is this a user pc or a server?
+	-> Server
+A host running firefox and office 365 is most likely what type of host? Server or Client
+	-> Client
+How does a User-Mode Service request resources?
+	-> system calls
+Passively copying currently running processes for comparison later is known as?
+	-> baseline
+What can execute any part of a processes code, to include parts already being executed?
+	-> Thread - is a basic unit to which operating system allocated processor time. 
+Windows has how many process priority levels?
+	-> 32 (0-31)
+During a network survey you observed a host running inetinfo.exe service. What type of server might you have found?
+	-> Internet information Service (IIS)
+What Sysinternals tool shows malware persistence locations in tabs within its GUI?
+	-> Autoruns
+What Sysinternals tool is used to investigate processes?
+	-> ProcExp
+What Sysinternals tool can be used to investigate network connection attempts
+	-> tcpVIEW
+What Sysinternals tool can view permissions?
+	-> Accesschk and AccessEnum
+What Sysinternals tool allows us to view and modify handles?
+	-> Handle
+What is the default Windows user directory for files downloaded from the internet? The flag is the folder name only.
+	-> downloads
+What is the default Windows download directory that everyone has access to? The flag is the absolute path to the directory
+	-> c:\users\public\downloads
+What Sysinternals tool shows service load order?
+	-> LoadOrder
+What is the service name of Windows Defender Firewall?
+	-> MpsSvc
+What SysInternals tool reports .dlls loaded into processes?
+	-> ListDlls
+### Challenges Reminder: All challenges are done using Workstation1.
+
+There is malware on the system that is named similarly to a legitimate Windows executable. There is a .dll in the folder that the malware runs from. The flag is the name of the .dll.
+	->
+
+
+
 
 
 
 _________________________________________________________________________________________________________________________________
 
-## Windows UAC
+## 10_Windows UAC
 
 1. What Sysinternals tool will allow you to view a file's manifest?
 	-> cmd: sigcheck
@@ -1724,7 +1836,7 @@ s\System"
 
 _________________________________________________________________________________________________________________________________
 
-## Windows Services
+## 11_Windows Services
 
 1. What command-line (cmd) command will show service information?
 	-> sc query
@@ -1746,13 +1858,117 @@ tifier]).Value
 	-> Output: S-1-5-80-159957745-2084983471-2137709666-960844832-1182961511
 	-> Flag: 1182961511
 
+_________________________________________________________________________________________________________________________________
+
+## 12_Linux Auditing and Logging
+
+1. File: /home/garviel/output.xml Identify the only XML element name referenced in the output below
+<scaninfo type="syn" protocol="tcp" numservices="200" services="1-200"/>
+Flag: The element with start and end tags
+	-> Scaninfo
+
+2. Identify one of the XML attributes in the output below
+<scaninfo type="syn" protocol="tcp" numservices="200" services="1-200"/>
+	-> anyof the atrributed ( type="syn" protocol="tcp" numservices="200" services="1-200" )
+
+____________________________________________________________________________________________________
+Syslog Message Facilities (RFC 5424)
+------------------------------------
+Numerical Code | Facility
+---------------|-------------------------------
+0              | kernel messages
+1              | user-level messages
+2              | mail system
+3              | system daemons
+4              | security/authorization messages
+5              | messages generated internally by syslogd
+6              | line printer subsystem
+7              | network news subsystem
+8              | UUCP subsystem
+9              | clock daemon
+10             | security/authorization messages
+11             | FTP daemon
+12             | NTP subsystem
+13             | log audit
+14             | log alert
+15             | clock daemon (note 2)
+16             | local use 0 (local0)
+17             | local use 1 (local1)
+18             | local use 2 (local2)
+19             | local use 3 (local3)
+20             | local use 4 (local4)
+21             | local use 5 (local5)
+22             | local use 6 (local6)
+23             | local use 7 (local7)
+
+Note: Facility values are not normative but commonly used. See RFC 5424 for
+
+Syslog Message Severities (RFC 5424)
+------------------------------------
+Numerical Code | Severity
+---------------|-------------------
+0              | Emergency
+1              | Alert
+2              | Critical
+3              | Error
+4              | Warning
+5              | Notice
+6              | Informational
+7              | Debug
+____________________________________________________________________________________________________
+
+3. What RFC is Syslog?
+	-> Standard System Logging Protocol defined by RFC 5424
+
+4. Challenge only allows 3 attempts What is the numerical code assigned to the facility dealing with authorization?
+	-> 4 
+
+5. Challenge only allows 3 attempts How many severity codes are defined in the standard that defines syslog?
+	-> 0-7 = 8
+
+6. Challenge only allows 3 attempts What severity is assigned to system instability messages? Hint: Use the numerical code!
+	-> 0 kernel messages = 0 Emergency = 0
+
+7.  Challenge only allows 3 attempts Download the attached rsyslog configuration file for the Syslog # challenges.
+	In the legacy rules section of the file, what facility is logged to 0.log?
+	->  copy link and in box do wget http://10.50.140.234:8000/files/2ebe8f987c06545d95e9fee01c7dfaad/50-cctc.conf?token=eyJ0ZWFtX2lkIjo5MCwidXNlcl9pZCI6MTYwMywiZmlsZV9pZCI6MzN9.aK8WPQ.XWS0WLxsIuyUvaYEM6yCi3qAG28
+	-> cat 50-cctc.conf\?token\=eyJ0ZWFtX2lkIjo5MCwidXNlcl9pZCI6MTYwMywiZmlsZV9pZCI6MzN9.aK8WPQ.XWS0WLxsIuyUvaYEM6yCi3qAG28
+	-> reference the tables for numerical code or facility
+	-> Flag: Kernel
+
+8. In the legacy rules section of the file, how many severities are logged to 0.log?
+	Flag: Total number of severities
+	-> Flag: 0 -7 = 8
+
+9. In the legacy rules section of the file, how many severities are logged to 4min.log? List the severities from highest severity (lowest numerical listed) to lowest severity (highest numerical listed) using their severity name.
+Flag format: name,name,name
+	-> emergency, alert, critical, error, warning
+
+10. In the legacy rules section of the file, how many severities are logged to 4sig.log? List the severities from highest severity (lowest numerical listed) to lowest severity (highest numerical listed), using their severity name.
+Flag format: name,name,name Hint: I’m sure they made a man page for this. Read the downloaded file for some links.
+	-> notice,informational,debug
+
+11. What is being logged in not.log? Provide the facilities from lowest facility to highest facility numerically, and the severity being logged. (List only the first word for each.)
+Flag format: facility,facility,facility,severity
+	-> mail,clock,ntp,Notice
+12. What facilities and what severities are being sent to a remote server over a reliable connection using port 514?
+Provide the facility names, number of severities, and the correct destination IP address.
+Flag format: F,F,#,IP
+	-> auth,authpriv,8,10.30.0.1
+
+13. 
 
 
 
 
 
+_________________________________________________________________________________________________________________________________
 
+## 13_Memory Analysis
 
+_________________________________________________________________________________________________________________________________
+
+## 14_Windows Active Directory Enumeration
 
 
 
