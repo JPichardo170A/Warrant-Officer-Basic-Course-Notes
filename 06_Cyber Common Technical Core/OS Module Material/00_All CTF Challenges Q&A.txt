@@ -1951,16 +1951,74 @@ Flag format: name,name,name Hint: I’m sure they made a man page for this. Read
 11. What is being logged in not.log? Provide the facilities from lowest facility to highest facility numerically, and the severity being logged. (List only the first word for each.)
 Flag format: facility,facility,facility,severity
 	-> mail,clock,ntp,Notice
+
 12. What facilities and what severities are being sent to a remote server over a reliable connection using port 514?
 Provide the facility names, number of severities, and the correct destination IP address.
 Flag format: F,F,#,IP
 	-> auth,authpriv,8,10.30.0.1
 
-13. 
+13. Do logs that match this filter ever get saved on the local machine?
+	-> Yes
+
+14. What messages are being sent to 10.84.0.1? Provide the facility number, the number (amount) of severity codes, and Layer 4 connection type as the answer.
+Flag format: F,S,Layer 4 connection Type
+	-> 0,7,UDP
+
+15. File: /home/garviel/output.xml Parse all of the IP addresses from the file using XPATH queries
+	https://www.w3schools.com/xml/xpath_intro.asp HINT: http://xpather.com/
+	http://www.whitebeam.org/library/guide/TechNotes/xpathtestbed.rhtm
+
+	Sample Output (without piping to MD5SUM)
+	addr="XXX.xxx.xxx.xxx"
+ 	addr="XXX.xxx.xxx.xxx"
+ 	addr="XXX.xxx.xxx.xxx"
+ 	addr="XXX.xxx.xxx.xxx"
+ 	addr="XXX.xxx.xxx.xxx"
+ 	addr="XXX.xxx.xxx.xxx"
+--TRIMMED--
+
+Flag format: md5 hash of output
+
+	-> Step 1: Extract lines containing IPv4 addresses from the XML file
+		grep 'addrtype="ipv4"' /home/garviel/output.xml
+
+	-> Step 2: Format each line to match the required output style
+	# This uses sed to isolate the IP and wrap it in the format:  addr="..."
+		grep 'addrtype="ipv4"' /home/garviel/output.xml | sed -n 's/.*addr="\([^"]*\)".*/ addr="\1"/p'
+
+	-> Step 3: Save the formatted output to a file for hashing
+		grep 'addrtype="ipv4"' /home/garviel/output.xml | sed -n 's/.*addr="\([^"]*\)".*/ addr="\1"/p' > ip_output.txt
+
+	-> Step 4: Generate the MD5 hash of the output file contents
+		md5sum ip_output.txt
+
+✅ Final Flag:
+# 0e850f14fc192c5105955ec094287bd2
 
 
+16. # === CHALLENGE: Pretty-print JSON and hash for flag ===
+# File: /home/garviel/conn.log
+# Objective: Use jq to pretty-print the JSON, then hash the result with md5sum
+
+# === STEP 1: Pretty-print JSON using jq ===
+jq . /home/garviel/conn.log > /tmp/pretty.json
+
+# === STEP 2: Hash the pretty-printed file ===
+md5sum /tmp/pretty.json
+
+# === OUTPUT ===
+# Flag: 25ebedf7442e470eaaa48b5f7d5b96f4
+
+# === NOTES ===
+# - jq identity filter (.) preserves all fields and formats with indentation
+# - md5sum hashes the entire file as a single string
+# - Output matches sample format exactly
+# - If jq is unavailable, fallback:
+#     python3 -m json.tool /home/garviel/conn.log > /tmp/pretty.json
+#     md5sum /tmp/pretty.json
 
 
+17. 
 
 _________________________________________________________________________________________________________________________________
 
@@ -1969,6 +2027,7 @@ ________________________________________________________________________________
 _________________________________________________________________________________________________________________________________
 
 ## 14_Windows Active Directory Enumeration
+
 
 
 
