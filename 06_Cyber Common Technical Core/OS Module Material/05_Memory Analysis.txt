@@ -1,1 +1,6 @@
+You can use this command to find tools with in the required file from the reuqired directroy. 
+  Basic Volatility command syntax
+      PS C:\Users\andy.dwyer\Desktop\Memory_Analysis> .\volatility_2.6_win64_standalone.exe -h | findstr /i con
 
+this is for profile annalysis to see wha is availableto use in a profile and also how to list the running prcoess that where operation when memory was written to: 
+                          .\volatility_2.6_win64_standalone.exe -f ".\cridex.vmem" --profile=WinXPSP2x86 pslist
