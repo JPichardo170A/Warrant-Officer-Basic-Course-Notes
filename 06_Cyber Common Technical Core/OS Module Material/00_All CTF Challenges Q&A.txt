@@ -1750,7 +1750,6 @@ Machine: Terra
 
 ______________________________________________________________________________________________________________________
 
-
 ## 09_Windows Processes Validity
 
 What is the full path to folder used when Windows redirects 32 bit applications running on a 64bit system?
@@ -1802,8 +1801,31 @@ What SysInternals tool reports .dlls loaded into processes?
 ### Challenges Reminder: All challenges are done using Workstation1.
 
 There is malware on the system that is named similarly to a legitimate Windows executable. There is a .dll in the folder that the malware runs from. The flag is the name of the .dll.
-	->
+	-> Steps Taken:
 
+1. Opened PowerShell as Administrator
+   - Start → Type "PowerShell" → Right-click → "Run as administrator"
+
+2. Navigated to suspicious directories manually
+   - cd "C:\Users\Public"
+   - cd "C:\Users\Public\Downloads"
+   - Used: dir
+   - Found suspicious executable: scvhost.exe
+   - Reason: Mimics legitimate svchost.exe, but located outside System32
+
+3. Listed DLLs in the same folder
+   - Ran: dir *.dll
+   - Found: libmingwex-0.dll
+
+4. Captured the flag
+   - Flag = libmingwex-0.dll
+
+Result:
+The malicious executable was scvhost.exe, and the flag was the DLL next to it:
+	-> libmingwex-0.dll
+
+You notice that there is an annoying pop up happening regularly. Investigate the process causing it. The flag is the name of the executable.
+	-> 
 
 
 
@@ -2027,6 +2049,7 @@ ________________________________________________________________________________
 _________________________________________________________________________________________________________________________________
 
 ## 14_Windows Active Directory Enumeration
+
 
 
 
