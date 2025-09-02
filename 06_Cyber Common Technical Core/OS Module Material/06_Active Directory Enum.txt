@@ -1,15 +1,35 @@
 ## Windows Acitve Directory Enumeration
 
+What is the database that is used to connect users with network resources?
+  -> Active Directory
+
+What are all things that are in active directory stored as?
+  -> object
+
+What is the Active Directory component which contains formal definitions of every object class that can be created in an Active Directory forest?
+  -> Active Directory Schema
+
+What protocol is used when accessing and updating the Active Directory?
+  -> LDAP — the Lightweight Directory Access Protocol
+
+From an Offensive perspective, what type of account is usually the main target?
+  -> Administrator
+
+Task : If an account has been inactive for a substantial amount of time what should the adminstrators do to the account?
+  -> Disable
+What is the basic PowerShell cmdlet used to enumerate users?
+-> Get-ADUser
+What is the suite of tools used in CLI to enumerate users across the network?
+  -> Domain Services
+
 What is the domain portion of the following SID: S-1-5-21-1004336348-1177238915-682003330-1000
   -> Flag: 21-1004336348-1177238915-682003330
-
 
 What PowerShell command will list domain groups?
   -> CMD: Get-ADGroup -Filter *
 
 What PowerShell command will list all users and their default properties? The flag is the full command with arguments.
   -> Get-ADUser -Filter 'Name -like "*"'
-
 
 What PowerShell command will allow you to search Active Directory accounts for expired accounts without having to create a filter?
 The flag is only the command, no arguments/switches.
@@ -18,7 +38,254 @@ The flag is only the command, no arguments/switches.
 Find the expired accounts that aren't disabled. List the last names in Alphabetical Order, separated with a comma, and no space between.
   -> Step 1: Command -> get-aduser -filter {Enabled -eq "FALSE"} -properties name, enabled
   -> Step 2: Command -> get-localuser | Where-Object { $_.AccountExpires -le (Get-Date)}
-  -> Step 3: Flag -> 
+  -> Step 3: Command -> ( Get-ADUser -Filter * -Properties Surname,Enabled,AccountExpirationDate |
+  Where-Object {
+    $_.Enabled -eq $true -and
+    $_.AccountExpirationDate -and
+    $_.AccountExpirationDate -le (Get-Date) -and
+    $_.Surname
+  } |
+  Select-Object -ExpandProperty Surname |
+  Sort-Object -Unique
+) -join ','
+
+  -> Flag: Krause,Page
 
 Find the unprofessional email addresses. List the email's domain.
-  -. 
+  -> Step 1: Get-ADUser -Filter * -Properties Mail,UserPrincipalName | Where-Object { $_.Mail -or $_.UserPrincipalName               } | Select-Object Name, SamAccountName, Mail, UserPrincipalName | Format-Table -AutoSize
+
+    -> Output emails @mail.mil and ashleymadison.com
+
+  -> Step 2: Get-ADUser -Filter * -Properties Mail |
+  Where-Object { $_.Mail -and ($_.Mail -notlike '*.mil@mail.mil') } |
+  Select-Object Name,Mail
+
+  -> Step 3:  Extract just the domains from unprofessional emails Get-ADUser -Filter * -Properties Mail |
+  Where-Object { $_.Mail -and ($_.Mail -notlike '*.mil@mail.mil') } | ForEach-Object { $_.Mail.Split('@')[-1].ToLower() } | Sort-Object -Unique
+
+  -> Step 4: ( Get-ADUser -Filter * -Properties Mail |
+    Where-Object { $_.Mail -and ($_.Mail -notlike '*.mil@mail.mil') } |
+    ForEach-Object { $_.Mail.Split('@')[-1].ToLower() } |
+    Sort-Object -Unique
+) -join ','
+
+# Final Answer (Flag):
+ashleymadison.com
+
+The flag is the unprofessionally-named file located somewhere on the Warrior Share. From the Admin-Station, Connect to the Warrior Share: net use * "\\file-server\warrior share"
+  -> Step 1: Get-ChildItem "\\file-server\warrior share" -Recurse -File
+  -> Flag: lulz.pdf
+
+The flag is the name of the file, where in the file contents, someone is requesting modified access rights. From the Admin-Station, Connect to the Warrior Share: net use * "\\file-server\warrior share"
+  -> Step 1 — Map the Warrior Share
+net use * "\\file-server\warrior share"
+Check assigned drive letter with:
+net use
+
+  -> Step 2 — List all files recursively on the share
+Get-ChildItem "Z:\" -Recurse -File
+
+  -> Step 3 — Search inside all files for keywords like "access", "modify", or "permissions"
+Get-ChildItem "Z:\" -Recurse -File | Select-String -Pattern "access rights|modify|permissions|request"
+
+Step 4 — Identify the file containing the access request
+From the output, locate the file name. Example output:
+\file-server\warrior share\Brigade HQ\CMD GRP\lulz.pdf
+\file-server\warrior share\Brigade HQ\S-6\14287.pdf
+
+Correct file (flag):
+14287.pdf
+
+Final Answer (Flag):
+14287.pdf
+
+
+The flag is the name of the user who is requesting modified access rights. (From the Admin-Station, Connect to the Warrior Share: net use * "\\file-server\warrior share" Hint: Complete Windows_AD_Search_Insider_1 first).
+  -> ────────────────────────────────────────────
+🔍 Step: Cross-reference Phone Number to Identify User
+────────────────────────────────────────────
+Clue from PDF:
+Phone number mentioned: 336-6754
+
+Used to search Active Directory for matching user.
+
+✅ Command:
+Get-ADUser -Filter 'OfficePhone -like "*336-6754*"' -Properties OfficePhone
+
+🎯 Output:
+DistinguishedName : CN=Karen.Nance,OU=3RD PLT,OU=ACO,OU=3RDBN,OU=WARRIORS,DC=army,DC=warriors  
+Enabled           : True  
+GivenName         : Kearen  
+Name              : Karen.Nance  
+SamAccountName    : Karen.Nance  
+OfficePhone       : 706-336-6754  
+
+✅ Identified User: **Karen.Nance**
+────────────────────────────────────────────
+
+
+Find the accounts that contain unprofessional information in the description. List the last names in Alphabetical Order, separated by a comma, with no space. Flag format: name,name
+  -> Step 1: CMd-> Import-Module ActiveDirectory
+
+  -> Step 2: List all users with their Description attribute
+              Get-ADUser -Filter * -Properties Description | Select-Object Name,Description
+
+  -> Step 3: (Optional) Inspect output manually to identify unprofessional descriptions
+            # Flagged accounts identified:
+            # Krystal.Jimenez
+            # Alice.Brandywine
+            # Xavier.Ibarra
+            # Raegan.Lee
+
+  -> Step 4: Extract only last names and sort alphabetically
+            ("Brandywine","Ibarra","Jimenez","Lee" | Sort-Object) -join ","
+
+  -> Step 5: Output flag in required format
+            # Output: Brandywine,Ibarra,Jimenez
+
+
+Find the following three accounts: two accounts with passwords that never expire NOT andy.dwyer one account that has its password stored using reversible encryption List the last names in Alphabetical Order, comma-separated, no spaces. Do not list built-in accounts. Flag format: name,name,name
+
+  # -> Step 1: Get all users including extra properties
+Get-ADUser -Filter * -Properties PasswordNeverExpires,UserAccountControl
+
+# -> Step 2: Format the output as a table for easier reading
+Get-ADUser -Filter * -Properties PasswordNeverExpires,UserAccountControl | 
+    Format-Table Name, SamAccountName, PasswordNeverExpires, UserAccountControl
+
+# -> Step 3 (Optional): Filter for specific UserAccountControl flags
+# Example: accounts with "Password does not expire" flag
+Get-ADUser -Filter {UserAccountControl -band 0x10000} -Properties PasswordNeverExpires,UserAccountControl |
+    Format-Table Name, SamAccountName, PasswordNeverExpires, UserAccountControl
+
+  -> Flag:   Name                SamAccountName      PasswordNeverExpires UserAccountControl
+             ----                --------------      -------------------- ------------------
+        Alice.Brandywine        Alice.Brandywine            False                640
+        Xavier.Ibarra           Xavier.Ibarra               True                 66048
+        Eddie.Sanchez           Eddie.Sanchez               True                 66048
+
+
+The flag is the name of the file containing PII on the Warrior Share.
+Connect to the Warrior Share: net use * "\\file-server\warrior share"
+  -> Step 1: net use * "\\file-server\warrior share"
+  -> Step 2: CD "\\file-server\warrior share"
+  -> step 3: Get-ChildItem "\\file-server\warrior share" -Recurse -File
+          -> Flag: phone_matrix.xlsx
+
+Find the short name of the domain in which this server is a part of.
+  -> Step 1: (Get-ADDomain).NetBIOSName
+          -> Flag: Army
+
+What is the RID of the krbtgt account. Example: S-1-5-21-1004336348-1177238915-682003330-[501]
+  -> Step 1: Open PowerShell on the domain-connected machine.
+  -> Step 2: List the `krbtgt` account using Get-ADUser:  Get-ADUser krbtgt -Properties SID
+  -> Step 3: Examine the SID output. It will look like: S-1-5-21-<domain-identifier>-502
+  -> Step 4: Extract the RID. The RID is the last number after the last dash. 
+          -> Flag: For krbtgt, it is always 502.
+
+
+How many users are members of the Domain Admins group? HINT: No sub-groups.
+  -> Step 1: Import the Active Directory module if not already loaded
+            Import-Module ActiveDirectory
+
+  -> Step 2: List the members of the Domain Admins group (excluding nested groups)
+              Get-ADGroupMember -Identity "Domain Admins" | Where-Object { $_.objectClass -eq "user" }
+
+  -> Step 3: Count the users
+            (Get-ADGroupMember -Identity "Domain Admins" | Where-Object { $_.objectClass -eq "user" }).Count
+        -> Flag: 1
+
+How many total users are members of the Domain Admins group?
+  -> Step 1: Open PowerShell on a domain-joined machine.
+
+  -> Step 2: Use Get-ADGroupMember to list members of the "Domain Admins" group:
+            Get-ADGroupMember -Identity "Domain Admins
+
+  -> Step 3: Filter to count only user accounts (exclude nested groups) and get total:
+            (Get-ADGroupMember -Identity "Domain Admins" | Where-Object { $_.objectClass -eq "user" }).Count
+      -> Flag Output: 14
+
+
+Continue to follow the insider trail to find additional insider threats and their compromised mission.
+The flag is the full name of the next insider threat identified. HINT: Search the Active Directory record of the user identified in search_insider_2.
+  -> Step 1: Get-ADUser -Identity "Karen.Nance" -Properties *
+  -> Step 2: Identifed (rkcrpg zl arkg pbzzhavpngvba ng 06:30 uef gbzbeebj zbeavat. Ybpngvba sbe qrgnvyf vaibyivat n                 uvtuyl pynffvsvrq bcrengvba hcybnqrq gb Gvssnal) coded in ROT13
+  -> step 3: decode the string (expect my next communication at 06:30 hrs tomorrow morning. Location for details                     involving a highly classified operation uploaded to Tiffany)
+  -> Step 4: who is tiffany-> Get-ADUser -Filter 'Name -like "*Tiffany*"' -Properties *
+          -> Flag: full name of Tiffany.Bellacino
+
+Continue to follow the insider trail to find additional insider threats and their compromised mission. The flag is the username resulting from assembling clues within a user's records. HINT: Search the Active Directory record of the user identified in follow_insider_trail_1. Piece together clues to identify another insider threat.
+  -> Step 1: Query the AD record of the user identified in follow_insider_trail_1 Get-ADUser -Identity "Tiffany.Bellacino" -Properties *
+
+-> Step 2: Review fields for embedded clues Fields of interest: City: mi State: an StreetAddress: wis PostalCode: da physicalDeliveryOfficeName: le
+
+-> Step 3: Attempt to assemble fragments into a possible username Constructed guess: mi + an + wis + da + le → mianswisdale Get-ADUser -Identity "mianswisdale" -Properties * → No results
+
+-> Step 4: Reinterpret fragments as references to a real user Fragments match: Damian (da), Lewis (le), mi (possibly from Damian) Search for matching user: Get-ADUser -Identity "Damian.Lewis" -Properties *
+
+-> Step 5: Confirm insider activity from Damian.Lewis’s record Field of interest: info: P0P SECRET - Star Wars Rogue One, opening night tomorrow! Get em before they sell out! -Isiah → Indicates covert communication and insider behavior
+
+-> Flag Output: Damian.Lewis
+
+
+Continue to follow the insider trail to find additional insider threats and their compromised mission.
+The flag is the full name of the insider threat identified. HINT: Search the Active Directory record for the user identified in follow_insider_trail_2.
+  -> Step 1: Query the AD record of Damian.Lewis
+            Get-ADUser -Identity "Damian.Lewis" -Properties *
+
+  -> Step 2: Review metadata for embedded clues
+            Field of interest:
+              info: P0P SECRET - Star Wars Rogue One, opening night tomorrow!
+                    Get em before they sell out! -Isiah
+
+  -> Step 3: Investigate the name "Isiah" mentioned in the message
+            Get-ADUser -Filter 'Name -like "*Isiah*"' -Properties *
+
+            Matching user found:
+              SamAccountName: Isiah.Jesus
+              GivenName: Isiah
+              Surname: Jesus
+              StreetAddress: aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXc0dzlXZ1hjUQ==
+
+  -> Step 4: Decode the StreetAddress field
+            Base64 string: aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXc0dzlXZ1hjUQ==
+            Decoded value: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+            → This is a Rickroll — a classic prank, confirming covert behavior
+
+  -> Step 5: Confirm insider status
+            Isiah.Jesus authored the covert message found in Damian.Lewis’s record
+            His AD record contains a hidden Base64-encoded link
+            This confirms his involvement in the compromised mission
+
+      -> Flag Output: Isiah Jesus
+
+
+Continue to follow the insider trail to find additional insider threats and their compromised mission.  
+This flag is a video link.  
+HINT: Search the Active Directory record for the user identified in follow_insider_trail_3.
+
+  -> Step 1: Query the AD record of Isiah.Jesus
+            Get-ADUser -Identity "Isiah.Jesus" -Properties *
+
+  -> Step 2: Review metadata for embedded links
+            Field of interest:
+              StreetAddress: aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXc0dzlXZ1hjUQ==
+
+  -> Step 3: Decode the Base64 string
+            Decoded value: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+
+  -> Step 4: Confirm the video link
+            This is the official Rick Astley music video — a classic Rickroll
+            [Rick Astley - Never Gonna Give You Up (Official Video) (4K ...)](https://www.youtube.com/watch?v=dQw4w9WgXcQ) confirms the decoded link
+
+      → Flag Output: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+
+
+
+
+
+
+
+
+
+
