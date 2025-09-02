@@ -1,6 +1,79 @@
+## windows Memory Analysis
+
 You can use this command to find tools with in the required file from the reuqired directroy. 
   Basic Volatility command syntax
       PS C:\Users\andy.dwyer\Desktop\Memory_Analysis> .\volatility_2.6_win64_standalone.exe -h | findstr /i con
 
 this is for profile annalysis to see wha is availableto use in a profile and also how to list the running prcoess that where operation when memory was written to: 
                           .\volatility_2.6_win64_standalone.exe -f ".\cridex.vmem" --profile=WinXPSP2x86 pslist
+
+What Volatility plugin will dump a process to an executable file sample?
+  -> procDump
+What Volatility plugin will extract command history by scanning for _COMMAND_HISTORY?
+  -> cmdscan
+What Volatility plugin will show driver objects?
+  -> driverscan
+What plugin do you run to find which memory profile to use with a memory image?
+  -> imageinfo
+What switch/argument will list all plugins for Volatility?
+  -> --help
+In terms of Volatile Data, what locations are the MOST volatile? Flag format: location,location
+  -> registers,cache
+What is the 12th plugin listed in the Volatility help menu?
+  -> cmdscan
+What profile do you use in conjunction with this memory image? Use the following file (memory image) to answer the rest of the Memory Analysis challenges. 0zapftis.vmem
+  -> Step 1: Run the imageinfo plugin to analyze the memory image.
+             Command: .\volatility_2.6_win64_standalone.exe -f .\0zapftis.vmem imageinfo
+  -> Step 2: Review the "Suggested Profile(s)" section in the output.
+             The first profile listed is typically the most accurate.
+          -> Flag: WinXPSP2x86
+
+What command did the attacker type to check the status of the malware?
+  -> Step 1: Run the `cmdscan` plugin to extract command-line history from memory.
+             Command: .\volatility_2.6_win64_standalone.exe -f .\0zapftis.vmem --profile=WinXPSP2x86 cmdscan
+  -> Step 2: Review the output for commands typed by the attacker.
+             The attacker used the following command to check the status of the malware:
+             `sc query malware`
+          -> Flag: sc query malware
+
+What are the last 7 digits of the memory offset for the driver used by the malware?
+    -> Step 1: Run the `driverscan` plugin to identify all driver objects in memory.
+             Command: .\volatility_2.6_win64_standalone.exe -f .\0zapftis.vmem --profile=WinXPSP2x86 driverscan
+  -> Step 2: Review the output for a driver named "malware".
+             Locate the offset listed in the first column for that driver.
+             The entry is:
+             0x0000000001a498b8        3        0 0xf9eb4000     0x1500 malware              malware                \Driver\malware
+          -> Flag: 1a498b8
+
+The process running under PID 544 seems malicious. What is the md5hash of the executable?
+  -> Step 1: Create a directory to store the dumped executable.
+             Command: mkdir .\dump
+
+  -> Step 2: Run the `procdump` plugin to extract the executable for PID 544.
+             Command: .\volatility_2.6_win64_standalone.exe -f .\0zapftis.vmem --profile=WinXPSP2x86 procdump -p 544 -D .\dump
+
+  -> Step 3: Use PowerShell to calculate the MD5 hash of the dumped executable.
+             Command: Get-FileHash .\dump\executable.544.exe -Algorithm MD5
+
+          -> Flag: 6CEE14703054E226E87A963372F767AA
+
+What remote IP and port did the system connect to? Flag format: ip:port
+  -> Step 1: Run the `connscan` plugin to identify TCP connection objects in memory.
+             Command: .\volatility_2.6_win64_standalone.exe -f .\0zapftis.vmem --profile=WinXPSP2x86 connscan
+
+  -> Step 2: Review the output for remote connections initiated by the system.
+             The connection shows:
+             Local Address: 0.0.0.0:1026
+             Remote Address: 172.16.98.1:6666
+             PID: 1956
+
+          -> Flag: 172.16.98.1:6666
+
+
+
+
+
+
+
+
+
