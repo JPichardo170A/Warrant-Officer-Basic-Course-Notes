@@ -1809,7 +1809,106 @@ The malicious executable was scvhost.exe, and the flag was the DLL next to it:
 	-> libmingwex-0.dll
 
 You notice that there is an annoying pop up happening regularly. Investigate the process causing it. The flag is the name of the executable.
-	-> 
+	-> McAfeeFireTray.exe
+
+Determine what is sending out a SYN_SENT message. The flag is the name of the executable.
+HINT: Use a Sysinternals tool.
+	-> McAfeeFireTray.exe
+
+Malware uses names of legit processes to obfuscate itself. Give the flag located in Kerberos’ registry subkey.
+HINT: Use Sysinternals tools.
+# Step 1: Launch Autoruns
+# - Open Sysinternals Autoruns tool to inspect auto-starting locations.
+# - Navigate to the "Services" tab to view registered Windows services.
+
+# Step 2: Identify Suspicious Entry
+# - Look for entries related to "Kerberos" that are marked as "Not Verified".
+# - These may indicate a spoofed or malicious service mimicking a legit one.
+
+# Step 3: Investigate the Registry Location
+# - Right-click the suspicious Kerberos entry and choose "Jump to Entry".
+# - This opens the corresponding registry location in `regedit`.
+
+# Step 4: Explore the Parameters Subkey
+# - In Registry Editor, navigate to:
+#   HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\<SuspiciousKerberos>\Parameters
+# - Look for any unusual string values, especially ones that resemble encoded or random-looking data.
+
+# Step 5: Extract the Flag
+# - In this case, the flag was stored directly as a string value under the Parameters subkey.
+# - ✅ Final Flag: 76aGreX5
+
+There is malware named TotallyLegit. Find its binary location and there will be a file in that directory. Read the file.
+HINT: Use Sysinternals tools.
+	-> GwlkK3sa
+
+Find the McAfeeFireTray.exe. There is a file in that directory. The flag is inside.
+HINT: Use Sysinternals tools
+	-> StrongBad
+
+What are the permissions for NT SERVICE\TrustedInstaller on spoolsv.exe? Copy the permissions from your shell.
+HINT: Use Sysinternals tools.
+	-> read and Write
+
+What is the PATH listed in the output when we find the handle for spoolsv.exe?
+HINT: Use Sysinternals tools and don't forget to run as Administrator..
+	-> C:\Windows\System32\en-US\spoolsv.exe.mui
+
+In what Load Order Group is the Windows Firewall service?
+HINT: Use Sysinternals tools.
+	-> NetworkProvider
+
+What is the first .dll associated with winlogon.exe? Provide the name of the .dll only, not the /absolute/path
+HINT: Use a Sysinternals tool for DLL's
+	-> ntd.dll
+While examining the Windows Defender Firewall, what is the LogAllowedConnections setting set to, for the Public profile?
+	-> false
+A nonstandard port has been opened by possible malware on the system. Identify the port.
+1. Open Command Prompt as Administrator.
+2. Run the following command to list all active connections and listening ports:
+   netstat -ano
+3. Review the output for ports in LISTENING state.
+   - Look for unusual or nonstandard ports (e.g., port 6666).
+   - Note the PID (Process ID) associated with the suspicious port.
+4. Run the following command to identify the process using that PID:
+   tasklist /FI "PID eq 2412"
+
+Determine what mechanism opened the port from hidden_processes_7. The flag is the name of the file.
+	-> legit_script.ps1
+
+Identify the flag from the file in hidden_processes_8.
+# Step 1: Identify the Suspicious Command
+# This command was observed running silently in the background:
+powershell.exe -noexit -windowstyle hidden -File C:\windows\system32\legit_script.ps1
+
+# Step 2: Locate the Script
+# Navigate to the following path to find the script:
+C:\Windows\System32\legit_script.ps1
+
+# Step 3: Open the Script
+# Use a text editor to inspect the contents:
+# - Right-click → "Edit"
+# - Or open with PowerShell ISE for syntax highlighting
+
+# Step 4: Search for the Flag
+# Look for any of the following patterns:
+# - A direct string like: flag{...}
+# - A comment line: # FLAG: ...
+# - A variable assignment: $flag = "..."
+
+# Step 5: Decode If Necessary
+# If the flag is encoded (e.g., Base64), decode it using PowerShell:
+# Example:
+$encoded = "ZmxhZ3tzaGVsbF9leGVjdXRpb25fOD0hfQ=="
+[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($encoded))
+
+# Step 6: Extract the Flag
+# In this case, the flag was found directly in the script:
+# ✅ Final Flag:
+N0t_L3g1T_Ammiright
+
+
+
 
 
 
@@ -2033,6 +2132,7 @@ ________________________________________________________________________________
 _________________________________________________________________________________________________________________________________
 
 ## 14_Windows Active Directory Enumeration
+
 
 
 
