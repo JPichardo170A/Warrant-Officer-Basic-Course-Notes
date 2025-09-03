@@ -1,24 +1,79 @@
 ## Linux Process Validity
 
 1. What is the process ID (PID) of the SysV Init daemon?
-	-> 
+	-> 1
 2. How many child processes did SysV Init daemon spawn?
-	-> 
+	-> Step 1: Use the `ps` command to list all child processes of PID 1 (SysV Init).
+             Command: ps --ppid 1
+
+  -> Step 2: Count the number of child processes listed.
+             Command: ps --ppid 1 | wc -l
+             (Note: Subtract 1 if the header line is included)
+
+          -> Flag: 20
+
 3. Identify all of the arguments given to the ntpd daemon (service) using ps. Format: List all options with parameters (include numbers)
-	->
+	-> Step 1: Use the `ps` command to inspect the arguments passed to the ntpd daemon.
+             Command: ps -eo pid,comm,args | grep ntpd
+
+  	-> Step 2: Review the full command line used to launch ntpd.
+             The output shows:
+             /usr/sbin/ntpd -p /var/run/ntpd.pid -g -u 105:109
+
+          -> Flag: -p /var/run/ntpd.pid -g -u 105:109
+
 4. What is the parent process to Bombadil’s Bash process? (name of the binary, not the absolute path)
-	->
+  -> Step 1: Use the `ps` command to list Bombadil’s processes and their parent PIDs.
+             Command: ps -u bombadil -o pid,ppid,comm
+
+  -> Step 2: Identify the PPID of the Bash process (PID 25631), which is 25627.
+             Then use ps -p 25627 -o comm= to find the name of the parent process.
+
+          -> Flag: sshd
+
 5. Identify the file mapped to the fourth file descriptor (handle) of the cron process. HINT: There might be multiple cron processes, but only one with the answer. Flag format: /absolute/path
-	->
+  -> Step 1: Use `ps` to identify the PID of the cron process.
+             Command: ps -C cron -o pid,comm
+             Result: PID 1305
+
+  -> Step 2: Use `sudo` to inspect the file descriptors for that PID.
+             Command: sudo ls -l /proc/1305/fd
+
+  -> Step 3: Locate the fourth file descriptor (FD 3) and identify the mapped file.
+             Result: FD 3 points to /run/crond.pid
+
+          -> Flag: /run/crond.pid
+
 6. Identify the permissions that cron has on the file identified in Processes 5. HINT: Read the man page for lsof to understand permissions. Flag format: If more than one, list the permissions comma separated, no spaces
-	-> 
-7. Identify the names of the orphan processes on the SysV system. NOTE: Remember, orphan processes spawn and die periodically. Try monitoring the processes list with top or htop to find them. Flag format: in alphabetical order with all non-alphabetic characters removed: Name,Name,Name,Name HINT: Only character names!
-	->
+  -> Step 1: Use `lsof` to inspect open files for the cron process.
+             Command: sudo lsof -p 1305
+
+  -> Step 2: Locate the entry for FD 3, which maps to /run/crond.pid.
+             The FD column shows: 3u
+
+             Interpretation:
+             - `3` = file descriptor number
+             - `u` = file is open for both reading and writing (update)
+
+          -> Flag: read,write
+
+7. Identify the names of the orphan processes on the SysV system. NOTE: Remember, orphan processes spawn and die periodically. 
+Try monitoring the processes list with top or htop to find them. Flag format: in alphabetical order with all non-alphabetic characters removed: Name,Name,Name,Name HINT: Only character names!
+
+
+
 8. Locate zombie processes on the SysV system. Identify the zombie processes' parent process. NOTE: Remember, zombie processes only live until the parent process kills and removes them from the system’s process table. Try monitoring the processes list with top or htop to find them. Flag format: /absolute/path
 	-> 
+
+
+
+
 9. Locate the strange open port on the SysV system. Identify the command line executable and its arguments.
 Flag format: /executable/path -arguments
 	->
+
+
+
 
 10. Examine the process list to find the ssh process. Then, identify the symbolic link to the absolute path for its executable in the /proc directory. The flag is the absolute path to the symbolic link, and the file it is linked to.
 Flag format: /absolute/path,/absolute/path
