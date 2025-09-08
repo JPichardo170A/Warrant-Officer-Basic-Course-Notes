@@ -451,6 +451,46 @@ Use Case:
 
 
 
+---------------------------------------
+# IPv4 Fragment Offset – Reference Note
+--------------------------------------
+
+🧠 What Is It?
+The Fragment Offset field in the IPv4 header is a 13-bit value that indicates the position of a fragment's data relative to the beginning of the original, unfragmented IP packet.
+
+📏 Range:
+- 13 bits = values from 0 to 8191
+- Each unit represents 8 bytes (not 1 byte)
+
+📐 Formula to Calculate Fragment Offset:
+Offset = (MTU - (IHL × 4)) ÷ 8
+
+Where:
+- MTU = Maximum Transmission Unit (typically 1500 bytes for Ethernet)
+- IHL = Internet Header Length (usually 5 for standard IPv4 header)
+- IHL × 4 = Header size in bytes (since IHL is in 32-bit words)
+
+🧮 Example Calculation:
+Assume:
+- MTU = 1500 bytes
+- IHL = 5 → Header size = 5 × 4 = 20 bytes
+
+Then:
+Offset = (1500 - 20) ÷ 8  
+Offset = 1480 ÷ 8  
+Offset = 185
+
+So the fragment offset field value is **185**, meaning this fragment starts **1480 bytes** into the original payload.
+
+📌 Notes:
+- First fragment always has offset = 0
+- Offset must divide evenly by 8
+- Fragment offset is used to reassemble the original packet in order
+
+✅ Use in Wireshark:
+- Look under the IPv4 header for "Fragment offset"
+- Use `ip.id == 0xXXXX` to filter all fragments of the same packet
+
 
 
 
