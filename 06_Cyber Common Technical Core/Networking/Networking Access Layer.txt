@@ -1,15 +1,3 @@
-Network SG: https://cted.cybbh.io/tech-college/cttsb/cctc/net/Net/
-
-PCTE https://dash.ent1.pcte.mil/app/app
-
-PCTE USERNAME: 
-
--> Student Id:7
--> User Name: krista.mitchell
--> Password: krista.mitchell!
--> Registration Id:64af95ba-5fa1-450e-b281-40a6e7278d32 
--> Class Id:NET-WOBC-25-003
-
 ##Importance of the OSI Model
 
 The OSI model describes networking functions as a set of layered, modular components, each responsible for particular functions. The model is theoretical in nature as certain networking protocols don't always fall nicely within a specific layer. It merely provides a framework for breaking down complex networking components in a way that can be more easily understood. Without the model's structure to help frame the conversation related to protocol interaction and other functions, discussion of networking topics would be nearly impossible.
