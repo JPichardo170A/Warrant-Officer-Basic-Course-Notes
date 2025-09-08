@@ -79,4 +79,5 @@ Crew Lead, 169th Cyber Protection Team
 **Stay sharp. Stay curious. Lead with purpose.**
 
 https://os.cybbh.io/public/os/latest/004_windows_registry/reg_fg.html
+
 https://dash.ent1.pcte.mil/app/app
