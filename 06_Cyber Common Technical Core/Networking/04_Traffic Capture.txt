@@ -1,1 +1,250 @@
+----------------------------------------------------------------------
+# EtherTypes Table
+-----------------------------------------------------------------------------------
+| EtherType | Protocol Description                   | Hex Value | Decimal Value  |
+|-----------|----------------------------------------|-----------|----------------|
+| IPv4      | Internet Protocol version 4            | 0x0800    | 2048           |
+| ARP       | Address Resolution Protocol            | 0x0806    | 2054           |
+| IPv6      | Internet Protocol version 6            | 0x86DD    | 34525          |
+| VLAN      | IEEE 802.1Q VLAN-tagged frame          | 0x8100    | 33024          |
+| MPLS-U    | MPLS Unicast                           | 0x8847    | 34887          |
+| MPLS-M    | MPLS Multicast                         | 0x8848    | 34888          |
+| FlowCtrl  | Ethernet Flow Control                  | 0x8808    | 34824          |
+| LLDP      | Link Layer Discovery Protocol          | 0x88CC    | 35020          |
+| MACsec    | MAC Security (IEEE 802.1AE)            | 0x88E5    | 35045          |
+| Loopback  | Ethernet Loopback (testing)            | 0x9000    | 36864          |
+----------------------------------------------------------------------------------
+
+🧠 Notes:
+- EtherType is a 2-byte field in Ethernet II frames used to identify the payload protocol.
+- Values ≥ 0x0600 (1536 decimal) are valid EtherTypes.
+- Values < 0x0600 are interpreted as payload length in IEEE 802.3 framing.
+------------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------
+# Tool Summary: TCPdump, Wireshark, and Berkeley Packet Filters (BPF)
+----------------------------------------------------------------------
+1. TCPdump
+- Command-line packet analyzer for real-time traffic capture.
+- Useful for diagnosing network issues and identifying suspicious activity.
+- Captures packets for deeper inspection and analysis.
+- Lightweight and efficient for quick, targeted investigations.
+  # TCPdump: Capture all TCP traffic on interface eth0 and save to file: tcpdump -i eth0 tcp -w tcp_traffic.pcap
+
+2. Wireshark
+- Graphical network protocol analyzer with advanced features.
+- Builds on TCPdump’s capabilities with visualization and protocol decoding.
+- Enables deep traffic analysis, anomaly detection, and threat investigation.
+- Supports plugins and scripting for custom workflows and tool integration.
+
+3. Berkeley Packet Filters (BPF)
+- Kernel-level filtering mechanism used by TCPdump and Wireshark.
+- Allows precise packet capture based on IP, port, or protocol criteria.
+- Reduces data volume for analysis and boosts performance on high-speed networks.
+- Essential for scalable and efficient packet capture operations.
+  # BPF (used within TCPdump): Capture only HTTP traffic from a specific IP: tcpdump -i eth0 src 192.168.1.100 and port 80
+
+Overall:
+These tools form a powerful trio for network traffic analysis, monitoring, and cybersecurity troubleshooting. They help professionals gain visibility into network behavior, detect threats, and strengthen security posture.
+------------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------
+# Packet Capture Libraries Synopsis
+----------------------------------------------------------------------
+
+Libpcap:
+- Original cross-platform C/C++ library for packet capture on Unix-like systems.
+- Powers tools like TCPdump, Wireshark, and Snort.
+- Offers a system-independent API for low-level network monitoring.
+- Pre-installed on most Unix-like OSes; actively maintained.
+
+WinPcap:
+- Windows port of Libpcap; formerly standard for packet capture on Windows.
+- Used by tools like Wireshark and Nmap.
+- Final release in 2013; no longer supported.
+- Lacks modern security features (e.g., driver signing).
+
+NPcap:
+- Modern replacement for WinPcap, built by Nmap developers.
+- Faster, more secure, and compatible with modern Windows (7–11).
+- Supports loopback capture and raw 802.11 Wi-Fi packet capture.
+- Offers both WinPcap compatibility mode and native NPcap mode.
+- Actively maintained and frequently updated.
+------------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------
+# Socket Types Synopsis
+----------------------------------------------------------------------
+
+User Space Sockets:
+These are standard sockets used by applications to communicate over networks.
+
+1. Stream Socket (TCP)
+- Provides reliable, connection-oriented communication.
+- Ensures data arrives in order and without duplication.
+- Ideal for applications like web browsers, email clients, and file transfers.
+
+2. Datagram Socket (UDP)
+- Offers connectionless, unreliable communication.
+- Faster and lightweight, but no guarantee of delivery or order.
+- Commonly used in DNS queries, VoIP, and online gaming.
+
+Kernel Space Sockets:
+These operate at a lower level, giving direct access to network protocols.
+
+3. RAW Socket
+- Allows direct sending and receiving of IP packets without transport layer formatting.
+- Used for custom protocol implementation, packet crafting, and network diagnostics.
+- Requires elevated privileges due to potential security risks.
+-----------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------
+# Types of Sniffing Synopsis
+----------------------------------------------------------------------
+
+1. Passive Sniffing
+- Monitors network traffic without altering or injecting data.
+- Typically used on networks with hubs or in promiscuous mode on switches.
+- Undetectable by users or systems; ideal for stealthy surveillance.
+- Common in packet capture tools like Wireshark and TCPdump.
+
+2. Active Sniffing
+- Involves injecting traffic or manipulating network behavior to capture data.
+- Used on switched networks where passive sniffing is limited.
+- Techniques include ARP spoofing, MAC flooding, and DNS poisoning.
+- More detectable and potentially disruptive; often used in penetration testing.
+------------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------
+# Popular Software Packet Capture Programs Synopsis (with Capture Type)
+----------------------------------------------------------------------
+
+1. TCPdump
+- Command-line packet analyzer for Unix-like systems.
+- Lightweight and efficient; uses BPF for filtering.
+- Ideal for quick diagnostics and scripting.
+- 🟢 Passive Capture
+
+2. Wireshark
+- Graphical protocol analyzer with deep inspection capabilities.
+- Supports live capture and offline analysis.
+- Extensible via plugins and scripting.
+- 🟢 Passive Capture
+
+3. TShark
+- Terminal-based version of Wireshark.
+- Offers similar functionality with CLI flexibility.
+- Useful for automation and remote analysis.
+- 🟢 Passive Capture
+
+4. p0f
+- Passive OS fingerprinting tool.
+- Identifies operating systems without active probing.
+- Useful for stealthy reconnaissance.
+- 🟢 Passive Capture
+
+5. NetworkMiner
+- Windows-based forensic tool for packet analysis.
+- Extracts files, credentials, and metadata from PCAPs.
+- Focused on post-capture investigation.
+- 🟢 Passive Capture
+
+6. NetMiner
+- Network analysis and visualization tool.
+- Often used for social network analysis and data mining.
+- Not strictly a packet sniffer, but useful in traffic pattern analysis.
+- 🟢 Passive Capture (when used with PCAPs)
+
+7. SolarWinds
+- Commercial suite for network performance monitoring.
+- Includes packet analysis and deep traffic inspection.
+- Enterprise-grade with dashboard and alerting features.
+- 🟢 Passive Capture (primarily)
+
+8. BetterCap
+- Powerful network attack and monitoring framework.
+- Supports MITM, sniffing, spoofing, and protocol manipulation.
+- Popular in penetration testing and red team operations.
+- 🔴 Active & 🟢 Passive Capture
+
+9. EtterCap
+- Comprehensive suite for MITM attacks on LAN.
+- Supports active and passive sniffing.
+- Includes plugins for protocol dissection and traffic injection.
+- 🔴 Active & 🟢 Passive Capture
+------------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------
+# TCPdump Syntax & Options Synopsis
+----------------------------------------------------------------------
+
+Primitive Qualifiers:
+Used to define what kind of traffic to capture.
+
+1. Type Qualifiers
+- Specify the kind of identifier being used.
+- Examples: host, net, port, portrange
+
+2. Direction Qualifiers
+- Define traffic direction.
+- Examples: src (source), dst (destination)
+
+3. Protocol Qualifiers
+- Restrict capture to specific protocols.
+- Examples: ether, arp, ip, ip6, icmp, tcp, udp
+
+----------------------------------------------------------------------
+
+Basic TCPdump Options:
+Used to control output format and capture behavior.
+
+- -A : Print packet payload in ASCII
+- -D : List available interfaces
+- -i : Specify capture interface
+- -e : Print data-link layer headers
+- -X / -XX : Print payload in HEX and ASCII
+- -w : Write captured packets to a .pcap file
+- -r : Read packets from a .pcap file
+- -v / -vv / -vvv : Increase verbosity level
+- -n : Disable DNS and service name resolution
+
+----------------------------------------------------------------------
+
+Logical Operators:
+Used to combine or modify filter expressions.
+
+- and (&&) : Concatenation
+- or (||) : Alteration
+- not (!) : Negation
+
+----------------------------------------------------------------------
+
+Relational Operators:
+Used for advanced filtering and comparisons.
+
+- <, <=, >, >=, =, ==, !=
+
+----------------------------------------------------------------------
+
+Advanced Option: -d
+- Dumps compiled packet-matching code in human-readable form.
+
+Example:
+```bash
+tcpdump "ether[12:2] = 0x800" -d
+------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
 
