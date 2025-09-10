@@ -1,0 +1,143 @@
+[Question 1] Title: Basic Analysis - ttl
+
+Prompt:  
+What is the Berkeley Packet Filter, using tcpdump, to capture all packets with a TTL of 64 and less, utilizing the IPv4 or IPv6 Headers? There should be 8508 packets.
+
+Instructions:  
+- Enter the Filter syntax with no spaces.  
+- CTFD will only accept BPF filters, &&, and || as answers with no spaces.  
+- CTFD will not accept TCPdump Primitives as answers.  
+- Keep your values in all the same format. HEX or Decimal. Do not mix.
+
+Answer:  
+ip[8]<=64||ip6[7]<=64
+-----------------------------------------------------------------------------------------------------------------------------------------
+[Question 2] Title: Basic Analysis - DF Bit Set
+
+Prompt:  
+What is the Berkeley Packet Filter, using tcpdump, to capture all IPv4 packets with at least the Dont Fragment bit set? There should be 2321 packets.
+
+Instructions:  
+- Enter the Filter syntax with no spaces.  
+- CTFD will only accept BPF filters, &&, and || as answers with no spaces.  
+- CTFD will not accept TCPdump Primitives as answers.  
+- Keep your values in all the same format. HEX or Decimal. Do not mix.
+
+Answer:  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+[Question 3] Title: Basic Analysis - Source Port > 1024
+
+Prompt:  
+What is the Berkeley Packet Filter, using tcpdump, to capture traffic with a Source Port higher than 1024, utilizing the correct Transport Layer Headers? There should be 7805 packets.
+
+Instructions:  
+- Enter the Filter syntax with no spaces.  
+- CTFD will only accept BPF filters, &&, and || as answers with no spaces.  
+- CTFD will not accept TCPdump Primitives as answers.  
+- Keep your values in all the same format. HEX or Decimal. Do not mix.
+
+Answer:  
+tcp[0:2]>1024||udp[0:2]>1024
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+[Question 4] Title: What is the Berkeley Packet Filter, using tcpdump, to capture all Packets with UDP protocol being set, utilizing the IPv4 or IPv6 Headers? There should be 1277 packets.
+
+Instructions:  
+- Enter the Filter syntax with no spaces.  
+- CTFD will only accept BPF filters, &&, and || as answers with no spaces.  
+- CTFD will not accept TCPdump Primitives as answers.  
+- Keep your values in all the same format. HEX or Decimal. Do not mix.
+
+Answer:  
+ip[9]=17||ip6[6]=17
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+[Question 5] Title: What is the Berkeley Packet Filter, using tcpdump, to capture only packets with the ACK/RST or ACK/FIN flag set, utilizing the correct Transport Layer Header? There should be 1201 packets.
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+Instructions:  
+- Enter the Filter syntax with no spaces.  
+- CTFD will only accept BPF filters, &&, and || as answers with no spaces.  
+- CTFD will not accept TCPdump Primitives as answers.  
+- Keep your values in all the same format. HEX or Decimal. Do not mix.
+
+Answer:  
+tcp[13]=20||tcp[13]=17
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+[Question 6] Title: What is the Berkeley Packet Filter, using tcpdump, to capture all packets with an IP ID field of 213? There should be 10 packets.
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+Instructions:  
+- Enter the Filter syntax with no spaces.  
+- CTFD will only accept BPF filters, &&, and || as answers with no spaces.  
+- CTFD will not accept TCPdump Primitives as answers.  
+- Keep your values in all the same format. HEX or Decimal. Do not mix.
+
+Answer:  
+ip[4:2]=213||ip[0]=0
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+[Question 7] Title: What is the Berkeley Packet Filter, using tcpdump, to capture all traffic that contains a VLAN tag? There should be 182 packets.
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+Instructions:  
+- Enter the Filter syntax with no spaces.  
+- CTFD will only accept BPF filters, &&, and || as answers with no spaces.  
+- CTFD will not accept TCPdump Primitives as answers.  
+- Keep your values in all the same format. HEX or Decimal. Do not mix.
+
+Answer:  
+ether[12:2]=33024
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+[Question 8] Title: What is the Berkeley Packet Filter, using tcpdump, to capture all IPv4 packets with the DSCP field of 37? There should be 42 packets.
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+Instructions:  
+- Enter the Filter syntax with no spaces.  
+- CTFD will only accept BPF filters, &&, and || as answers with no spaces.  
+- CTFD will not accept TCPdump Primitives as answers.  
+- Keep your values in all the same format. HEX or Decimal. Do not mix.
+
+Answer:  variation 
+pending correct synthax for ctf
+ip[1]=148||ip[0]=0
+ip[1]=148||ip[1]=148
+ip[1]&0xfc=148||ip[0]=0
+(ip[1]&0xfc)==148||ip[0]=0
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
