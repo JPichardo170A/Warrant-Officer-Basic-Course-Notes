@@ -23,7 +23,7 @@ Instructions:
 - CTFD will not accept TCPdump Primitives as answers.  
 - Keep your values in all the same format. HEX or Decimal. Do not mix.
 
-Answer:  
+Answer:  ip[6]&64==64
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 [Question 3] Title: Basic Analysis - Source Port > 1024
@@ -101,14 +101,183 @@ Instructions:
 - CTFD will not accept TCPdump Primitives as answers.  
 - Keep your values in all the same format. HEX or Decimal. Do not mix.
 
-Answer:  variation 
+Answer:  variation
+
 pending correct synthax for ctf
+
 ip[1]=148||ip[0]=0
 ip[1]=148||ip[1]=148
 ip[1]&0xfc=148||ip[0]=0
 (ip[1]&0xfc)==148||ip[0]=0
 -----------------------------------------------------------------------------------------------------------------------------------------
+[Question 9] Title: What is the Berkeley Packet Filter, using tcpdump, to capture all IPv4 packets targeting just the beginning of potential traceroutes as it's entering your network. This can be from a Windows or Linux machine using their default settings. There should be 83 packets.
+-----------------------------------------------------------------------------------------------------------------------------------------
 
+Instructions:  
+- Enter the Filter syntax with no spaces.  
+- CTFD will only accept BPF filters, &&, and || as answers with no spaces.  
+- CTFD will not accept TCPdump Primitives as answers.  
+- Keep your values in all the same format. HEX or Decimal. Do not mix.
+
+Answer:  ip[8]=1&&(ip[9]=1||ip[9]=17)
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+[Question 10] Title: What is the Berkeley Packet Filter, using tcpdump, to capture all DNS packets? There should be 63 packets.
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+Instructions:  
+- Enter the Filter syntax with no spaces.  
+- CTFD will only accept BPF filters, &&, and || as answers with no spaces.  
+- CTFD will not accept TCPdump Primitives as answers.  
+- Keep your values in all the same format. HEX or Decimal. Do not mix.
+
+Answer:  ip[9]=17||ip[9]=6&&ip[20:2]=53||ip[22:2]=53 still not correct
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+[Question 11] Title: What is the Berkeley Packet Filter, using tcpdump, to capture the initial packets from a client trying to initiate a TCP connection? There should be 3447 packets.
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+Instructions:  
+- Enter the Filter syntax with no spaces.  
+- CTFD will only accept BPF filters, &&, and || as answers with no spaces.  
+- CTFD will not accept TCPdump Primitives as answers.  
+- Keep your values in all the same format. HEX or Decimal. Do not mix.
+
+Answer:  tcp[13]=2
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+[Question 12] Title: What is the Berkeley Packet Filter, using tcpdump, to capture the response packets from a server listening on an open TCP ports? There should be 277 packets.
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+Instructions:  
+- Enter the Filter syntax with no spaces.  
+- CTFD will only accept BPF filters, &&, and || as answers with no spaces.  
+- CTFD will not accept TCPdump Primitives as answers.  
+- Keep your values in all the same format. HEX or Decimal. Do not mix.
+
+Answer:  tcp[13]=18
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+[Question 13] Title: What is the Berkeley Packet Filter, using tcpdump, to capture the response packets from a server with closed TCP ports? There should be 17 packets.
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+Instructions:  
+- Enter the Filter syntax with no spaces.  
+- CTFD will only accept BPF filters, &&, and || as answers with no spaces.  
+- CTFD will not accept TCPdump Primitives as answers.  
+- Keep your values in all the same format. HEX or Decimal. Do not mix.
+
+Answer:  tcp[13]=4
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+[Question 14] Title: What is the Berkeley Packet Filter, using tcpdump, to capture all TCP and UDP packets sent to the well known ports? There should be 3678 packets.
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+Instructions:  
+- Enter the Filter syntax with no spaces.  
+- CTFD will only accept BPF filters, &&, and || as answers with no spaces.  
+- CTFD will not accept TCPdump Primitives as answers.  
+- Keep your values in all the same format. HEX or Decimal. Do not mix.
+
+Answer:  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+[Question 15] Title: What is the Berkeley Packet Filter, using tcpdump, to capture all HTTP traffic? There should be 1404 packets.
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+Instructions:  
+- Enter the Filter syntax with no spaces.  
+- CTFD will only accept BPF filters, &&, and || as answers with no spaces.  
+- CTFD will not accept TCPdump Primitives as answers.  
+- Keep your values in all the same format. HEX or Decimal. Do not mix.
+
+Answer: tcp[0:2]=80||tcp[2:2]=80  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+[Question 16] Title: What is the Berkeley Packet Filter, using tcpdump, to capture all telnet traffic? There should be 62 packets.
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+Instructions:  
+- Enter the Filter syntax with no spaces.  
+- CTFD will only accept BPF filters, &&, and || as answers with no spaces.  
+- CTFD will not accept TCPdump Primitives as answers.  
+- Keep your values in all the same format. HEX or Decimal. Do not mix.
+
+Answer:  tcp[0:2]=23||tcp[2:2]=23
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+[Question 17] Title: What is the Berkeley Packet Filter, using tcpdump, to capture all ARP traffic in the most efficient manner? There should be 40 packets.
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+Instructions:  
+- Enter the Filter syntax with no spaces.  
+- CTFD will only accept BPF filters, &&, and || as answers with no spaces.  
+- CTFD will not accept TCPdump Primitives as answers.  
+- Keep your values in all the same format. HEX or Decimal. Do not mix.
+
+Answer:  ether[12:2]=0x0806
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+[Question 18] Title: What is the Berkeley Packet Filter, using tcpdump, to capture an attacker using vlan hopping to move from vlan 1 to vlan 10? There should be 15 packets.
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+Instructions:  
+- Enter the Filter syntax with no spaces.  
+- CTFD will only accept BPF filters, &&, and || as answers with no spaces.  
+- CTFD will not accept TCPdump Primitives as answers.  
+- Keep your values in all the same format. HEX or Decimal. Do not mix.
+
+Answer:  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+[Question 19] Title: What is the Berkeley Packet Filter, using tcpdump, to capture all packets that have the "Evil bit" set? There should be 197 packets.
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+Instructions:  
+- Enter the Filter syntax with no spaces.  
+- CTFD will only accept BPF filters, &&, and || as answers with no spaces.  
+- CTFD will not accept TCPdump Primitives as answers.  
+- Keep your values in all the same format. HEX or Decimal. Do not mix.
+
+Answer:  ip[6]&0x80=0x80
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+[Question 20] Title: What is the Berkeley Packet Filter, using tcpdump, to capture all packets where the URG flag is not set and URG pointer has a value? There should be 43 packets.
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+Instructions:  
+- Enter the Filter syntax with no spaces.  
+- CTFD will only accept BPF filters, &&, and || as answers with no spaces.  
+- CTFD will not accept TCPdump Primitives as answers.  
+- Keep your values in all the same format. HEX or Decimal. Do not mix.
+
+Answer:  tcp[13]&0x20=0&&tcp[18:2]!=0
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+[Question 21] Title: What is the Berkeley Packet Filter, using tcpdump, to capture a TCP null scan to the host 10.10.10.10? There should be 19 packets.
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+Instructions:  
+- Enter the Filter syntax with no spaces.  
+- CTFD will only accept BPF filters, &&, and || as answers with no spaces.  
+- CTFD will not accept TCPdump Primitives as answers.  
+- Keep your values in all the same format. HEX or Decimal. Do not mix.
+
+Answer:  tcp[13]=0&&ip[16:4]=0x0a0a0a0a
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+[Question 22] Title: What is the Berkeley Packet Filter, using tcpdump, to capture any packets containing the CHAOS protocol within an IPv4 header? There should be 139 packets.
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+Instructions:  
+- Enter the Filter syntax with no spaces.  
+- CTFD will only accept BPF filters, &&, and || as answers with no spaces.  
+- CTFD will not accept TCPdump Primitives as answers.  
+- Keep your values in all the same format. HEX or Decimal. Do not mix.
+
+Answer:  ip[9]=16
+
+-----------------------------------------------------------------------------------------------------------------------------------------
 
 
 
