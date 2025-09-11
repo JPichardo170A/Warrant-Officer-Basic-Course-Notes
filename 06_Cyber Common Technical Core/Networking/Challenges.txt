@@ -27,8 +27,8 @@ Headers  -| Networking - 1 - Fundamentals - Task 1 - Frame and Packet Headers
 -----------------------------------------------------------------------------------------------------------------------------------------
                                     Title: Networking - 1 - Fundamentals - Task 3 - Basic Analysis
 -----------------------------------------------------------------------------------------------------------------------------------------
-
 [Question 1] Title: Basic Analysis - ttl
+-----------------------------------------------------------------------------------------------------------------------------------------
 
 Prompt:  
 What is the Berkeley Packet Filter, using tcpdump, to capture all packets with a TTL of 64 and less, utilizing the IPv4 or IPv6 Headers? There should be 8508 packets.
@@ -44,6 +44,7 @@ ip[8]<=64||ip6[7]<=64
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 [Question 2] Title: Basic Analysis - DF Bit Set
+-----------------------------------------------------------------------------------------------------------------------------------------
 
 Prompt:  
 What is the Berkeley Packet Filter, using tcpdump, to capture all IPv4 packets with at least the Dont Fragment bit set? There should be 2321 packets.
@@ -58,6 +59,7 @@ Answer:  ip[6]&64==64
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 [Question 3] Title: Basic Analysis - Source Port > 1024
+-----------------------------------------------------------------------------------------------------------------------------------------
 
 Prompt:  
 What is the Berkeley Packet Filter, using tcpdump, to capture traffic with a Source Port higher than 1024, utilizing the correct Transport Layer Headers? There should be 7805 packets.
@@ -73,6 +75,7 @@ tcp[0:2]>1024||udp[0:2]>1024
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 [Question 4] Title: What is the Berkeley Packet Filter, using tcpdump, to capture all Packets with UDP protocol being set, utilizing the IPv4 or IPv6 Headers? There should be 1277 packets.
+-----------------------------------------------------------------------------------------------------------------------------------------
 
 Instructions:  
 - Enter the Filter syntax with no spaces.  
