@@ -78,12 +78,31 @@ Crew Lead, 169th Cyber Protection Team
 
 **Stay sharp. Stay curious. Lead with purpose.**
 
-https://os.cybbh.io/public/os/latest/004_windows_registry/reg_fg.html
+# 📚 Reference Links – WOBC (CBTC) Modules
 
-https://cted.cybbh.io/tech-college/cttsb/cctc/net/Net/
+## WOBC Course Portal
+- [CBTC Student Guide Portal](https://cted.cybbh.io/tech-college/cbtc/public/cbtc/latest/index.html)
 
-https://dash.ent1.pcte.mil/app/app
+---
 
-https://miro.com/app/board/o9J_klSqCSY=/?share_link_id=16133753693
+# 🧠 Reference Links – CCTC Modules & Access
 
-https://gchq.github.io/CyberChef/
+## Operating Systems Module
+- [OS Module Public Index](https://os.cybbh.io/public/os/latest/index.html)
+- [CCTC OS Curriculum Portal](https://cted.cybbh.io/tech-college/cttsb/cctc/os/os/index.html)
+
+## Networking Module
+- [CCTC Networking Curriculum Portal](https://cted.cybbh.io/tech-college/cttsb/cctc/net/Net/)
+
+## Security Module
+- [CCTC Security Module – Building Op Stations](https://sec-cted-tech-college-cttsb-cctc-sec-12e0e75a1babbeec38083447b9.cybbh.io/#building-op-stations)
+- [CCTC Security Module Main Portal](https://sec-cted-tech-college-cttsb-cctc-sec-12e0e75a1babbeec38083447b9.cybbh.io/)
+
+---
+
+# 🛠️ Tools & Platforms
+
+- [PCTE Dashboard](https://dash.ent1.pcte.mil/app/app)
+- [Miro Networking Board](https://miro.com/app/board/o9J_klSqCSY=/?share_link_id=16133753693)
+- [CyberChef – Data Analysis & Encoding Tool](https://gchq.github.io/CyberChef/)
+
