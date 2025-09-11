@@ -123,7 +123,8 @@ Answer:
 ether[12:2]=33024
 
 -----------------------------------------------------------------------------------------------------------------------------------------
-[Question 8] Title: What is the Berkeley Packet Filter, using tcpdump, to capture all IPv4 packets with the DSCP field of 37? There should be 42 packets.
+[Question 8] Title: What is the Berkeley Packet Filter, using tcpdump, to capture all IPv4 packets with the DSCP field of 37? 
+There should be 42 packets.
 -----------------------------------------------------------------------------------------------------------------------------------------
 
 Instructions:  
@@ -162,7 +163,7 @@ Instructions:
 - CTFD will not accept TCPdump Primitives as answers.  
 - Keep your values in all the same format. HEX or Decimal. Do not mix.
 
-Answer:  ip[9]=17||ip[9]=6&&ip[20:2]=53||ip[22:2]=53 still not correct
+Answer:  
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 [Question 11] Title: What is the Berkeley Packet Filter, using tcpdump, to capture the initial packets from a client trying to initiate a TCP connection? There should be 3447 packets.
