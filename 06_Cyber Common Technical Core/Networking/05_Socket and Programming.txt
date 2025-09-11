@@ -283,6 +283,87 @@ Demo     -|
           |         s.sendto(b"Message received by the UDP Message Server!", addr)
 
 -----------------------------------------------------------------------------------------------------------------------------------------
+                                                      Title: Encoding vs Encryption
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Encoding – Converts data into a different format for compatibility or transmission.  
+Compare  -| Purpose:  
+          |     - Makes data readable by different systems  
+          |     - Not designed for confidentiality  
+          | Common Types:  
+          |     - Base64  
+          |     - ASCII  
+          |     - UTF-8 / UTF-16 / Unicode  
+          |     - URL encoding  
+          |  
+          | Encryption – Scrambles data to make it unreadable without a secret key.  
+          | Purpose:  
+          |     - Protects data from unauthorized access  
+          |     - Requires decryption key to restore original data  
+          | Common Algorithms:  
+          |     - AES (Advanced Encryption Standard)  
+          |     - RSA (Rivest–Shamir–Adleman)  
+          |     - Blowfish  
+          |     - ChaCha20  
+          |  
+          | Key Differences:  
+          |     - Encoding is reversible without a key  
+          |     - Encryption is reversible only with the correct key  
+          |     - Encoding ensures data integrity across systems  
+          |     - Encryption ensures data confidentiality  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                                      Title: Hex Encoding and Decoding
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Encode text to Hex (CLI):  
+Hex      -|     echo "Message" | xxd -p  
+          |     # Outputs: 4d657373616765  
+
+          | Encode file to Hex (CLI):  
+          |     xxd file.txt file-encoded.txt  
+          |     # Converts file.txt to hex and saves as file-encoded.txt  
+
+          | Decode file from Hex (CLI):  
+          |     xxd -r file-encoded.txt file-decoded.txt  
+          |     # Reverses hex back to original file  
+
+          | Python Hex Encoding:  
+          |     import binascii  
+          |     message = b'Message'  
+          |     hidden_msg = binascii.hexlify(message)  
+          |     new_msg = binascii.unhexlify(hidden_msg)  
+          |     print(new_msg.decode('utf-8'))  
+          |     # Encodes and decodes using hex in Python
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                                      Title: Base64 Encoding and Decoding
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Encode text to Base64 (CLI):  
+Base64   -|     echo "Message" | base64  
+          |     # Outputs: TWVzc2FnZQo=  
+
+          | Encode file to Base64 (CLI):  
+          |     base64 file.txt > file-encoded.txt  
+          |     # Encodes file.txt and saves as file-encoded.txt  
+
+          | Decode file from Base64 (CLI):  
+          |     base64 -d file-encoded.txt > file-decoded.txt  
+          |     # Decodes base64 back to original file  
+
+          | Python Base64 Encoding:  
+          |     import base64  
+          |     message = b'Message'  
+          |     hidden_msg = base64.b64encode(message)  
+          |     new_msg = base64.b64decode(hidden_msg)  
+          |     print(new_msg.decode('utf-8'))  
+          |     # Encodes and decodes using base64 in Python
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 
 
 
