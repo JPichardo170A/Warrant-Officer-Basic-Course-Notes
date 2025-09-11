@@ -19,11 +19,11 @@ The primary goal of this notebook is to:
 
 The repository is organized into the following sections:
 
-- `Lessons/`: Detailed breakdowns of each module or topic covered
-- `Reflections/`: Personal insights and leadership takeaways
-- `Resources/`: External references, manuals, and supplemental materials
-- `Assignments/`: Completed tasks, projects, and assessments
-- `Tools/`: Useful software, templates, and utilities for WOBC success
+- `Lessons/`: Detailed breakdowns of each module or topic covered  
+- `Reflections/`: Personal insights and leadership takeaways  
+- `Resources/`: External references, manuals, and supplemental materials  
+- `Assignments/`: Completed tasks, projects, and assessments  
+- `Tools/`: Useful software, templates, and utilities for WOBC success  
 
 ---
 
@@ -31,13 +31,13 @@ The repository is organized into the following sections:
 
 This notebook draws from a variety of official and supplemental sources, including but not limited to:
 
-- **Army Doctrine Publications (ADPs)**
-- **Army Techniques Publications (ATPs)**
-- **Field Manuals (FMs)**
-- **WOBC Course Materials**
-- **Leadership Development Guides**
-- **Peer and Instructor Insights**
-- **Online Military Forums and Knowledge Bases**
+- **Army Doctrine Publications (ADPs)**  
+- **Army Techniques Publications (ATPs)**  
+- **Field Manuals (FMs)**  
+- **WOBC Course Materials**  
+- **Leadership Development Guides**  
+- **Peer and Instructor Insights**  
+- **Online Military Forums and Knowledge Bases**  
 
 All referenced materials are cited appropriately within each section, and links to publicly available resources are provided where possible.
 
@@ -53,16 +53,46 @@ Whether you're a fellow Warrant Officer candidate, a mentor, or simply curious a
 
 This repository will continue to grow as I progress through the course. Planned updates include:
 
-- Annotated diagrams and visual aids
-- Leadership case studies
-- Integration of feedback from instructors and peers
-- Post-course reflections and career planning notes
+- Annotated diagrams and visual aids  
+- Leadership case studies  
+- Integration of feedback from instructors and peers  
+- Post-course reflections and career planning notes  
 
 ---
 
 ## 🤝 Contributions
 
 While this is a personal learning repository, I welcome constructive feedback, additional resources, or shared experiences from others who have gone through WOBC or similar training.
+
+---
+
+# 📚 Reference Links – WOBC (CBTC) Modules
+
+## WOBC Course Portal
+- [CBTC Student Guide Portal](https://cted.cybbh.io/tech-college/cbtc/public/cbtc/latest/index.html)
+
+---
+
+# 🧠 Reference Links – CCTC Modules & Access
+
+## Operating Systems Module
+- [OS Module Public Index](https://os.cybbh.io/public/os/latest/index.html)  
+- [CCTC OS Curriculum Portal](https://cted.cybbh.io/tech-college/cttsb/cctc/os/os/index.html)
+
+## Networking Module
+- [CCTC Networking Curriculum Portal](https://cted.cybbh.io/tech-college/cttsb/cctc/net/Net/)
+
+## Security Module
+- [CCTC Security Module – Building Op Stations](https://sec-cted-tech-college-cttsb-cctc-sec-12e0e75a1babbeec38083447b9.cybbh.io/#building-op-stations)  
+- [CCTC Security Module Main Portal](https://sec-cted-tech-college-cttsb-cctc-sec-12e0e75a1babbeec38083447b9.cybbh.io/)
+
+---
+
+# 🛠️ Tools & Platforms
+
+- [PCTE Dashboard](https://dash.ent1.pcte.mil/app/app)  
+- [Miro Networking Board](https://miro.com/app/board/o9J_klSqCSY=/?share_link_id=16)  
+- [CyberChef – Data Analysis & Encoding Tool](https://gchq.github.io/CyberChef/)
 
 ---
 
@@ -77,32 +107,3 @@ Crew Lead, 169th Cyber Protection Team
 ---
 
 **Stay sharp. Stay curious. Lead with purpose.**
-
-# 📚 Reference Links – WOBC (CBTC) Modules
-
-## WOBC Course Portal
-- [CBTC Student Guide Portal](https://cted.cybbh.io/tech-college/cbtc/public/cbtc/latest/index.html)
-
----
-
-# 🧠 Reference Links – CCTC Modules & Access
-
-## Operating Systems Module
-- [OS Module Public Index](https://os.cybbh.io/public/os/latest/index.html)
-- [CCTC OS Curriculum Portal](https://cted.cybbh.io/tech-college/cttsb/cctc/os/os/index.html)
-
-## Networking Module
-- [CCTC Networking Curriculum Portal](https://cted.cybbh.io/tech-college/cttsb/cctc/net/Net/)
-
-## Security Module
-- [CCTC Security Module – Building Op Stations](https://sec-cted-tech-college-cttsb-cctc-sec-12e0e75a1babbeec38083447b9.cybbh.io/#building-op-stations)
-- [CCTC Security Module Main Portal](https://sec-cted-tech-college-cttsb-cctc-sec-12e0e75a1babbeec38083447b9.cybbh.io/)
-
----
-
-# 🛠️ Tools & Platforms
-
-- [PCTE Dashboard](https://dash.ent1.pcte.mil/app/app)
-- [Miro Networking Board](https://miro.com/app/board/o9J_klSqCSY=/?share_link_id=16133753693)
-- [CyberChef – Data Analysis & Encoding Tool](https://gchq.github.io/CyberChef/)
-
