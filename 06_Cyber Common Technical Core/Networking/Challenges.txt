@@ -652,7 +652,844 @@ Answer: 38c18da58b334968b518141a1e4b51dc
 -----------------------------------------------------------------------------------------------------------------------------------------
                                               Title: Networking - 3 - Network Reconnaissance
 -----------------------------------------------------------------------------------------------------------------------------------------
+| CTF Challenge – Red Network Recon Access Instructions  
+CTF Access| Entry Float IP: `10.50.189.76`  
+          | Network Number: `N` (Provided by Instructor)  
+          | Student Number: `10`  
+          | Credentials Format:  
+          |     Username: `net{N}_student10`  
+          |     Password: `10`  
+          | SSH Command (with X11 forwarding):  
+          |     `ssh -X net7_student10@10.50.189.76`  
+          | Notes:  
+          |     - Replace `{N}` with your assigned network number.  
+          |     - Use `-X` to enable graphical applications from the remote system.  
+          |     - Recommended: Use **Terminator** or multi-tab terminal to manage sessions efficiently.  
+          |     - Check the CTF server for updated mission tasks and intel drops.
 
+          | Reminder:  
+          |     - Always verify your assigned network number with your instructor.  
+          |     - Credentials are unique to each student and session.  
+          |     - Maintain operational security when accessing remote environments.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Operation Name: Donovian Mapping & Reconnaissance (DMR)  
+Mission   | Date: XX OCT 2023  
+Details   | Start Time: 1300  
+          | Duration: 4 hours  
+          | Type of Operation: Scanning & Reconnaissance  
+          | Objective:  
+Objective  |     Aid Gorgas Cyber Forces by collecting and analyzing data from Donovian cyberspace.  
+           |     Build a comprehensive network map including:  
+           |         - Device type  
+           |         - Hostname  
+           |         - Interface type  
+           |         - Interface IP  
+           |         - Subnet Mask CIDR  
+           |         - Autonomous system number  
+           |         - Routing protocol  
+           |         - IP network and network name groupings  
+           |         - Open ports  
+           |         - Operating system type and versions
+           | Gathered Intelligence:  
+Credentials|     - netX_studentX:passwordX  
+           |     - vyos:password  
+
+Tools      | Recommended Techniques:  
+           |     - `dig` – DNS reconnaissance  
+           |     - `nmap` – Port and service scanning  
+           |     - `nc` – Banner grabbing and port probing  
+           |     - `/dev/tcp` – Lightweight scanning and banner grabbing  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Section: Scenario Instructions – Start Flag Discovery
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Scenario Credentials:  
+Start Flag|     - Perform DNS reconnaissance on the CTFd server.  
+           |     - Locate the encoded string in a DNS TXT record.  
+           |     - Decode the string (e.g., Base64) to retrieve the start flag.  
+           |     - Submit decoded flag to begin challenge sequence.
+           | Access Flow:  
+Maneuver   |     > INTERNET_HOST  
+           |         → Red-Internet_Host: DONOVIAN Compromised Pivot  
+           |             → Red Boundary Router: DONOVIAN CYBERSPACE  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Section: Target Hosts – Reconnaissance Assignments
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | DONOVIAN Compromised Pivot  
+Pivot      |     - Hostname: `red-internet-host`  
+           |     - IP: Provided in Notification  
+           |     - Ports: 22  
+           |     - Action: SSH to pivot using X11 Forwarding  
+           |     - Example: `ssh -X netX_studentX:passwordX@Pivot-IP`  
+           |     - Run `terminator` from remote CLI to open new terminal  
+
+          | T1 – DNS Recon  
+Target T1  |     - Hostname: `networking-ctfd-2.server.vta`  
+           |     - Record Type: TXT  
+           |     - IP: UNKNOWN  
+           |     - Ports: 53  
+           |     - Action: Interrogate DNS records  
+
+          | Red Boundary Router  
+Router     |     - Hostname: RED-SCR  
+           |     - IP: `172.16.120.1`  
+           |     - Ports: 22  
+           |     - Username: `vyos`  
+           |     - Password: `password`  
+           |     - Action: Use as start point for passive/active reconnaissance  
+
+          | T2  
+Target T2  |     - Hostname: UNKNOWN  
+           |     - IP: `172.16.182.110`  
+           |     - Action: Perform active reconnaissance  
+
+          | T3  
+Target T3  |     - Hostname: UNKNOWN  
+           |     - IP: `172.16.140.33`  
+           |     - Action: Perform active reconnaissance  
+
+          | T4  
+Target T4  |     - Hostname: UNKNOWN  
+           |     - IP: `172.16.182.106`  
+           |     - Action: Perform active reconnaissance  
+
+          | T5  
+Target T5  |     - Hostname: red-host-3  
+           |     - IP: `172.16.182.114`  
+           |     - Action: Perform active reconnaissance  
+
+          | T6  
+Target T6  |     - Hostname:   
+           |     - IP: `172.16.182.118`  
+           |     - Action: Perform active reconnaissance  
+
+          | T7  
+Target T7  |     - Hostname: UNKNOWN  
+           |     - IP: `172.16.140.35`  
+           |     - Action: Perform active reconnaissance  
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | CTF Challenge – Start Flag Discovery  
+Start Flag| Question Prompt:  
+          |     "Enter the DECODED flag hinted in the Mission Prompt."  
+          | Notes:  
+          |     - Questions may appear out of order due to CTFD sorting by point value.  
+          |     - Some questions will unlock additional challenges.  
+          |     - Open-source research may be required for certain answers.
+
+          | Steps Taken:  
+          |     1. Ran `dig` command on the CTF server to query DNS TXT records.  
+          |     2. Retrieved encoded TXT value: `"cmVhZHlfc2V0X3NjYW4="`  
+          |     3. Decoded using Base64 → `ready_set_scan`  
+          |     4. Submitted decoded string as the flag for Question 1.
+
+          | Final Answer:  
+          |     `ready_set_scan`
+
+          | Reminder:  
+          |     - Always verify encoding formats (Base64, Hex, etc.) when working with DNS TXT records.  
+          |     - Keep track of decoded flags for future correlation with mission tasks.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 1 – Donovian Boundary  
+Challenge | Level: 1  
+          | Points: 5  
+          | Prompt:  
+          |     "Utilizing the intelligence already provided in the mission prompt,  
+          |      what is the hostname of the Red Boundary Router?"  
+          |     Format: `student@HOSTNAME` → Submit only the HOSTNAME portion.  
+
+          | Reference Intelligence:  
+          |     - Red Boundary Router IP: `172.16.120.1`  
+          |     - Username: `vyos`  
+          |     - Password: `password`  
+          |     - Access via SSH from red-internet-host  
+
+          | Steps Taken:  
+          |     1. SSH into the compromised pivot host:  
+          |         `ssh -X netX_student10@10.50.189.76`  
+          |     2. From the pivot, SSH into the Red Boundary Router:  
+          |         `ssh vyos@172.16.120.1`  
+          |     3. Entered password when prompted: `password`  
+          |     4. Ran `whoami` to confirm access level → Output: `vyos`  
+          |     5. Observed hostname in shell prompt or via VyOS CLI → Hostname: `RED-SCR`  
+
+          | Verified Answer:  
+          |     `RED-SCR`
+
+          | Notes:  
+          |     - This hostname identifies the Red Boundary Router within Donovian cyberspace.  
+          |     - VyOS CLI will be used in subsequent challenges to extract routing intelligence.  
+          |     - Refer to Section 3 in Student Resources for VyOS command syntax and examples.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 2 – DMZ Discovery  
+Challenge | Level: 1  
+          | Points: 5  
+          | Prompt:  
+          |     "How many host(s) did you discover on the DMZ Net? (excluding the router)"  
+
+          | Steps Taken:  
+          |     1. SSH into pivot host:  
+          |         `ssh -X netX_student10@10.50.189.76`  
+          |     2. SSH into Red Boundary Router:  
+          |         `ssh vyos@172.16.120.1`  
+          |     3. Ran `show interfaces` to identify DMZ interface:  
+          |         - `eth2` → `172.16.101.30/27`  
+          |         - Subnet: `172.16.101.0/27`  
+          |     4. Verified routing with `show ip route`  
+          |     5. Returned to red-internet-host and ran host discovery:  
+          |         `nmap -sn 172.16.101.0/27`  
+          |     6. Identified 1 live host responding to ping sweep  
+          |     7. Excluded router IP (`172.16.101.30`) from final count  
+
+          | Verified Host Count (excluding router):  
+          |     `1` host discovered on the DMZ Net
+
+          | Notes:  
+          |     - DMZ subnet range: `172.16.101.1 – 172.16.101.30`  
+          |     - Use `nmap -sn` for non-invasive host discovery  
+          |     - Host will be documented in future mapping and service enumeration
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 3 – DMZ IP Address  
+Challenge | Level: 1  
+          | Points: 5  
+          | Prompt:  
+          |     "What is the IP address of the host device(s) in the DMZ network?"  
+
+          | Steps Taken:  
+          |     1. Identified DMZ subnet via VyOS CLI on Red Boundary Router:  
+          |         - Interface: `eth2`  
+          |         - Subnet: `172.16.101.0/27`  
+          |     2. Returned to red-internet-host and ran host discovery:  
+          |         `nmap -sn 172.16.101.0/27`  
+          |     3. Verified live host response from:  
+          |         `172.16.101.2`  
+          |     4. Confirmed this IP is not the router (`172.16.101.30`)  
+
+          | Verified Answer:  
+          |     `172.16.101.2`
+
+          | Notes:  
+          |     - Only one host was discovered in the DMZ network.  
+          |     - This IP will be used in future service enumeration and mapping tasks.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 4 – DMZ Well Known Ports  
+Challenge | Level: 1  
+          | Points: 5  
+          | Prompt:  
+          |     "How many well-known open TCP ports did you discover on the device(s)?"  
+
+          | Steps Taken:  
+          |     1. Identified DMZ host IP: `172.16.101.2`  
+          |     2. Ran Nmap TCP scan from red-internet-host:  
+          |         `nmap -p 1-1023 172.16.101.2`  
+          |     3. Observed open ports in the well-known range (1–1023)  
+          |     4. Verified only one open TCP port was detected  
+
+          | ✅ Final Answer:  
+          |     **1** well-known TCP port discovered
+
+          | Notes:  
+          |     - Well-known ports range: `1–1023`  
+          |     - Use `nmap -p 1-1023` for targeted scan  
+          |     - Port and service will be documented in future enumeration steps
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 5 – DMZ Port Number(s)  
+Challenge | Level: 1  
+          | Points: 5  
+          | Prompt:  
+          |     "What well-known TCP port(s) are open on the system(s)?"  
+
+          | Steps Taken:  
+          |     1. Identified DMZ host IP: `172.16.101.2`  
+          |     2. Ran targeted Nmap scan from red-internet-host:  
+          |         `nmap -p 1-1023 172.16.101.2`  
+          |     3. Observed open TCP port(s) in the well-known range  
+          |     4. Verified service response and confirmed port status  
+
+          | ✅ Final Answer:  
+          |     **Port 22** (SSH)
+
+          | Notes:  
+          |     - Port 22 is a well-known TCP port used for Secure Shell (SSH) access  
+          |     - This port will be used for future service enumeration and credential testing  
+          |     - No other well-known ports were detected during the scan
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 6 – DMZ Hostname  
+Challenge | Level: 1  
+          | Points: 5  
+          | Prompt:  
+          |     "What is the Hostname of the system(s)?  
+          |      example: student@HOSTNAME  
+          |      Copy only the part of the name where HOSTNAME is at."  
+
+          | Steps Taken:  
+          |     1. Identified DMZ host IP: `172.16.101.2` via ARP table on `RED-SCR`  
+          |     2. Attempted SSH access from `red-internet-host` using student account:  
+          |         `ssh -X net7_student10@172.16.101.2`  
+          |     3. Successfully authenticated and accessed the DMZ host  
+          |     4. Ran `hostname` command from inside the host  
+          |     5. Output confirmed hostname: `red-dmz-host-1`  
+
+          | ✅ Final Answer:  
+          |     **red-dmz-host-1**
+
+          | Notes:  
+          |     - Hostname was not discoverable via banner grabbing or reverse DNS  
+          |     - Direct SSH access was required to retrieve hostname  
+          |     - This host is part of the DMZ segment and will be used for further enumeration  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 7 – Donovian Man in the Middle  
+Challenge | Level: 1  
+          | Points: 5  
+          | Prompt:  
+          |     "What is the hostname of the device directly connected to the Donovian boundary out their eth1?  
+          |      example: student@HOSTNAME  
+          |      Copy only the name where HOSTNAME is at."  
+
+          | Steps Taken:  
+          |     1. SSH’d into Donovian boundary router (`RED-SCR`) at `172.16.120.1`  
+          |     2. Ran `show arp` to identify active host on `eth1`  
+          |     3. Found IP `172.16.120.9` connected via `eth1`  
+          |     4. SSH’d into `172.16.120.9` using student credentials  
+          |     5. Ran `hostname` command from inside host  
+          |     6. Output confirmed hostname: `RED-IPS`  
+
+          | ✅ Final Answer:  
+          |     **RED-IPS**
+
+          | Notes:  
+          |     - Host is directly connected to Donovian boundary via `eth1`  
+          |     - VyOS system; may serve as intrusion prevention or monitoring node  
+          |     - Hostname not discoverable via DNS or banner; required direct access  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 8 – Donovian Inner Boundary  
+Challenge | Level: 1  
+          | Points: 5  
+          | Prompt:  
+          |     "What is the hostname of the device directly connected to the system discovered in Donovian Man in the Middle, out their eth1?  
+          |      example: student@HOSTNAME  
+          |      Copy only the name where HOSTNAME is at."  
+
+          | Steps Taken:  
+          |     1. Identified `RED-IPS` as the system from Question 7  
+          |     2. SSH’d into `RED-IPS` at `172.16.120.9`  
+          |     3. Ran `show interfaces` to confirm eth1 subnet: `172.16.120.18/29`  
+          |     4. Ran `show arp` to identify connected host IP: `172.16.120.17`  
+          |     5. SSH’d into `172.16.120.17` using student credentials  
+          |     6. Ran `hostname` command from inside host  
+          |     7. Output confirmed hostname: `RED-POP`  
+
+          | ✅ Final Answer:  
+          |     **RED-POP**
+
+          | Notes:  
+          |     - Host is directly connected to `RED-IPS` via eth1  
+          |     - Hostname confirmed via direct access  
+          |     - This node may serve as a pivot deeper into the Donovian internal network  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 9 – HOSTS Discovery  
+Challenge | Level: 1  
+          | Points: 5  
+          | Prompt:  
+          |     "How many host(s) did you discover on the HOSTS Net? (Excluding the router)"  
+
+          | Steps Taken:  
+          |     1. SSH’d into `RED-POP` at `172.16.120.17`  
+          |     2. Ran `show interfaces` to confirm HOSTS Net is on `eth1`  
+          |     3. Ran `show arp` to enumerate active hosts on `eth1`  
+          |     4. Counted complete ARP entries with MAC addresses and flag `C`  
+          |     5. Excluded router IP (`172.16.120.18`) from count  
+
+          | ✅ Final Answer:  
+          |     **4**
+
+          | Notes:  
+          |     - Hosts discovered: `172.16.182.114`, `172.16.182.118`, `172.16.182.106`, `172.16.182.110`  
+          |     - These hosts may be targets for enumeration, credential testing, or exploitation  
+          |     - Incomplete ARP entries were excluded from the count  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 10 – HOSTS Discovery IP  
+Challenge | Level: 1  
+          | Points: 10  
+          | Prompt:  
+          |     "What are the host IP Address(s) on the HOSTS network?  
+          |      (list only the last octet separated by commas and no spaces and in order from lowest to highest)"  
+
+          | Steps Taken:  
+          |     1. SSH’d into `RED-POP` at `172.16.120.17`  
+          |     2. Ran `show interfaces` to confirm HOSTS Net is on `eth1`  
+          |     3. Ran `show arp` to enumerate active hosts on `eth1`  
+          |     4. Extracted IPs with complete ARP entries and flag `C`  
+          |     5. Parsed last octet and sorted in ascending order  
+
+          | ✅ Final Answer:  
+          |     **106,110,114,118**
+
+          | Notes:  
+          |     - Only complete ARP entries were included  
+          |     - Router IP was excluded from the list  
+          |     - These IPs will be used for host-specific enumeration and service scans  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 11 – HOSTS Discovery T2 Ports  
+Challenge | Level: 1  
+          | Points: 5  
+          | Prompt:  
+          |     "What well-known port(s) are open on the system?  
+          |      (separate ports with a comma and no space)"  
+
+          | Steps Taken:  
+          |     1. Identified correct T2 host IP: `172.16.182.110`  
+          |     2. Ran TCP Nmap scan from `red-internet-host`:  
+          |         `sudo nmap -p 1-1023 172.16.182.110`  
+          |     3. Found open TCP ports:  
+          |         - `22` (SSH)  
+          |         - `80` (HTTP)  
+
+          | ✅ Final Answer:  
+          |     **22,80**
+
+          | Notes:  
+          |     - Port 22 allows remote shell access  
+          |     - Port 80 may host a web interface or service  
+          |     - These ports are prime candidates for enumeration and exploitation  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 12 – HOSTS Discovery T2 Recon  
+Challenge | Level: 1  
+          | Points: 10  
+          | Prompt:  
+          |     "Interface with the web service on the 172.16.182.110 host.  
+          |      The hint you find provides a suggestion on the ports above the well-known  
+          |      that you will need to recon. What is the range?"  
+
+          | Steps Taken:  
+          |     1. Accessed web service on T2: `http://172.16.182.110`  
+          |     2. Found reference to `hint-01.png` in HTML  
+          |     3. Downloaded image using `wget -r 172.16.182.110`  
+          |     4. Viewed image locally with `eog hint-01.png`  
+          |     5. Interpreted clue: “We hope you like the 1980s”  
+          |     6. Ran targeted Nmap scan: `sudo nmap -p 1980-3000 172.16.182.110`  
+          |     7. Discovered open ports:  
+          |         - `1980/tcp`  
+          |         - `1982/tcp`  
+          |         - `1988/tcp`  
+          |         - `1989/tcp`  
+          |     8. Determined the active recon range: `1980-1989`  
+
+          | ✅ Final Answer:  
+          |     **1980-1989**
+
+          | Notes:  
+          |     - These ports are above the well-known range and host custom services  
+          |     - Further enumeration may reveal web apps, APIs, or command interfaces  
+          |     - This range was derived directly from the hint and confirmed by scan  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 12 – HOSTS Discovery T2 Recon  
+Challenge | Level: 1  
+          | Points: 10  
+          | Prompt:  
+          |     "Interface with the web service on the 172.16.182.110 host.  
+          |      The hint you find provides a suggestion on the ports above the well-known  
+          |      that you will need to recon. What is the range?"  
+
+          | Steps Taken:  
+          |     1. Accessed web service on T2: `http://172.16.182.110`  
+          |     2. Found reference to `hint-01.png` in HTML  
+          |     3. Downloaded image using `wget -r 172.16.182.110`  
+          |     4. Viewed image locally with `eog hint-01.png`  
+          |     5. Interpreted clue: “We hope you like the 1980s”  
+          |     6. Ran targeted TCP scan: `sudo nmap --open -p 1980-1989 172.16.182.110`  
+          |     7. Ran targeted UDP scan: `sudo nmap --open -sU -p 1980-1989 172.16.182.110`  
+          |     8. Confirmed open ports:  
+          |         - `1984/udp`  
+          |         - `1989/tcp` and `1989/udp`  
+
+          | ✅ Final Answer:  
+          |     **1984,1989**
+
+          | Notes:  
+          |     - Port 1984/udp is open and running `bb` service  
+          |     - Port 1989 is open on both TCP and UDP, running `tr-rsrb-p3`  
+          |     - These ports are above the well-known range and were hinted at via the image  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 14 – HOSTS Discovery T2 Info  
+Challenge | Level: 1  
+          | Points: 10  
+          | Prompt:  
+          |     "Answer the question on UDP port 1984."  
+
+          | Steps Taken:  
+          |     1. Discovered UDP port `1984` open on T2 (`172.16.182.110`)  
+          |     2. Interacted with the service using:  
+          |         `echo "hello" | netcat -u 172.16.182.110 1984`  
+          |     3. Received prompt:  
+          |         "What Linux command should an administrator use to determine the full file path of the dig executable?"  
+          |     4. Answered with:  
+          |         `which dig`  
+
+          | ✅ Final Answer:  
+          |     **which dig**
+
+          | Notes:  
+          |     - This confirms the service is interactive and responds to UDP probes  
+          |     - May be used for further enumeration or credential harvesting  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 15 – HOSTS Discovery T2 Info 2  
+Challenge | Level: 1  
+          | Points: 10  
+          | Prompt:  
+          |     "Answer the question on UDP port 1989."  
+
+          | Steps Taken:  
+          |     1. Discovered UDP port `1989` open on T2 (`172.16.182.110`)  
+          |     2. Interacted with the service using:  
+          |         `echo "hello" | netcat -u 172.16.182.110 1989`  
+          |     3. Received prompt:  
+          |         "Which command should an administrator use to view the IP address and CIDR notation of a Linux system running a version after Ubuntu 18.04?"  
+          |     4. Answered with:  
+          |         `ip address`  
+
+          | ✅ Final Answer:  
+          |     **ip address**
+
+          | Notes:  
+          |     - `ip address` is the full command used to display IP configuration  
+          |     - It shows IP addresses in CIDR notation for all interfaces  
+          |     - This command is standard on Ubuntu 18.04+ and other modern distros  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 16 – HOSTS Discovery T2 Extra Ports  
+Challenge | Level: 1  
+          | Points: 15  
+          | Prompt:  
+          |     "What TCP ports in the range did you find that were open?  
+          |      (List them in order and separate the ports with a comma and no space)"  
+
+          | Steps Taken:  
+          |     1. Ran targeted TCP scan on T2:  
+          |         `sudo nmap --open -p 1980-1989 172.16.182.110`  
+          |     2. Identified open TCP ports:  
+          |         - `1980` (pearldoc-xact)  
+          |         - `1982` (estamp)  
+          |         - `1988` (tr-rsrb-p2)  
+          |         - `1989` (tr-rsrb-p3)  
+
+          | ✅ Final Answer:  
+          |     **1980,1982,1988,1989**
+
+          | Notes:  
+          |     - These ports are above the well-known range and host custom services  
+          |     - May be used for further enumeration or exploitation  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 17 – HOSTS Discovery T2 Info 3  
+Challenge | Level: 1  
+          | Points: 10  
+          | Prompt:  
+          |     "Answer the question on TCP port 1980."  
+
+          | Steps Taken:  
+          |     1. Discovered TCP port `1980` open on T2 (`172.16.182.110`)  
+          |     2. Interacted with the service using:  
+          |         `echo "hello" | nc 172.16.182.110 1980`  
+          |     3. Received prompt:  
+          |         "A malicious user would like to send abnormally large ICMP ping packets to a target.  
+          |          What switch would they need to use? (Example: -x)"  
+          |     4. Answered with:  
+          |         `-s`  
+
+          | ✅ Final Answer:  
+          |     **-s**
+
+          | Notes:  
+          |     - `-s` allows specification of ICMP packet size  
+          |     - Commonly used in stress testing or denial-of-service simulations  
+          |     - This confirms the service on port 1980 is interactive and challenge-driven  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 18 – HOSTS Discovery T2 Info 4  
+Challenge | Level: 1  
+          | Points: 10  
+          | Prompt:  
+          |     "Answer the question on TCP port 1982."  
+
+          | Steps Taken:  
+          |     1. Discovered TCP port `1982` open on T2 (`172.16.182.110`)  
+          |     2. Interacted with the service using:  
+          |         `echo "hello" | nc 172.16.182.110 1982`  
+          |     3. Received prompt:  
+          |         "Which scanning strategy could a malicious actor use to obscure their scanning activities from a target system,  
+          |          while potentially implicating the transient host in legal consequences?"  
+          |     4. Answered with:  
+          |         `Local to Remote`  
+
+          | ✅ Final Answer:  
+          |     **Local to Remote**
+
+          | Notes:  
+          |     - This strategy masks the attacker’s origin by routing scans through a remote host  
+          |     - The remote host may be blamed or investigated if the scan is detected  
+          |     - Common in stealth and proxy-based reconnaissance operations  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 19 – HOSTS Discovery T2 Info 4  
+Challenge | Level: 1  
+          | Points: 10  
+          | Prompt:  
+          |     "Answer the question on TCP port 1988."  
+
+          | Steps Taken:  
+          |     1. Discovered TCP port `1988` open on T2 (`172.16.182.110`)  
+          |     2. Interacted with the service using:  
+          |         `echo "hello" | nc 172.16.182.110 1988`  
+          |     3. Received prompt:  
+          |         "Which Nmap scan type (from student guide) detects open ports by checking for the absence of ICMP port unreachable messages?  
+          |          (specify scan type or switch -xX)"  
+          |     4. Answered with:  
+          |         `-sU`  
+
+          | ✅ Final Answer:  
+          |     **-sU**
+
+          | Notes:  
+          |     - `-sU` initiates a UDP scan in Nmap  
+          |     - It detects open ports by checking for the absence of ICMP Type 3 Code 3 (port unreachable) messages  
+          |     - Useful for discovering UDP services that don’t respond directly  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 20 – HOSTS Discovery T2 Info 6  
+Challenge | Level: 1  
+          | Points: 10  
+          | Prompt:  
+          |     "Answer the question on TCP port 1989."  
+
+          | Steps Taken:  
+          |     1. Discovered TCP port `1989` open on T2 (`172.16.182.110`)  
+          |     2. Interacted with the service using:  
+          |         `echo "hello" | nc 172.16.182.110 1989`  
+          |     3. Received prompt:  
+          |         "Which command is used to display the contents of the DNS client resolver cache on a Windows computer?"  
+          |     4. Answered with:  
+          |         `ipconfig /displaydns`  
+
+          | ✅ Final Answer:  
+          |     **ipconfig /displaydns**
+
+          | Notes:  
+          |     - This command displays all cached DNS entries on a Windows system  
+          |     - Useful for troubleshooting DNS resolution issues and verifying domain access history  
+          |     - Available on all modern Windows versions  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 21 – HOSTS Discovery T4 Ports  
+Challenge | Level: 1  
+          | Points: 5  
+          | Prompt:  
+          |     "What well-known port(s) are open on the system?  
+          |      (separate ports with a comma and no space)"  
+
+          | Steps Taken:  
+          |     1. Scanned well-known ports (0–1000) on T4 (`172.16.182.106`) using:  
+          |         `sudo nmap -p 0-1000 172.16.182.106`  
+          |     2. Nmap results showed:  
+          |         - `22/tcp open ssh`  
+
+          | ✅ Final Answer:  
+          |     **22**
+
+          | Notes:  
+          |     - Port 22 is used for SSH (Secure Shell)  
+          |     - Indicates remote login or command execution capability  
+          |     - No other well-known ports were open  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 22 – HOSTS Discovery T4 Hostname  
+Challenge | Level: 1  
+          | Points: 5  
+          | Prompt:  
+          |     "What is the Hostname of the system?"  
+          |     (Copy only the name where HOSTNAME is at)  
+
+          | Steps Taken:  
+          |     1. Connected to T4 system at `172.16.182.106` using SSH  
+          |     2. Observed shell prompt or ran `hostname` command  
+          |     3. Identified hostname:  
+          |         `red-host-1`  
+
+          | ✅ Final Answer:  
+          |     **red-host-1**
+
+          | Notes:  
+          |     - Hostname confirms identity of the T4 system  
+          |     - Useful for tracking and correlating system logs or network activity  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 23 – HOSTS Discovery T5 Ports  
+Challenge | Level: 1  
+          | Points: 5  
+          | Prompt:  
+          |     "What well-known port(s) are open on the system?  
+          |      (separate ports with a comma and no space)"  
+
+          | Steps Taken:  
+          |     1. Scanned well-known ports (0–1000) on T5 (`172.16.182.114`) using:  
+          |         `sudo nmap -p 0-1000 172.16.182.114`  
+          |     2. Nmap results showed:  
+          |         - `22/tcp open ssh`  
+          |     3. Identified hostname:  
+          |         `red-host-3`  
+
+          | ✅ Final Answer:  
+          |     **22**
+
+          | Notes:  
+          |     - Port 22 is used for SSH (Secure Shell)  
+          |     - Indicates remote login or command execution capability  
+          |     - No other well-known ports were open  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 24 – HOSTS Discovery T5 Hostname  
+Challenge | Level: 1  
+          | Points: 5  
+          | Prompt:  
+          |     "What is the Hostname of the system?"  
+          |     (Copy only the name where HOSTNAME is at)  
+
+          | Steps Taken:  
+          |     1. Connected to T5 system at `172.16.182.114` using SSH  
+          |     2. Observed shell prompt:  
+          |         `student@red-host-3:~$`  
+          |     3. Extracted hostname:  
+          |         `red-host-3`  
+
+          | ✅ Final Answer:  
+          |     **red-host-3**
+
+          | Notes:  
+          |     - Hostname confirms identity of the T5 system  
+          |     - Useful for correlating logs, network activity, and system roles  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 3 - Network Reconnaissance
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 25 – HOSTS Discovery T6 Ports  
+Challenge | Level: 1  
+          | Points: 5  
+          | Prompt:  
+          |     "What well-known port(s) are open on the system?  
+          |      (separate ports with a comma and no space)"  
+
+          | Steps Taken:  
+          |     1. Scanned well-known ports (0–1023) on T6 (`172.16.182.118`) using:  
+          |         `sudo nmap -p 0-1023 172.16.182.118`  
+          |     2. Nmap results showed:  
+          |         - `22/tcp open ssh`  
+
+          | ✅ Final Answer:  
+          |     **22**
+
+          | Notes:  
+          |     - Port 22 is used for SSH (Secure Shell)  
+          |     - Indicates remote login or command execution capability  
+          |     - No other well-known ports were open  
 
 -----------------------------------------------------------------------------------------------------------------------------------------
                                              Title: Networking - 4 - Movement and Redirection
