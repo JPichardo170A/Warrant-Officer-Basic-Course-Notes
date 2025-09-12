@@ -1491,6 +1491,9 @@ Challenge | Level: 1
           |     - Indicates remote login or command execution capability  
           |     - No other well-known ports were open  
 
+
+
+
 -----------------------------------------------------------------------------------------------------------------------------------------
                                              Title: Networking - 4 - Movement and Redirection
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -1521,9 +1524,23 @@ Challenge | Level: 1
 
 
 
+network map reference table: 
 
+Hostname	IP Address	Status
+red-internet-host	Provided separately	✅ Confirmed (pivot access)
+RED-SCR	172.16.120.1	✅ Confirmed (boundary router)
+RED-IPS	172.16.120.9	✅ Confirmed via SSH and hostname
+RED-POP	172.16.120.17	✅ Confirmed via SSH and hostname
+red-dmz-host-1	172.16.101.2	✅ Confirmed via SSH and hostname
+red-host-1	172.16.182.106	✅ Confirmed via SSH
+red-host-3	172.16.182.114	✅ Confirmed via SSH
+Pending	172.16.182.118	T6 – Port 22 open; hostname not confirmed
+Unknown	172.16.182.110	T2 – Ports scanned; hostname not confirmed
+Unknown	172.16.140.33	T3 – No scan results yet
+Unknown	172.16.140.35	T7 – No scan results yet
+networking-ctfd-2.server.vta	Unknown	T1 – DNS-only target
 
-
+https://copilot.microsoft.com/shares/ibbLwTb2z2U61ybGasd1a
 
 
 
