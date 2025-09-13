@@ -724,7 +724,7 @@ Maneuver   |     > INTERNET_HOST
 
           | DONOVIAN Compromised Pivot  
 Pivot      |     - Hostname: `red-internet-host`  
-           |     - IP: Provided in Notification  
+           |     - IP: 10.50.189.76
            |     - Ports: 22  
            |     - Action: SSH to pivot using X11 Forwarding  
            |     - Example: `ssh -X netX_studentX:passwordX@Pivot-IP`  
