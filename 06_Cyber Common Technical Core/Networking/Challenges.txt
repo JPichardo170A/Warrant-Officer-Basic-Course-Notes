@@ -1972,359 +1972,152 @@ Challenge | Level: 1
 
 
 
+Red Network Recon
 
+    Entry Float IP: 10.50.189.76
 
+        Your Network Number is N (Given by Instructor)
 
+        Credentials: net{N}_studentX:passwordX
 
+        X is your student number
 
+        Recommend using -X with your SSH command and terminator to open a new terminal from the remote system.
 
+    2025-09-12T14:37:19Z
 
 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Donovian Mapping & Reconnaissance (DMR)
+XX OCT 2023
+Start Time: 1300
+Duration: 4 hours
 
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
------------------------------------------------------------------------------------------------------------------------------------------
-                                              System Recon – red-internet-host
------------------------------------------------------------------------------------------------------------------------------------------
-
-          | Hostname: red-internet-host  
-          | Role: Internet Gateway / External Access Node  
-          | IP Address(es):  
-          |     - eth0: 10.0.0.33/27  
-          |     - lo: 127.0.0.1/8  
-          | Interface(s):  
-          |     - eth0  
-          |     - lo  
-          | MAC Address: ce:21:80:d6:66:8b  
-          | Default Gateway: 10.0.0.62  
-          | Subnet: 10.0.0.32/27  
-
-          | TCP Ports (LISTEN):  
-          |     - 21 (FTP)  
-          |     - 22 (SSH)  
-          |     - 23 (Telnet)  
-          |     - 80 (HTTP)  
-          |     - 3389 (RDP)  
-          |     - 3350 (X2Go)  
-          |     - 6010–6015 (X11 forwarding)  
-
-          | UDP Ports (LISTEN):  
-          |     - 68 (DHCP client)  
-          |     - 123 (NTP)  
-          |     - 36318 (ephemeral)  
-          |     - 5353 (mDNS)  
-          |     - 49540 (ephemeral)  
-
-          | Notes:  
-          |     - System is externally reachable  
-          |     - Multiple remote access protocols active (SSH, Telnet, RDP)  
-          |     - NTP and mDNS services running  
-          |     - X11 forwarding ports suggest GUI tunneling capability  
-
------------------------------------------------------------------------------------------------------------------------------------------
-                                              System Recon – red-dmz-host-1
------------------------------------------------------------------------------------------------------------------------------------------
-
-          | Hostname: red-dmz-host-1  
-          | Role: DMZ Host (Legacy Node)  
-          | IP Address(es):  
-          |     - eth0: 172.16.101.2/27  
-          |     - lo: 127.0.0.1/8  
-          | Interface(s):  
-          |     - eth0  
-          |     - lo  
-          | MAC Address: 92:ba:b0:db:9f:bf  
-          | Default Gateway: 172.16.101.30  
-          | Subnet: 172.16.101.0/27  
-
-          | TCP Ports (LISTEN):  
-          |     - 22 (SSH)  
-          |     - 6010 (X11 forwarding)  
-
-          | UDP Ports (LISTEN):  
-          |     - 68 (DHCP client)  
-          |     - 123 (NTP)  
-
-          | Notes:  
-          |     - Shell access confirmed  
-          |     - Debian 4.19 kernel  
-          |     - NTP service active on all interfaces  
-          |     - GUI tunneling via X11 enabled  
-          |     - Gateway points to `.30`—likely DMZ router or firewall  
-
-
------------------------------------------------------------------------------------------------------------------------------------------
-                                              System Recon – red-int-dmz2-host-2
------------------------------------------------------------------------------------------------------------------------------------------
-
-          | Hostname: red-int-dmz2-host-2  
-          | Role: DMZ2 Internal Host  
-          | IP Address(es):  
-          |     - eth0: 172.16.140.35/27  
-          |     - lo: 127.0.0.1/8  
-          | Interface(s):  
-          |     - eth0  
-          |     - lo  
-          | MAC Address: a6:dc:8f:fb:63:a5  
-          | Default Gateway: 172.16.140.62  
-          | Subnet: 172.16.140.32/27  
-
-          | TCP Ports (LISTEN):  
-          |     - 22 (SSH)  
-          |     - 6010 (X11 forwarding)  
-
-          | UDP Ports (LISTEN):  
-          |     - 68 (DHCP client)  
-          |     - 123 (NTP)  
-
-          | Notes:  
-          |     - Shell access confirmed  
-          |     - Debian 4.19 kernel  
-          |     - GUI tunneling via X11 active  
-          |     - NTP service running on all interfaces  
-
------------------------------------------------------------------------------------------------------------------------------------------
-                                              System Recon – red-host-4
------------------------------------------------------------------------------------------------------------------------------------------
-
-          | Hostname: red-host-4  
-          | Role: Internal REDNET Host  
-          | IP Address(es):  
-          |     - eth0: 172.16.182.118/27  
-          |     - lo: 127.0.0.1/8  
-          | Interface(s):  
-          |     - eth0  
-          |     - lo  
-          | MAC Address: 76:8c:82:d4:79:4f  
-          | Default Gateway: 172.16.182.126  
-          | Subnet: 172.16.182.96/27  
-
-          | TCP Ports (LISTEN):  
-          |     - 22 (SSH)  
-          |     - 6010 (X11 forwarding)  
-
-          | UDP Ports (LISTEN):  
-          |     - 68 (DHCP client)  
-          |     - 123 (NTP)  
-
-          | Notes:  
-          |     - Shell access confirmed  
-          |     - Debian 4.19 kernel  
-          |     - NTP service active on all interfaces  
-          |     - GUI tunneling via X11 enabled  
-
------------------------------------------------------------------------------------------------------------------------------------------
-                                              System Recon – red-host-3
------------------------------------------------------------------------------------------------------------------------------------------
-
-          | Hostname: red-host-3  
-          | Role: Internal REDNET Host  
-          | IP Address(es):  
-          |     - eth0: 172.16.182.114/27  
-          |     - lo: 127.0.0.1/8  
-          | Interface(s):  
-          |     - eth0  
-          |     - lo  
-          | MAC Address: 42:67:33:db:68:05  
-          | Default Gateway: 172.16.182.126  
-          | Subnet: 172.16.182.96/27  
-
-          | TCP Ports (LISTEN):  
-          |     - 22 (SSH)  
-          |     - 6010 (X11 forwarding)  
-
-          | UDP Ports (LISTEN):  
-          |     - 68 (DHCP client)  
-          |     - 123 (NTP)  
-
-          | Notes:  
-          |     - Shell access confirmed  
-          |     - Debian 4.19 kernel  
-          |     - SSH binary blocked externally, but internal shell active  
-          |     - NTP service active on all interfaces  
-          |     - GUI tunneling via X11 enabled  
-
------------------------------------------------------------------------------------------------------------------------------------------
-                                              System Recon – RED-SCR
------------------------------------------------------------------------------------------------------------------------------------------
-
-          | Hostname: RED-SCR  
-          | Role: Red Boundary Router + DMZ Gateway  
-          | Login Credential: vyos / [password used]  
-          | OS: VyOS 3.13.11-1-amd64  
-          | Last Login: Sat Sep 13 01:38:01 2025 from 10.0.0.33  
-
-          | Interface(s):  
-          |     - eth0: 172.16.120.1/29 → INTERNET  
-          |     - eth1: 172.16.120.10/29 → REDNET  
-          |     - eth2: 172.16.101.30/27 → DMZ  
-          |     - lo:  
-          |         - 127.0.0.1/8  
-          |         - 120.0.0.1/32  
-          |         - ::1/128  
-
-          | Routing Table Highlights:  
-          |     - Default route → 172.16.120.2 via eth0  
-          |     - Connected:  
-          |         → 172.16.120.0/29 via eth0  
-          |         → 172.16.120.8/29 via eth1  
-          |         → 172.16.101.0/27 via eth2  
-          |     - OSPF Routes:  
-          |         → 172.16.120.16/29, 140.0/29, 140.32/27, 182.96/27 via 172.16.120.9  
-          |         → 120.0.0.2–120.0.0.4/32 via 172.16.120.9  
-
-          | TCP/UDP Ports:  
-          |     - No explicit listen-addresses configured (default VyOS behavior)  
-
-          | Notes:  
-          |     - eth2 (172.16.101.30) serves as DMZ gateway  
-          |     - No separate router exists at `.30`—IP is bound to RED-SCR  
-          |     - Node fully operational with segmented routing across INTERNET, REDNET, and DMZ  
-          |     - DMZ2 and REDHOSTS reachable via RED-IPS → RED-POP  
-
-
------------------------------------------------------------------------------------------------------------------------------------------
-                                              System Recon – RED-POP2
------------------------------------------------------------------------------------------------------------------------------------------
-
-          | Hostname: RED-POP2  
-          | Role: DMZ2 Gateway Router  
-          | Login Credential: vyos / [password used]  
-          | OS: VyOS 3.13.11-1-amd64  
-          | Last Login: Fri Sep 12 23:47:17 2025 from 10.0.0.33  
-
-          | Interface(s):  
-          |     - eth0: 172.16.140.5/29 → REDINTDMZ  
-          |     - eth1: 172.16.140.62/27 → REDINTDMZ2  
-          |     - lo:  
-          |         - 127.0.0.1/8  
-          |         - 120.0.0.4/32  
-          |         - ::1/128  
-
-          | Routing Table Highlights:  
-          |     - Default route → 172.16.140.6 via eth0  
-          |     - Connected:  
-          |         → 172.16.140.0/29 via eth0  
-          |         → 172.16.140.32/27 via eth1  
-          |         → 120.0.0.4/32 via lo  
-          |     - OSPF Routes:  
-          |         → 172.16.101.0/27 (Legacy DMZ) via 172.16.140.6  
-          |         → 172.16.120.0/29, 120.8/29, 120.16/29 via 172.16.140.6  
-          |         → 172.16.182.96/27 (REDNET segment) via 172.16.140.6  
-
-          | TCP/UDP Ports:  
-          |     - No explicit listen-addresses configured (default VyOS behavior)  
-
-          | Notes:  
-          |     - eth1 confirms direct access to DMZ2 subnet (172.16.140.32/27)  
-          |     - eth0 links to REDINTDMZ transit path  
-          |     - OSPF routing active and consistent with RED-SCR  
-          |     - No firewall or service exposure surfaced in current config  
-
------------------------------------------------------------------------------------------------------------------------------------------
-                                              System Recon – RED-POP
------------------------------------------------------------------------------------------------------------------------------------------
-
-          | Hostname: RED-POP  
-          | Role: Inner Boundary Router (REDNET ↔ DMZ2)  
-          | Login Credential: vyos / [password used]  
-          | OS: VyOS 3.13.11-1-amd64  
-          | Last Login: Sat Sep 13 00:50:36 2025 from 10.0.0.33  
-
-          | Interface(s):  
-          |     - eth0: 172.16.120.17/29 → INTERNET  
-          |     - eth1: 172.16.182.126/27 → REDHOSTS  
-          |     - eth2: 172.16.140.6/29 → REDINTDMZ  
-          |     - lo:  
-          |         - 127.0.0.1/8  
-          |         - 120.0.0.3/32  
-          |         - ::1/128  
-
-          | Routing Table Highlights:  
-          |     - Default route → 172.16.120.18 via eth0  
-          |     - Connected:  
-          |         → 172.16.120.16/29 via eth0  
-          |         → 172.16.182.96/27 via eth1  
-          |         → 172.16.140.0/29 via eth2  
-          |         → 120.0.0.3/32 via lo  
-          |     - OSPF Routes:  
-          |         → 172.16.140.32/27 (DMZ2) via 172.16.140.5  
-          |         → 172.16.101.0/27 (Legacy DMZ) via 172.16.120.18  
-          |         → 120.0.0.1–0.0.0.4/32 via eth0 and eth2  
-
-          | TCP/UDP Ports:  
-          |     - No explicit listen-addresses configured (default VyOS behavior)  
-
-          | Notes:  
-          |     - eth2 confirms REDINTDMZ transit path to DMZ2  
-          |     - eth1 links directly to REDHOSTS subnet  
-          |     - OSPF routing consistent with RED-SCR and RED-POP2  
-          |     - No firewall or service exposure surfaced in current config  
-
------------------------------------------------------------------------------------------------------------------------------------------
-                                              System Recon – RED-IPS
------------------------------------------------------------------------------------------------------------------------------------------
-
-          | Hostname: RED-IPS  
-          | Role: REDNET Interceptor / MITM Node  
-          | Login Credential: vyos / [password used]  
-          | OS: VyOS 3.13.11-1-amd64  
-          | Last Login: Sat Sep 13 00:34:01 2025 from 10.0.0.33  
-
-          | Interface(s):  
-          |     - eth0: 172.16.120.9/29 → INTERNET  
-          |     - eth1: 172.16.120.18/29 → REDNET  
-          |     - lo:  
-          |         - 127.0.0.1/8  
-          |         - 120.0.0.2/32  
-          |         - ::1/128  
-
-          | Routing Table Highlights:  
-          |     - Default route → 172.16.120.10 via eth0  
-          |     - Connected:  
-          |         → 172.16.120.8/29 via eth0  
-          |         → 172.16.120.16/29 via eth1  
-          |         → 120.0.0.2/32 via lo  
-          |     - OSPF Routes:  
-          |         → 172.16.101.0/27 (Legacy DMZ) via eth0  
-          |         → 172.16.140.0/29 and 140.32/27 (DMZ2) via 172.16.120.17  
-          |         → 172.16.182.96/27 (REDHOSTS) via 172.16.120.17  
-          |         → 120.0.0.1, .3, .4/32 via eth0 and eth1  
-
-          | TCP/UDP Ports:  
-          |     - No explicit listen-addresses configured (default VyOS behavior)  
-
-          | Notes:  
-          |     - eth0 links to RED-SCR  
-          |     - eth1 links to RED-POP  
-          |     - Positioned to intercept REDNET traffic between boundary and inner routers  
-          |     - OSPF routing confirms full visibility into REDNET, DMZ, and DMZ2  
-
------------------------------------------------------------------------------------------------------------------------------------------
-                                              System Recon – networking-ctfd-2
------------------------------------------------------------------------------------------------------------------------------------------
-
-          | IP Address: 10.50.20.11  
-          | Role: DNS challenge node (T1 Target)  
-          | Credential: Not yet confirmed  
-          | Access Method: External probe only  
-
-          | Port Exposure:  
-          |     - TCP 80: Refused (curl failed to connect)  
-          |     - TCP/UDP 53: DNS service likely active  
-          |         → dig AXFR failed (zone transfer blocked)  
-          |         → nslookup returned NXDOMAIN (no reverse DNS)  
-
-          | Notes:  
-          |     - No HTTP service exposed  
-          |     - DNS service likely restricted to internal queries  
-          |     - Shell access not confirmed  
-          |     - Recommend internal pivot or DNS fuzzing from REDNET host  
-          |     - Target remains passive until further ingress or enumeration  
+Type of Operation: Scanning & Reconnaissance
 
+Objective: To aid Gorgas Cyber Forces, you are tasked with collecting and analyzing data from Donovian cyberspace and networks. Using reconnaissance methods, build a comprehensive network map including networking devices and target hosts with the following details:
 
+    Device type
+    Hostname
+    Interface type
+    Interface IP
+    Subnet Mask CIDR
+    Autonomous system number, Routing Protocol, IP network, and Network Name groupings
+    Open ports
+    Operating system type and versions
 
+Gathered Intelligence: Credentials
+student: net7_student10:password10
+admin: vyos:password
 
+Tools/Techniques: dig, nmap, nc, /dev/tcp
+
+Scenario Credentials: Perform DNS reconnaissance on your CTFd server to obtain the start flag.
+The start flag is an encoded string stored in a DNS record associated with your CTFd server. Decode this string to retrieve the flag.
+
+Prior Approvals: Use SSH to move through the network, but conduct all scanning from your RED-INTERNET-HOST.
+
+Scheme of Maneuver:
+> INTERNET_HOST
+  → Red-Internet_Host: DONOVIAN Compromised Pivot
+    → Red Boundary Router: DONOVIAN CYBERSPACE
+
+Target Section:
+
+DONOVIAN Compromised Pivot
+Hostname: red-internet-host
+IP: Provided in Notification
+Ports: 22
+Action: SSH to pivot with X11 Forwarding (-X)
+Example: ssh -X netX_studentX:passwordX@Pivot-IP
+Run terminator from remote CLI to open a new terminal.
+
+T1
+Hostname: networking-ctfd-2.server.vta
+Record Type: TXT
+IP: UNKNOWN
+Ports: 53
+Action: Interrogate DNS records
+
+Red Boundary Router
+Hostname: (unknown)
+IP: 172.16.120.1
+Ports: 22
+Username: vyos
+Password: password
+Action: Use as start point and perform passive/active reconnaissance
+
+T2
+		Hostname: UNKNOWN
+		IP: 172.16.182.110
+
+
+T3
+		Hostname: UNKNOWN
+		IP: 172.16.140.33
+
+
+T4
+		Hostname: UNKNOWN
+		IP: 172.16.182.106
+
+
+T5
+		Hostname: UNKNOWN
+		IP: 172.16.182.114
+
+
+T6
+		Hostname: UNKNOWN
+		IP: 172.16.182.118
+
+
+T7
+		Hostname: UNKNOWN
+		IP: 172.16.140.35
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Show your map to an Instructor to receive the flag.
+
+Ensure you have at least the following on your map:
+
+    All Routers and hosts
+    All system Host-names (except for the 2 systems you are not able to access)
+    All Interface names (eth0, eth1, etc)
+    All IP address and CIDRs for all interfaces
+    All TCP and UDP ports on each system
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+| Target ID | Hostname                | IP               | Device Type   | Interface / Subnet(s)     | Parent Router / GW    | Ports (definitive)      | OS / Version                 | Notes                                                                               |___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+| —         | **blue-internet-host**  | (n/a)            | Linux VM      | —                         | External pivot        | **UDP: 5353 (mDNS)**    | Linux                        | mDNS only; no DNS on :53                                                            |
+| —         | **red-internet-host**   | **10.50.189.76** | Linux VM      | eth0 / 10.50.189.64/27    | External pivot        | TCP: 21,22,23,80,3350,3389,6010–6015; **UDP: 68,123,5353** (+ eph) | Linux (Debian userspace likely) | Compromised pivot; multiple remote access; no DNS on :53; X11 fwd; NTP/mDNS active  |
+
+| —         | **networking-ctfd-2**   | 10.50.20.11      | DNS Server    | —                                                                                                                        | n/a                         | TCP/UDP 53 (DNS likely); HTTP refused                              | Linux/BIND (assumed)            | Start flag `ready_set_scan`; AXFR blocked; NXDOMAIN reverse; needs internal vantage |
+
+| —         | **RED-SCR**             | 172.16.120.1     | VyOS Router   | eth0: 172.16.120.1/29 → INTERNET <br> eth1: 172.16.120.10/29 → REDNET <br> eth2: **172.16.101.30/27 → DMZ**              | Default boundary            | VyOS defaults (22,179)                                             | VyOS 3.13.11-1-amd64            | **172.16.101.30 is this router’s DMZ interface (not a host)**                       |
+
+| —         | **RED-INFRA**           | 172.16.120.2     | VyOS Router   | eth0: 10.10.205.248/29 <br> eth1: 172.16.120.0/29                                                                        | Peer with RED-SCR           | 22,179                                                             | VyOS                            | Edge toward 10.10.205.x                                                             |
+
+| —         | **RED-IPS**             | 172.16.120.9     | VyOS Router   | eth0: 172.16.120.8/29 → INTERNET <br> eth1: 172.16.120.18/29 → REDNET                                                    | GW toward RED-POP           | VyOS defaults (22,179)                                             | VyOS 3.13.11-1-amd64            | Interceptor/MITM; OSPF shows reachability into DMZ, DMZ2, REDHOSTS                  |
+
+| —         | **RED-POP**             | 172.16.120.17    | VyOS Router   | eth0: 172.16.120.17/29 → INTERNET <br> **eth1: 172.16.182.126/27 → REDHOSTS** <br> **eth2: 172.16.140.6/29 → REDINTDMZ** | GW for REDHOSTS + REDINTDMZ | VyOS defaults (22)                                                 | VyOS 3.13.11-1-amd64            | Connects REDHOSTS and REDINTDMZ; OSPF: DMZ2 via RED-POP2                            |
+
+| —         | **RED-POP2**            | 172.16.140.5     | VyOS Router   | eth0: 172.16.140.5/29 → REDINTDMZ <br> eth1: **172.16.140.62/27 → REDINTDMZ2**                                           | GW for REDINTDMZ2           | VyOS defaults (22)                                                 | VyOS 3.13.11-1-amd64            | **172.16.140.62 is this router’s GW address**                                       |
+
+| —         | **red-dmz-host-1**      | 172.16.101.2     | Linux Server  | eth0 / 172.16.101.0/27 (DMZ)                                                                                             | RED-SCR (.30)               | TCP: 22,6010; **UDP: 68,123**                                      | Debian (4.19 kernel)            | Shell OK; NTP + X11 fwd; DNS on :53 unconfirmed (likely closed)                     |
+
+| **T2**    | (TBD Web Srv)           | 172.16.182.110   | Linux Web Srv | eth0 / 172.16.182.96/27 (REDHOSTS)                                                                                       | RED-POP (.126)              | TCP: 22,80; **UDP: 53**; nginx/1.14.2                              | Debian 10 + OpenSSH 7.9         | Hosts `hint-01.png`; DNS open; web challenge service                                |
+
+| **T3**    | (TBD Challenge Srv)     | 172.16.140.33    | Linux Server  | eth0 / 172.16.140.32/27 (REDINTDMZ2)                                                                                     | RED-POP2 (.62)              | TCP: 22,80,2305,2800,2828                                          | Debian 10 + OpenSSH 7.9         | nginx/1.14.2 + multiple challenge services                                          |
+
+| **T4**    | **red-host-1**          | 172.16.182.106   | Linux Server  | eth0 / 172.16.182.96/27 (REDHOSTS)                                                                                       | RED-POP (.126)              | TCP: 22; **UDP: 53**                                               | Debian 4.19.0-18-cloud-amd64    | Confirmed hostname; DNS active; X11 fwd; xauth warnings seen                        |
+
+| **T5**    | **red-host-3**          | 172.16.182.114   | Linux Server  | eth0 / 172.16.182.96/27 (REDHOSTS)                                                                                       | RED-POP (.126)              | TCP: 22,6010; **UDP: 68,123**                                      | Debian 10 + OpenSSH 7.9         | SSH internally OK (blocked externally); NTP + X11 fwd                               |
+
+| **T6**    | **red-host-4**          | 172.16.182.118   | Linux Server  | eth0 / 172.16.182.96/27 (REDHOSTS)                                                                                       | RED-POP (.126)              | TCP: 22,6010; **UDP: 68,123**                                      | Debian 10 + OpenSSH 7.9         | Shell OK; NTP + X11 fwd                                                             |
+
+| **T7**    | **red-int-dmz2-host-2** | 172.16.140.35    | Linux Server  | eth0 / 172.16.140.32/27 (REDINTDMZ2)                                                                                     | RED-POP2 (.62)              | TCP: 22,6010; **UDP: 68,123** 
 
 
 
