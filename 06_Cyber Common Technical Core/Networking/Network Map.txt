@@ -1,5 +1,3 @@
-https://claude.ai/public/artifacts/2971a56a-13b8-49ab-a758-9560c6f60b3f
-
 RED TEAM NETWORK TOPOLOGY - HIERARCHICAL STRUCTURE
 ================================================================
 
@@ -25,20 +23,20 @@ RED TEAM NETWORK TOPOLOGY - HIERARCHICAL STRUCTURE
  vyos:password (Q1)                       vyos:password                        vyos:password (Q7)
         |                                       |                                       |
         |                                       |                                       |
-   [DMZ GATEWAY]                               |                               [CORE DISTRIBUTION]
- eth2: 172.16.101.30                           |                                    RED-POP
+   [DMZ GATEWAY]                                |                               [CORE DISTRIBUTION]
+ eth2: 172.16.101.30                            |                                    RED-POP
         |                                       |                                172.16.120.17
         |                                       |                              Hostname: RED-POP
-   [DMZ NETWORK]                               |                               vyos:password (Q8)
-  172.16.101.0/27                              |                                       |
-   1 Host (Q2)                                 |                       ┌───────────────┼───────────────┐
+   [DMZ NETWORK]                                |                               vyos:password (Q8)
+  172.16.101.0/27                               |                                       |
+   1 Host (Q2)                                  |                       ┌───────────────┼───────────────┐
         |                                       |                       |                               |
-   [DMZ SERVER]                                |                [REDHOSTS NETWORK]            [SECONDARY DISTRIBUTION]
- red-dmz-host-1                                |               172.16.182.96/27                       RED-POP2
+   [DMZ SERVER]                                 |                [REDHOSTS NETWORK]            [SECONDARY DISTRIBUTION]
+ red-dmz-host-1                                 |               172.16.182.96/27                       RED-POP2
   172.16.101.2                                 |                4 Hosts (Q9)                      172.16.140.5
-Hostname: red-dmz-host-1                      |                IPs: 106,110,114,118 (Q10)        Hostname: RED-POP2
- TCP: 22 (Q4,Q5)                              |                Gateway: RED-POP (.126)            vyos:password (Q27)
- SSH + X11 (Q6)                               |                       |                                       |
+Hostname: red-dmz-host-1                       |                IPs: 106,110,114,118 (Q10)        Hostname: RED-POP2
+ TCP: 22 (Q4,Q5)                               |                Gateway: RED-POP (.126)            vyos:password (Q27)
+ SSH + X11 (Q6)                                |                       |                                       |
                                                |       ┌───────────────┼───────────────┐                      |
                                                |       |               |               |                      |
                                                |   [WEB SERVER]    [TARGET 4]     [TARGET 5]              [REDINTDMZ2 NETWORK]
