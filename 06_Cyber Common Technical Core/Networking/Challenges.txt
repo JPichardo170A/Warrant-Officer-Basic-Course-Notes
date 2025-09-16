@@ -2555,11 +2555,6 @@ Explanation:
 - This setup allows OPS$ to access PC3’s SSH service via port 5555.
 
 
-
-
-
-
-
 -----------------------------------------------------------------------------------------------------------------------------------------
                                 Networking - 4 - Movement and Redirection - Task 3 - Tunnels Training
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -2577,6 +2572,196 @@ T4 (Pineland) Float IP Address: 10.50.200.173
 
 Tunnels Training – Task 3 Start  
 Progress: 0/20  
+
+------------------------------------------------------------------
+Question 1 – Tunnels Training: Cortina HTTP
+------------------------------------------------------------------
+
+Context:
+T3 is the authorized initial pivot.  
+The flag is the answer to the question found on Cortina's HTTP Server.
+
+Step 1 – Scan for Open Ports via SOCKS Proxy:
+Command:
+proxychains ./scan.sh
+
+Target Subnet:
+10.3.0.0/24  
+Ports Scanned:
+21-23 80
+
+Result:
+- 10.3.0.1: FTP (21), HTTP (80) open
+- 10.3.0.27: FTP (21), HTTP (80) open
+- 10.3.0.10: SSH (22) open
+
+Step 2 – Retrieve Cortina’s HTTP Page:
+Command:
+proxychains wget -r http://10.3.0.1
+
+Result:
+- File saved: 10.3.0.1/index.html
+
+Step 3 – Read Cortina’s HTTP Content:
+Command:
+cat 10.3.0.1/index.html
+
+Content:
+"You have accessed Cortina's official website. The flag is the answer to the following question:  
+Which steganography mode is used when a message is added by modifying the least significant bits in a file?"
+
+Step 4 – Final Answer:
+Flag:
+substitution
+
+------------------------------------------------------------------
+Question 2 – Tunnels Training: Cortina FTP
+------------------------------------------------------------------
+
+Commands Used:
+proxychains wget -r ftp://10.3.0.1 21  
+cd 10.3.0.1  
+ls  
+cat flag.txt
+
+Context:
+Level I Challenge  
+T3 is the authorized initial pivot.  
+The flag is the answer to the question found on Cortina's FTP Server.
+
+Step 1 – Retrieve Cortina’s FTP Directory Listing:
+Command:
+proxychains wget -r ftp://10.3.0.1 21
+
+Result:
+- Connected to 10.3.0.1:21 via SOCKS proxy
+- Logged in as anonymous
+- Retrieved files:
+  - flag.txt
+  - welcome.msg
+
+Step 2 – Navigate to Downloaded Directory:
+Command:
+cd 10.3.0.1  
+ls
+
+Files Present:
+- flag.txt  
+- index.html  
+- welcome.msg
+
+Step 3 – Read Cortina’s FTP Content:
+Command:
+cat flag.txt
+
+Content:
+"You have accessed Cortina's FTP server. The flag is the answer to the following question:  
+A malicious actor adds a hidden message into a file's unused spaces. Which Steganography mode is being used?"
+
+Step 4 – Final Answer:
+Flag:
+injection
+
+------------------------------------------------------------------
+Question 3 – Tunnels Training: Victoria HTTP
+------------------------------------------------------------------
+
+Context:
+Level I Challenge  
+T3 is the authorized initial pivot.  
+The flag is the answer to the question found on Victoria's HTTP Server.
+
+Commands Used:
+proxychains ./scan.sh  
+proxychains wget -r http://10.3.0.27  
+cd 10.3.0.27  
+ls  
+cat index.html
+
+Step 1 – Scan for Open Ports via SOCKS Proxy:
+Command:
+proxychains ./scan.sh
+
+Target Subnet:
+10.3.0.0/24  
+Ports Scanned:
+21-23 80
+
+Result:
+- 10.3.0.27: FTP (21), HTTP (80) open
+- 10.3.0.10: SSH (22) open
+- 10.3.0.1: FTP (21), HTTP (80) open
+- 10.3.0.254: HTTP (80) open
+
+Step 2 – Retrieve Victoria’s HTTP Page:
+Command:
+proxychains wget -r http://10.3.0.27
+
+Result:
+- File saved: 10.3.0.27/index.html
+
+Step 3 – Navigate to Downloaded Directory:
+Command:
+cd 10.3.0.27  
+ls
+
+Files Present:
+- index.html
+
+Step 4 – Read Victoria’s HTTP Content:
+Command:
+cat index.html
+
+Content:
+"You have accessed Victoria's HTTP server. The flag is the answer to the following question:  
+Which IPv6 transition tunneling protocol establishes the endpoints automatically and uses a special prefix of 2002:[IPv4_address]::/48?"
+
+Step 5 – Final Answer:
+Flag:
+6to4
+
+------------------------------------------------------------------
+Question 4 – Tunnels Training: Victoria FTP
+------------------------------------------------------------------
+
+Context:
+Level I Challenge  
+T3 is the authorized initial pivot.  
+The flag is the answer to the question found on Victoria's FTP Server.
+
+Commands Used:
+proxychains wget -r ftp://10.3.0.27 21  
+cd 10.3.0.27  
+cat flag.txt
+
+Flag Prompt:
+"Which IPv6 transition tunneling protocol uses a special IPv6 prefix (2001::/32) to provide IPv6 connectivity through IPv4 networks, specifically for devices behind NAT?"
+
+Final Answer:
+teredo
+
+------------------------------------------------------------------
+Question 5 – Tunnels Training: Pineland
+------------------------------------------------------------------
+
+Context:
+Level I Challenge  
+Host: Pineland (Compromised within Donovia)  
+Access: Telnet to T4  
+Objective: Conduct passive recon and locate shared CCTC data
+
+Commands Used:
+find / -name hint* 2> /dev/null  
+find / -name flag* 2> /dev/null
+
+Flag Prompt:
+"Conduct passive recon on this host and find the shared location for data relating to CCTC."
+
+Final Answer:
+~/.ssh/known_hosts
+
+
+
 
 
 
