@@ -2760,17 +2760,578 @@ Flag Prompt:
 Final Answer:
 ~/.ssh/known_hosts
 
+------------------------------------------------------------------
+Question 6 – Tunnels Training: Mohammed HTTP
+------------------------------------------------------------------
+
+Objective:
+Access Mohammed’s HTTP server hosted on T3 and answer the question displayed on the webpage. The correct answer is the flag.
+
+Network Overview:
+- Internet_Host: 10.10.0.40
+- T4 (Pineland)
+    - Hostname: tunnels-training-pineland-insider
+    - Inside IP: 10.2.0.1
+    - Floating IP: 10.50.200.173
+- T3 (Atropia)
+    - Hostname: tunnels-training-atropia-pivot
+    - Inside IP: 10.3.0.10
+    - Floating IP: 10.50.11.222
+
+Tunnel Setup:
+1. Telnet into T4 from Internet_Host:
+   $ telnet 10.50.200.173
+
+2. SSH from T4 to T3 with Remote Port Forward:
+   net7_student10@tunnels-training-pineland-insider:~$ ssh net7_student10@10.3.0.10 -R 21000:10.2.0.1:22
+
+3. Local Port Forward from Internet_Host to T3:
+   student@blue-internet-host:~$ ssh net7_student10@10.50.11.222 -L 21001:localhost:21000
+
+4. SOCKS Proxy from Internet_Host to T4:
+   student@blue-internet-host:~$ ssh net7_student10@localhost -p 21001 -D 9050
+
+Recon and Enumeration:
+5. Scan the T4 subnet via proxychains:
+   student@blue-internet-host:~$ proxychains ./scan.sh
+   - Target subnet: 10.2.0.0/24
+   - Found HTTP service on: 10.2.0.2
+
+6. Access Mohammed’s HTTP Server:
+   student@blue-internet-host:~$ proxychains wget -r http://10.2.0.2
+   student@blue-internet-host:~$ cd 10.2.0.2
+   student@blue-internet-host:~$ cat index.html
+
+Challenge Question:
+"What file is used to modify the SSH server parameters for Linux? (provide the complete path)"
+
+Flag:
+/etc/ssh/sshd_config
+
+Status:
+✅ Flag submitted successfully
+
+------------------------------------------------------------------
+Question 7 – Tunnels Training: Mohammed FTP
+------------------------------------------------------------------
+
+Objective:
+Access Mohammed’s FTP server hosted on T3 and answer the question displayed in the FTP directory. The correct answer is the flag.
+
+Network Overview:
+- Internet_Host: 10.10.0.40
+- T4 (Pineland)
+    - Hostname: tunnels-training-pineland-insider
+    - Inside IP: 10.2.0.1
+    - Floating IP: 10.50.200.173
+- T3 (Atropia)
+    - Hostname: tunnels-training-atropia-pivot
+    - Inside IP: 10.3.0.102
+    - Floating IP: 10.50.11.222
+
+Tunnel Setup:
+1. Telnet into T4 from Internet_Host:
+   $ telnet 10.50.200.173
+
+2. SSH from T4 to T3 with Remote Port Forward:
+   net7_student10@tunnels-training-pineland-insider:~$ ssh net7_student10@10.3.0.10 -R 21000:10.2.0.1:22
+
+3. Local Port Forward from Internet_Host to T3:
+   student@blue-internet-host:~$ ssh net7_student10@10.50.11.222 -L 21001:localhost:21000
+
+4. SOCKS Proxy from Internet_Host to T4:
+   student@blue-internet-host:~$ ssh net7_student10@localhost -p 21001 -D 9050
+
+Recon and Enumeration:
+5. Scan the T4 subnet via proxychains:
+   student@blue-internet-host:~$ proxychains ./scan.sh
+   - Target subnet: 10.2.0.0/24
+   - Found FTP service on: 10.2.0.2
+
+6. Access Mohammed’s FTP Server:
+   student@blue-internet-host:~$ proxychains ftp 10.2.0.2
+   # Login anonymously or with provided credentials
+   # Navigate and retrieve the question file
+
+Challenge Question:
+"What file is used to modify the SSH client parameters for Linux? (provide the complete path)"
+
+Flag:
+/etc/ssh/ssh_config
+
+Status:
+✅ Flag submitted successfully
+
+------------------------------------------------------------
+Question 8 – Tunnels Training: Mojave FTP
+Level II Challenge
+------------------------------------------------------------
+
+Authorized Pivot:
+- T3 (Atropia)
+- Floating IP: 10.50.11.222
+- Internal IP: 10.3.0.10
+
+Credentials:
+- Username: net7_student10
+- Password: 10
+- Authorized Port Range: 71000–71099
+
+------------------------------------------------------------
+Steps Taken:
+------------------------------------------------------------
+
+1. SSH into T3 from Internet_Host:
+   $ ssh net7_student10@10.50.11.222
+
+2. Verified internal IP and hostname:
+   $ hostname
+   → tunnels-training-atropia-pivot
+   $ ip a
+   → eth0: 10.3.0.10/24
+
+3. Checked subnet reachability:
+   $ ping 10.4.0.1
+   → Reachable
+   $ ping 10.5.0.1
+   → Unreachable
+
+4. Created local port forward to Mojave candidate:
+   $ ssh net7_student10@10.50.11.222 -L 21000:10.4.0.1:22
+
+5. Created SOCKS proxy to T3:
+   $ ssh net7_student10@localhost -p 21000 -D 9050
+
+6. Used proxychains to scan Mojave subnet:
+   $ proxychains ./scan.sh
+   → Found FTP and HTTP open on 10.5.0.1 and 10.5.0.57
+
+7. Accessed Mojave web server:
+   $ proxychains wget -r http://10.5.0.1
+   → Retrieved index.html
+
+8. Accessed Mojave FTP server:
+   $ proxychains wget -r ftp://10.5.0.1
+   → Retrieved flag.txt and welcome.msg
+
+------------------------------------------------------------
+Question Retrieved from Mojave FTP:
+------------------------------------------------------------
+
+"Multiplexing of multiple logical channels and X11 forwarding over a single SSH connection is a responsibility of which component of SSH as defined in RFC 4251?"
 
 
+Flag (Answer): SSH Connection Protocol
+
+------------------------------------------------------------
+Question 9 – Tunnels Training: Mojave HTTP
+Level II Challenge
+------------------------------------------------------------
+
+Authorized Pivot:
+- T3 (Atropia)
+- Floating IP: 10.50.11.222
+- Internal IP: 10.3.0.10
+
+Credentials:
+- Username: net7_student10
+- Password: 10
+- Authorized Port Range: 71000–71099
+
+------------------------------------------------------------
+Steps Taken:
+------------------------------------------------------------
+
+1. SSH into T3 from Internet_Host:
+   $ ssh net7_student10@10.50.11.222
+
+2. Verified subnet reachability:
+   $ ping 10.4.0.1 → Reachable
+   $ ping 10.5.0.1 → Unreachable via ICMP, but reachable via proxychains
+
+3. Created SOCKS proxy to T3:
+   $ ssh net7_student10@10.50.11.222 -D 9050
+
+4. Used proxychains to scan Mojave subnet:
+   $ proxychains ./scan.sh
+   → Found HTTP open on 10.5.0.1
+
+5. Accessed Mojave HTTP server:
+   $ proxychains wget -r http://10.5.0.1
+   → Retrieved index.html
+
+6. Read the question from Mojave’s web server:
+   $ cat 10.5.0.1/index.html
+   → "Name of the SSH component defined in RFC 4251 that is responsible for the Key Exchange (KEX) process?"
 
 
+Flag (Answer): SSH Transport Layer Protocol
+
+------------------------------------------------------------
+Question 10 – Tunnels Training: Parumphia FTP
+Level III Challenge
+------------------------------------------------------------
+
+Authorized Pivot:
+- T3 (Atropia)
+- Floating IP: 10.50.11.222
+- Internal IP: 10.3.0.10
+
+Clue:
+- Parumphia is co-located with Mojave
+
+Target IP:
+- Parumphia FTP Server: 10.5.0.57
+
+------------------------------------------------------------
+Steps Taken:
+------------------------------------------------------------
+
+1. Created SOCKS proxy to T3:
+   $ ssh net7_student10@10.50.11.222 -D 9050
+
+2. Used proxychains to access Parumphia FTP:
+   $ proxychains wget -r ftp://10.5.0.57
+   → Retrieved flag.txt and welcome.msg
+
+3. Read the question from flag.txt:
+   $ cat 10.5.0.57/flag.txt
+   → "Using the following command 'ssh student@10.10.0.40 -R 4444:192.168.1.10:22'. On which system is port 4444 created?"
+
+4. Analyzed the SSH Remote Port Forward syntax:
+   → `-R 4444:192.168.1.10:22` means:
+      - Port 4444 is created on the **remote system** (i.e., 10.10.0.40)
+      - It forwards to 192.168.1.10:22 from there
+
+
+Flag (Answer): 10.10.0.40
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------
-                                               Title: Networking - 5 - Network Analysis
+                                               Title: Networking - Moevment and Redirection 4 - Network Analysis
+-----------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------
+Task 4 – Data Collection: T5 Access
+Level I Challenge
+------------------------------------------------------------
+
+Target System:
+- T5
+- Floating IP: 10.50.49.85
+
+Credentials:
+- Username: net7_student10
+- Password: 10
+
+------------------------------------------------------------
+Objective:
+------------------------------------------------------------
+
+Find a way to connect to T5 and identify the port number that allowed initial access.
+
+------------------------------------------------------------
+Steps Taken:
+------------------------------------------------------------
+
+1. Attempted SSH access:
+   $ ssh net7_student10@10.50.49.85
+   → No response or blocked
+
+2. Ran port scan:
+   $ ./scan.sh
+   → Target: 10.50.49.85
+   → Ports scanned: 21-23 80
+   → Result: Port 23 (telnet) open
+
+3. Connected via Telnet:
+   $ telnet 10.50.49.85
+   → Connected successfully
+   → Logged in with credentials:
+      Username: net7_student10
+      Password: 10
+
+4. Verified system access:
+   → Hostname: data-collection-net-ssh-01
+   → OS: Debian GNU/Linux 10
+
+------------------------------------------------------------
+Flag (Answer):
+------------------------------------------------------------
+
+23
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Data Collection - 1 - SSH-01 Flag
 -----------------------------------------------------------------------------------------------------------------------------------------
 
+          | Question 1 – SSH-01 Flag  
+Challenge | Level: 1  
+          | Points: 5  
+          | Prompt:  
+          |     "Host SSH-01 has a flag hosted on an open service port not seen from the outside.  
+          |      The flag is the answer to the question you find on SSH-01."  
 
+          | Steps Taken:  
+          |     1. Scanned T5 (`10.50.49.85`) and found TCP port `23` (Telnet) open  
+          |     2. Connected to SSH-01 using:  
+          |         `telnet 10.50.49.85`  
+          |     3. Logged in with credentials:  
+          |         Username: `net7_student10`  
+          |         Password: `10`  
+          |     4. Identified internal subnet using:  
+          |         `ip a`  
+          |         → Internal IP: `192.168.0.10/24`  
+          |     5. Created remote port forward to Internet_Host:  
+          |         `ssh student@10.50.0.182 -R 21000:localhost:22`  
+          |     6. From Internet_Host, created SOCKS proxy:  
+          |         `ssh net7_student10@localhost -p 21000 -D 9050`  
+          |     7. Scanned internal subnet `192.168.0.0/24` and found TCP port `80` open on `192.168.0.1`  
+          |     8. Accessed internal HTTP service via proxychains:  
+          |         `proxychains wget -r http://localhost`  
+          |     9. Retrieved and opened image file:  
+          |         `localhost/flag.png`  
+          |    10. Read question:  
+          |         "Who developed the original SSH protocol?"  
+          |    11. Answered with:  
+          |         `Tatu Ylönen`  
+
+          | ✅ Final Answer:  
+          |     **Tatu Ylönen**
+
+          | Notes:  
+          |     - SSH-01 was only accessible via Telnet from the outside  
+          |     - Internal subnet was discovered using `ip a`  
+          |     - SOCKS proxy enabled access to internal-only services  
+          |     - Flag was embedded in an image served by the internal HTTP service
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Data Collection - 2 - SSH-03 Flag
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 2 – SSH-03 Flag  
+Challenge | Level: 1  
+          | Points: 5  
+          | Prompt:  
+          |     "Host SSH-03 has a flag hosted on an open service port.  
+          |      The flag is the answer to the question you find on SSH-03."  
+
+          | Steps Taken:  
+          |     1. Ran internal scan using:  
+          |         `proxychains ./scan.sh`  
+          |         → Found TCP port `21` (FTP) open on `192.168.0.20`  
+          |     2. Accessed FTP service anonymously using:  
+          |         `proxychains wget -r ftp://192.168.0.20`  
+          |     3. Retrieved files:  
+          |         - `flag.png`  
+          |         - `welcome.msg`  
+          |     4. Viewed flag image using:  
+          |         `eog flag.png`  
+          |     5. Read question:  
+          |         "Where did the inventor of SSH work?"  
+          |     6. Answered with:  
+          |         `Finland`  
+
+          | ✅ Final Answer:  
+          |     **Finland**
+
+          | Notes:  
+          |     - FTP service was exposed internally on SSH-03  
+          |     - Anonymous login allowed full directory listing and file retrieval  
+          |     - Flag was embedded in an image file served via FTP
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Data Collection - 3 - SSH-02 Pivot
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 3 – Net-SSH-02 IP Address  
+Challenge | Level: 2  
+          | Points: 5  
+          | Prompt:  
+          |     "What is the IP Address of Net-SSH-02?  
+          |      It has HTTP & FTP open and has access to a single machine hidden behind it."  
+
+          | Steps Taken:  
+          |     1. Ran internal scan using:  
+          |         `proxychains ./scan.sh`  
+          |         → Found multiple hosts with open ports  
+          |         → `192.168.0.20` had both TCP ports `21` (FTP) and `80` (HTTP) open  
+          |     2. Accessed HTTP service on `192.168.0.20` using:  
+          |         `proxychains wget -r http://192.168.0.20`  
+          |         → Retrieved: `index.html`, `hint.png`  
+          |     3. Viewed hint image using:  
+          |         `eog hint.png`  
+          |         → Message: "SSH is using an alternate port above the well-known ports.  
+          |                      Use banner grabbing to figure it out so you can pivot to the next machine  
+          |                      that only this one has access to."  
+          |     4. Performed banner grabbing on FTP and HTTP ports:  
+          |         `proxychains nc 192.168.0.20 21`  
+          |         → Banner: `220 ProFTPD Server (Debian)`  
+          |         `proxychains nc 192.168.0.20 80`  
+          |         → Response: `<html><a href="./hint.png">hint.png</a></html>`  
+
+          | ✅ Final Answer:  
+          |     **192.168.0.20**
+
+          | Notes:  
+          |     - Net-SSH-02 exposes both FTP and HTTP services internally  
+          |     - Hint confirmed SSH is running on a non-standard port  
+          |     - Banner grabbing validated service identity and pivot potential
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Data Collection - 4 - SSH-02 Flag
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 4 – SSH-02 Flag  
+Challenge | Level: 1  
+          | Points: 5  
+          | Prompt:  
+          |     "Host SSH-02 has a flag hosted on an open service port.  
+          |      The flag is the answer to the question you find on SSH-02."  
+
+          | Steps Taken:  
+          |     1. Accessed HTTP service on `192.168.0.20`  
+          |     2. Retrieved and viewed hint file:  
+          |         - `hint.png`  
+          |         → Message: "SSH is using an alternate port above the well known ports.  
+          |                      Use banner grabbing to figure it out so you pivot to the next machine  
+          |                      that only this one has access to."  
+          |     3. Performed banner grabbing across high ports using:  
+          |         `proxychains nc 192.168.0.20 [port]`  
+          |     4. Identified alternate SSH port and connected  
+          |     5. Pivoted to hidden machine and retrieved flag  
+          |     6. Read question:  
+          |         "Where did the inventor of SSH work?"  
+          |     7. Answered with:  
+          |         `Helsinki University of Technology`  
+
+          | ✅ Final Answer:  
+          |     **Helsinki University of Technology**
+
+          | Notes:  
+          |     - SSH-02 uses a non-standard SSH port above 1024  
+          |     - Banner grabbing was required to identify the correct port  
+          |     - Pivoting enabled access to a hidden machine containing the flag
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Data Collection - 5 - SSH-05 Flag
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 5 – SSH-05 Flag  
+Challenge | Level: 2  
+          | Points: 5  
+          | Prompt:  
+          |     "Host SSH-05 has a flag hosted on an open service port.  
+          |      This system is hidden behind Net-SSH-02.  
+          |      The flag is the answer to the question you find on SSH-05."  
+
+          | Steps Taken:  
+          |     1. Scanned internal subnet using:  
+          |         `proxychains ./scan.sh`  
+          |         → Found TCP ports `21` (FTP) and `80` (HTTP) open on `192.168.0.50`  
+          |     2. Accessed FTP service anonymously using:  
+          |         `proxychains wget -r ftp://192.168.0.50`  
+          |         → Retrieved:  
+          |             - `flag.png`  
+          |             - `welcome.msg`  
+          |     3. Viewed flag image using:  
+          |         `eog flag.png`  
+          |     4. Read question:  
+          |         "Which RFC formalized the SSH-1 protocol architecture?"  
+          |     5. Answered with:  
+          |         `RFC 4251`  
+
+          | ✅ Final Answer:  
+          |     **RFC 4251**
+
+          | Notes:  
+          |     - SSH-05 was discovered behind Net-SSH-02  
+          |     - FTP service allowed anonymous access to retrieve the flag  
+          |     - Flag was embedded in an image file containing the RFC question
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Data Collection - 6 - SSH-04 Flag
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 6 – SSH-04 Flag  
+Challenge | Level: 1  
+          | Points: 5  
+          | Prompt:  
+          |     "Host SSH-04 has a flag hosted on an open service port.  
+          |      The flag is the answer to the question you find on SSH-04."  
+
+          | Steps Taken:  
+          |     1. Scanned internal subnet and found TCP port `80` open on `192.168.0.40`  
+          |     2. Accessed HTTP service and retrieved:  
+          |         - `flag.png`  
+          |     3. Viewed flag image using:  
+          |         `eog flag.png`  
+          |     4. Read question:  
+          |         "Which symmetric encryption algorithm is commonly used in SSH?"  
+          |     5. Answered with:  
+          |         `AES`  
+
+          | ✅ Final Answer:  
+          |     **AES**
+
+          | Notes:  
+          |     - SSH-04 was identified by its open HTTP service  
+          |     - Flag was embedded in an image file served by the host  
+          |     - AES (Advanced Encryption Standard) is widely used for secure symmetric encryption in SSH
+
+
+
+
+reference: 
+
+-----------------------------------------------------------------
+Tunnels Training Template – Multi-Hop Access via SSH and Proxychains
+------------------------------------------------------------------
+
+# Step 1: Telnet into T4 (Pivot)
+
+telnet <T4_Floating_IP>
+
+# Step 2: SSH from T4 to T3 with Remote Port Forward
+
+ssh <username>@<T3_Inside_IP> -R <Remote_Port>:<T4_Inside_IP>:22 ONLY USED IF SSH isn't allowed on the device.
+
+# Step 3: Local Port Forward from Internet_Host to T3
+
+ssh <username>@<T3_Floating_IP> -L <Local_Port>:localhost:<Remote_Port>
+
+# Step 4: SOCKS Proxy from Internet_Host to T4
+
+ssh <username>@localhost -p <Local_Port> -D <SOCKS_Port>
+
+# Step 5: Scan Internal Subnet via Proxychains
+
+proxychains ./scan.sh
+# Example inputs:
+# Network: 10.2.0
+# Host Range: 1–254
+# Ports: 21-23 80clear
+
+
+# Step 6: Access Internal HTTP Server via Proxychains
+
+proxychains wget -r http://<Target_Internal_IP>
+cd <Target_Internal_IP>
+cat index.html
+
+
+(UNKNOWN) [192.168.0.10] 23 (telnet) open : Operation now in progress
+(UNKNOWN) [192.168.0.10] 22 (ssh) open : Operation now in progress
+(UNKNOWN) [192.168.0.10] 80 (http) open : Operation now in progress
+(UNKNOWN) [192.168.0.20] 21 (ftp) open : Operation now in progress
+(UNKNOWN) [192.168.0.20] 80 (http) open : Operation now in progress
+(UNKNOWN) [192.168.0.50] 21 (ftp) open : Operation now in progress
+(UNKNOWN) [192.168.0.50] 80 (http) open : Operation now in progress
+
+
+cd
 -----------------------------------------------------------------------------------------------------------------------------------------
                                                   Title: Networking - 6 - Filtering
 -----------------------------------------------------------------------------------------------------------------------------------------
