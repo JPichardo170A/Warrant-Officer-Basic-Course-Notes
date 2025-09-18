@@ -4303,19 +4303,23 @@ Challenge | Level: I
           | Prompt:  
           |     "The 192.168.10.111 web server is now under control of the attacker through a reverse TCP connection via the Meterpreter session.  
           |      The 192.168.10.111 server is used to pivot to another target and perform the same actions the attacker took against 192.168.10.111.  
-          |      What is its IP address?"  
+          |      What is its IP address?"
 
           | Steps Taken:  
-          |     1. Monitored the Meterpreter session from the first compromised host (192.168.10.111)  
-          |     2. Observed pivot traffic to a new internal host  
-          |     3. Identified the second host IP as 192.168.10.112  
+          |     1. Filtered the capture to follow the Meterpreter/reverse TCP session from the initially compromised host:  
+          |        - Example filter: `ip.addr == 192.168.10.111 && tcp`  
+          |     2. Followed the relevant TCP stream(s) (right-click → Follow → TCP Stream) to observe session activity and commands.  
+          |     3. Looked for evidence of outbound connections originating from 192.168.10.111 to other internal IPs (new reverse shells, SMB, RDP, or custom backdoor connections).  
+          |     4. Noted repeated connection attempts and successful sessions from 192.168.10.111 to 192.168.10.112 (same patterns of exploit/post-exploit actions as seen on .111).  
+          |     5. Verified the pivot by checking that the same Meterpreter handshake, payload activity, or command execution appears between the attacker-controlled host and 192.168.10.112.
 
           | ✅ Final Answer:  
-          |     **192.168.10.112**  
+          |     **192.168.10.112**
 
           | Notes:  
-          |     - This host is the pivot target used by the attacker  
-          |     - Confirms lateral movement within the internal network  
+          |     - Pivoting evidence includes new reverse TCP connections from the compromised host to the secondary target and replayed post-exploitation traffic patterns.  
+          |     - Use `Follow TCP Stream` and filters like `ip.addr == 192.168.10.111 || ip.addr == 192.168.10.112` to validate lateral movement.
+
 
 
 
