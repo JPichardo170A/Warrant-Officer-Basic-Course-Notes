@@ -427,6 +427,480 @@ Category  | Reference Notes
           |         iptables -t [table] -D [chain] [rule num]  
           |         - Removes the rule at the specified position in the chain.
 
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: NFTables Configuration and Concepts
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Category  | Reference Notes  
+          | Points: Informational  
+          | Description:  
+          |     Comprehensive overview of NFTables including NAT and mangle rule configuration,  
+          |     enhancements over legacy tools, supported families, hooks, and chain types.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: NFTables NAT Configuration
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Category  | Reference Notes  
+          | Points: Practical  
+          | Description:  
+          |     Commands for creating NAT tables and chains, configuring source and destination NAT.
+
+          | Notes:  
+          |     Create NAT Table:  
+          |         nft add table ip NAT  
+          |         - Initializes a new NAT table for IPv4.
+
+          |     Create NAT Chains:  
+          |         nft add chain ip NAT PREROUTING { type nat hook prerouting priority 0 \; }  
+          |         nft add chain ip NAT POSTROUTING { type nat hook postrouting priority 0 \; }  
+          |         - Sets up chains for NAT processing at prerouting and postrouting stages.
+
+          |     Source NAT:  
+          |         nft add rule ip NAT POSTROUTING ip saddr 10.10.0.40 oif eth0 snat 144.15.60.11  
+          |         nft add rule ip NAT POSTROUTING oif eth0 masquerade  
+          |         - Applies SNAT or masquerading for outbound traffic.
+
+          |     Destination NAT:  
+          |         nft add rule ip NAT PREROUTING iif eth0 ip daddr 144.15.60.11 dnat 10.10.0.40  
+          |         nft add rule ip NAT PREROUTING iif eth0 tcp dport { 80, 443 } dnat 10.1.0.3  
+          |         nft add rule ip NAT PREROUTING iif eth0 tcp dport 80 redirect to 8080  
+          |         - Redirects or DNATs incoming traffic based on destination IP or port.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Mangle Rules with iptables
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Category  | Reference Notes  
+          | Points: Practical  
+          | Description:  
+          |     Examples of mangle table usage with iptables for modifying packet headers.
+
+          | Notes:  
+          |     TTL Modification:  
+          |         iptables -t mangle -A POSTROUTING -o eth0 -j TTL --ttl-set 128  
+          |         - Sets the TTL value of outgoing packets.
+
+          |     DSCP Tagging:  
+          |         iptables -t mangle -A POSTROUTING -o eth0 -j DSCP --set-dscp 26  
+          |         - Sets DSCP value for QoS classification.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: NFTables Enhancements
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Category  | Reference Notes  
+          | Points: Informational  
+          | Description:  
+          |     Key improvements and advantages of NFTables over legacy tools.
+
+          | Notes:  
+          |     Unified Command:  
+          |         nft  
+          |         - Replaces iptables, ip6tables, arptables, and ebtables.
+
+          |     Syntax Improvements:  
+          |         - Cleaner, more consistent rule syntax.  
+          |         - Easier to maintain and audit.
+
+          |     Performance Gains:  
+          |         - Less code duplication.  
+          |         - Faster rule execution.
+
+          |     Dual-Stack Support:  
+          |         - Configure IPv4 and IPv6 simultaneously.  
+          |         - Simplifies mixed-protocol environments.
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: NFTables Families
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Category  | Reference Notes  
+          | Points: Informational  
+          | Description:  
+          |     Overview of supported protocol families in NFTables.
+
+          | Notes:  
+          |     ip:  
+          |         - Handles IPv4 packets.  
+          |         - Equivalent to iptables.
+
+          |     ip6:  
+          |         - Handles IPv6 packets.  
+          |         - Equivalent to ip6tables.
+
+          |     inet:  
+          |         - Supports both IPv4 and IPv6.  
+          |         - Ideal for unified rule sets.
+
+          |     arp:  
+          |         - Operates at Layer 2.  
+          |         - Manages ARP traffic.
+
+          |     bridge:  
+          |         - Processes packets traversing Linux bridges.  
+          |         - Useful in virtualized environments.
+
+          |     netdev:  
+          |         - Hooks into ingress path before networking stack.  
+          |         - Enables packet classification.  
+          |         - No iptables equivalent.
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: NFTables Hooks
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Category  | Reference Notes  
+          | Points: Informational  
+          | Description:  
+          |     Hooks define where in the packet flow rules are applied.
+
+          | Notes:  
+          |     ingress:  
+          |         - netdev only.  
+          |         - Captures packets before entering the stack.
+
+          |     prerouting:  
+          |         - Before routing decisions.  
+          |         - Used for DNAT and marking.
+
+          |     input:  
+          |         - For packets destined to the local system.
+
+          |     forward:  
+          |         - For packets being routed through the system.
+
+          |     output:  
+          |         - For packets originating from the local system.
+
+          |     postrouting:  
+          |         - After routing decisions.  
+          |         - Used for SNAT and masquerading.
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: NFTables Chain Type – Filter
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Category  | Reference Notes  
+          | Points: Informational  
+          | Description:  
+          |     The filter chain type is used to inspect and control packets.
+
+          | Notes:  
+          |     Chain Type: filter  
+          |         - Purpose: Packet filtering.  
+          |         - Supported Families: arp, bridge, ip, ip6, inet  
+          |         - Use Case: Firewall rules, access control.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: NFTables Chain Type – Route
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Category  | Reference Notes  
+          | Points: Informational  
+          | Description:  
+          |     The route chain type is used to reroute packets before delivery.
+
+          | Notes:  
+          |     Chain Type: route  
+          |         - Purpose: Packet rerouting.  
+          |         - Supported Families: ip, ip6  
+          |         - Use Case: Routing decisions, redirection.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: NFTables Chain Type – NAT
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Category  | Reference Notes  
+          | Points: Informational  
+          | Description:  
+          |     The nat chain type is used for Network Address Translation.
+
+          | Notes:  
+          |     Chain Type: nat  
+          |         - Purpose: SNAT, DNAT, masquerading.  
+          |         - Supported Families: ip, ip6  
+          |         - Use Case: Address translation for IPv4/IPv6 traffic.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: NFTables Syntax – Creating Tables
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Category  | Reference Notes  
+          | Points: Practical  
+          | Description:  
+          |     Syntax for creating a new table in NFTables.
+
+          | Notes:  
+          |     Create Table:  
+          |         nft add table [family] [table]  
+          |         - Initializes a new table.  
+          |         - [family] = ip, ip6, inet, arp, bridge, netdev  
+          |         - [table] = user-defined name for the table
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: NFTables Syntax – Creating Base Chains
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Category  | Reference Notes  
+          | Points: Practical  
+          | Description:  
+          |     Syntax for creating a base chain with type, hook, priority, and policy.
+
+          | Notes:  
+          |     Create Base Chain:  
+          |         nft add chain [family] [table] [chain] { type [type] hook [hook]  
+          |             priority [priority] \; policy [policy] \;}  
+          |         - [chain] = user-defined name  
+          |         - [type] = filter, route, nat  
+          |         - [hook] = prerouting, ingress, input, forward, output, postrouting  
+          |         - [priority] = integer (lower = higher priority; use "--" for negative)  
+          |         - [policy] = accept (default) or drop  
+          |         - Use "\" to escape ";" in bash
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: NFTables Syntax – Creating Rules
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Category  | Reference Notes  
+          | Points: Practical  
+          | Description:  
+          |     Syntax for adding rules to chains with match conditions and actions.
+
+          | Notes:  
+          |     Add Rule:  
+          |         nft add rule [family] [table] [chain] [matches] [statement]  
+          |         - [matches] = protocol headers (ip, ip6, tcp, udp, icmp, ether, etc.)  
+          |         - (matches) = specific match conditions  
+          |         - [statement] = action (log, accept, drop, reject, counter, dnat, snat, masquerade)
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: NFTables Rule Match Options – Protocol Specific
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Category  | Reference Notes  
+          | Points: Informational  
+          | Description:  
+          |     Common match options used in NFTables rules for protocol filtering.
+
+          | Notes:  
+          |     IP Address Matching:  
+          |         ip [ saddr | daddr { ip | ip1-ip2 | ip/CIDR | ip1, ip2, ip3 } ]
+
+          |     TCP Matching:  
+          |         tcp flags { syn, ack, psh, rst, fin }  
+          |         tcp [ sport | dport { port1 | port1-port2 | port1, port2, port3 } ]
+
+          |     UDP Matching:  
+          |         udp [ sport | dport { port1 | port1-port2 | port1, port2, port3 } ]
+
+          |     ICMP Matching:  
+          |         icmp [ type | code { type# | code# } ]
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: NFTables Rule Match Options – Connection and Interface
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Category  | Reference Notes  
+          | Points: Informational  
+          | Description:  
+          |     Additional match options for connection tracking and interface filtering.
+
+          | Notes:  
+          |     Connection Tracking:  
+          |         ct state { new, established, related, invalid, untracked }
+
+          |     Interface Matching:  
+          |         iif [iface]  
+          |         oif [iface]
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: NFTables Modification – Ruleset and Table Management
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Category  | Reference Notes  
+          | Points: Practical  
+          | Description:  
+          |     Commands for listing, flushing, and deleting rulesets, tables, and chains.
+
+          | Notes:  
+          |     Ruleset Management:  
+          |         nft list ruleset  
+          |         nft flush ruleset
+
+          |     Table Management:  
+          |         nft delete table [family] [table]  
+          |         nft list table [family] [table]  
+          |         nft flush table [family] [table]
+
+          |     Chain Management:  
+          |         nft delete chain [family] [table] [chain]  
+          |         nft list chain [family] [table] [chain]  
+          |         nft flush chain [family] [table] [chain]
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: NFTables Modification – Rule Positioning
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Category  | Reference Notes  
+          | Points: Practical  
+          | Description:  
+          |     Commands for adding, inserting, replacing, and deleting rules by position or handle.
+
+          | Notes:  
+          |     List Table with Handles:  
+          |         nft list table [family] [table] -a
+
+          |     Add After Position:  
+          |         nft add rule [family] [table] [chain] position <position> [matches] [statement]
+
+          |     Insert Before Position:  
+          |         nft insert rule [family] [table] [chain] position <position> [matches] [statement]
+
+          |     Replace Rule at Handle:  
+          |         nft replace rule [family] [table] [chain] handle <handle> [matches] [statement]
+
+          |     Delete Rule at Handle:  
+          |         nft delete rule [family] [table] [chain] handle <handle>
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: NFTables Modification – Chain Policy
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Category  | Reference Notes  
+          | Points: Practical  
+          | Description:  
+          |     Command to change the default policy of a chain.
+
+          | Notes:  
+          |     Change Chain Policy:  
+          |         nft add chain [family] [table] [chain] { \; policy [policy] \;}  
+          |         - [policy] = accept or drop  
+          |         - Use "\" to escape ";" in bash
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Configure iptables NAT Rules
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Category  | Reference Notes  
+          | Points: Practical  
+          | Description:  
+          |     Overview of NAT and PAT operators in iptables, including SNAT, MASQUERADE, DNAT, and REDIRECT.  
+          |     Includes examples for source and destination NAT configurations.
+
+          | Notes:  
+          |     
+          |── NAT & PAT Operators and Chains ──  
+          |     
+          |     SNAT:  
+          |         - Modifies the source IP address of outgoing packets.  
+          |         - Valid only in the POSTROUTING chain.
+
+          |     MASQUERADE:  
+          |         - Special form of SNAT using the outgoing interface's IP address.  
+          |         - Useful for gateways with dynamic public IPs.  
+          |         - Valid only in the POSTROUTING chain.
+
+          |     DNAT:  
+          |         - Modifies the destination IP address of incoming packets.  
+          |         - Valid in PREROUTING and OUTPUT chains.
+
+          |     REDIRECT:  
+          |         - Special form of DNAT that redirects traffic to localhost.  
+          |         - Useful for changing destination ports on incoming traffic.
+
+          |     
+          |── Source NAT Examples ──  
+          |     
+          |       Change Source IP to Static Address:  
+          |         iptables -t nat -A POSTROUTING -o eth0 -j SNAT --to 1.1.1.1  
+          |         - Rewrites source IP of all packets leaving eth0 to 1.1.1.1.
+
+          |       Change Source IP and Port for TCP:  
+          |         iptables -t nat -A POSTROUTING -p tcp -o eth0 -j SNAT --to 1.1.1.1:9001  
+          |         - Rewrites source IP and port for TCP packets leaving eth0.
+
+          |       Use MASQUERADE for Dynamic IP:  
+          |         iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE  
+          |         - Uses outbound interface IP for translation.
+
+          |     
+          |── Destination NAT Examples ──  
+          |     
+          |     Change Destination IP for All Traffic:  
+          |         iptables -t nat -A PREROUTING -i eth0 -j DNAT --to 10.0.0.1  
+          |         - Redirects all incoming traffic on eth0 to 10.0.0.1.  
+          |         - Use with caution; may block remote access to NAT system.
+
+          |     Match Specific Ports and Redirect:  
+          |         iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 22 -j DNAT --to 10.0.0.1:22  
+          |         iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j DNAT --to 10.0.0.2:80  
+          |         iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 443 -j DNAT --to 10.0.0.3:443  
+          |         - Redirects traffic on specific ports to internal IPs.
+
+          |     Redirect to Localhost Port:  
+          |         iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080  
+          |         - Redirects incoming traffic on port 80 to port 8080 on local system.
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Configure Mangle Rules with iptables and nftables
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Category  | Reference Notes  
+          | Points: Practical  
+          | Description:  
+          |     Examples of configuring mangle rules to modify packet headers such as TTL and DSCP.  
+          |     Includes implementations using both iptables and nftables.
+
+          | Notes:  
+          |     
+          |── Mangle Rules with iptables ──  
+          |     
+          |     Set TTL for Outgoing Traffic:  
+          |         iptables -t mangle -A POSTROUTING -o eth0 -j TTL --ttl-set 128  
+          |         - Sets the Time-To-Live value of all packets leaving eth0 to 128.
+
+          |     Set DSCP for Outgoing Traffic:  
+          |         iptables -t mangle -A POSTROUTING -o eth0 -j DSCP --set-dscp 26  
+          |         - Sets the Differentiated Services Code Point for QoS tagging.
+
+          |     
+          |── Mangle Rules with nftables ──  
+          |     
+          |     Create MANGLE Table:  
+          |         nft add table ip MANGLE  
+          |         - Initializes a new mangle table for IPv4.
+
+          |     Create MANGLE Chains:  
+          |         nft add chain ip MANGLE INPUT {type filter hook input priority 0 \; policy accept \;}  
+          |         nft add chain ip MANGLE OUTPUT {type filter hook output priority 0 \; policy accept \;}  
+          |         - Sets up chains for input and output packet filtering.
+
+          |     Set TTL for Outgoing Traffic:  
+          |         nft add rule ip MANGLE OUTPUT oif eth0 ip ttl set 128  
+          |         - Sets TTL value for packets leaving eth0.
+
+          |     Set DSCP for Outgoing Traffic:  
+          |         nft add rule ip MANGLE OUTPUT oif eth0 ip dscp set 26  
+          |         - Sets DSCP value for QoS classification on outbound traffic.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
