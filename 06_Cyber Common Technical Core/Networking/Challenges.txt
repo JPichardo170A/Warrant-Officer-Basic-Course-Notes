@@ -3285,69 +3285,69 @@ Challenge | Level: 1
                                               Title: Data Collection - 7 - SSH-04 Pivot
 -----------------------------------------------------------------------------------------------------------------------------------------
 
-[+] Question 7 – SSH-04 Pivot  
-Challenge Level: 1  
-Points: 10  
+          | Question 7 – SSH-04 Pivot  
+Challenge | Level: I  
+          | Points: 10  
 
-Prompt:  
-    "SSH-04 is another potential pivot.  
-     What other subnet does Net-SSH-04 have access to?"
+          | Prompt:  
+          |     "SSH-04 is another potential pivot.  
+          |      What other subnet does Net-SSH-04 have access to?"
 
-Steps Taken:
+          | Steps Taken:  
+          |     1. From the Internet Host (`blue-internet-host`), connected to the Telnet Pivot Node:  
+          |        Command:  
+          |            telnet 10.50.49.85  
+          |        Login:  
+          |            Username: net7_student10  
 
-    1. From Internet Host (blue-internet-host), connected to Telnet Pivot Node:
-       Command:
-           telnet 10.50.49.85
-       Login:
-           Username: net7_student10
+          |     2. From Telnet Pivot (`SSH-01`), scanned the internal subnet `192.168.0.0/24`:  
+          |        Command:  
+          |            proxychains ./scan.sh  
+          |            → Network: 192.168.0  
+          |            → Range: 10–60  
+          |            → Ports: 10–6000  
 
-    2. From Telnet Pivot (SSH-01), scanned internal subnet 192.168.0.0/24:
-       Command:
-           proxychains ./scan.sh
-           → Network: 192.168.0
-           → Range: 10–60
-           → Ports: 10–6000
+          |     3. Discovered host `192.168.0.40` with open ports:  
+          |            - 80 (HTTP)  
+          |            - 5555 (SSH)  
 
-    3. Discovered host 192.168.0.40 with open ports:
-           - 80 (HTTP)
-           - 5555 (SSH)
+          |     4. Accessed the HTTP service on `192.168.0.40`:  
+          |        Command:  
+          |            proxychains wget -r http://192.168.0.40  
+          |        Retrieved:  
+          |            - index.html  
+          |            - hint.png  
+          |            - flag.png  
 
-    4. Accessed HTTP service on 192.168.0.40:
-       Command:
-           proxychains wget -r http://192.168.0.40
-       Retrieved:
-           - index.html
-           - hint.png
-           - flag.png
+          |     5. Viewed `hint.png`:  
+          |        Message:  
+          |            "This machine has access to the 172.16.0.0/24 network.  
+          |             You will have to find the alternate sshd port like on the net-ssh-02 to progress further."  
 
-    5. Viewed hint.png:
-       Message:
-           "This machine has access to the 172.16.0.0/24 network.
-            You will have to find the alternate sshd port like on the net-ssh-02 to progress further."
+          |     6. Verified SSH service on port 5555:  
+          |        Command:  
+          |            proxychains nc 192.168.0.40 5555  
+          |        Banner:  
+          |            SSH-2.0-OpenSSH_7.9p1 Debian-10+deb10u2  
 
-    6. Verified SSH service on port 5555:
-       Command:
-           proxychains nc 192.168.0.40 5555
-       Banner:
-           SSH-2.0-OpenSSH_7.9p1 Debian-10+deb10u2
+          |     7. Connected to `SSH-04` from `SSH-01`:  
+          |        Command:  
+          |            ssh net7_student10@192.168.0.40 -p 5555  
 
-    7. Connected to SSH-04 from SSH-01:
-       Command:
-           ssh net7_student10@192.168.0.40 -p 5555
+          |     8. From `SSH-04`, confirmed access to the `172.16.0.0/24` subnet:  
+          |        Commands:  
+          |            ip a  
+          |            ip route  
 
-    8. From SSH-04, confirmed access to 172.16.0.0/24:
-       Commands:
-           ip a
-           ip route
+          | ✅ Final Answer:  
+          |     **172.16.0.0/24**
 
-✅ Final Answer:  
-    **172.16.0.0/24**
+          | Notes:  
+          |     - SSH-04 is only reachable from SSH-01  
+          |     - Port 5555 was used for SSH access  
+          |     - Subnet access confirmed via hint file and routing table  
+          |     - All enumeration and scanning was looped back to blue-internet-host using tunnels
 
-Notes:
-    - SSH-04 is only reachable from SSH-01
-    - Port 5555 was used for SSH access
-    - Subnet access confirmed via hint file and routing table
-    - All enumeration and scanning was looped back to blue-internet-host using tunnels
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -4320,8 +4320,207 @@ Challenge | Level: I
           |     - Pivoting evidence includes new reverse TCP connections from the compromised host to the secondary target and replayed post-exploitation traffic patterns.  
           |     - Use `Follow TCP Stream` and filters like `ip.addr == 192.168.10.111 || ip.addr == 192.168.10.112` to validate lateral movement.
 
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 5 - Network Analysis
+-----------------------------------------------------------------------------------------------------------------------------------------
 
+          | Question 37 – Attack Analysis - Malware Type  
+Challenge | Level: I  
+          | Points: 10  
+          | Prompt:  
+          |     "What type of malware is uploaded to the 192.168.10.112 server  
+          |      (not the malicious PHP upload to kick off the Meterpreter session)?  
+          |      Look for a connection back to a malware repository in the TCP stream."
 
+          | Steps Taken:  
+          |     1. Opened the PCAP file in Wireshark.  
+          |     2. Applied display filter to locate the PHP upload:  
+          |        - `ip.addr == 192.168.10.112 && http.request.method == "POST" && http.request.uri contains ".php"`  
+          |     3. Identified the POST request to:  
+          |        - `/wordpress/wp-content/plugins/reflex-gallery/admin/scripts/FileUploader/php.php`  
+          |        - Uploaded file: `msf2.php`  
+          |     4. Followed the TCP stream of the POST request to inspect payload behavior.  
+          |     5. Observed reverse shell connection initiated to `192.168.10.101:444`.  
+          |     6. Applied filter to inspect traffic between `.112` and `.101` on port 444:  
+          |        - `ip.addr == 192.168.10.112 && ip.addr == 192.168.10.101 && tcp.port == 444`  
+          |     7. Followed the TCP stream and discovered embedded references to GitHub:  
+          |        - `github.com/mauri870/ransomware`  
+          |     8. Verified that this GitHub repository contains a Go-based ransomware framework.  
+          |     9. Observed function names and modules in the stream:  
+          |        - `cmd.PrintBanner`, `cmd.CheckOS`, `vendor/github.com/mattn/go-colorable`  
+          |     10. Based on the repository and stream contents, determined the malware type is ransomware.
+
+          | ✅ Final Answer:  
+          |     **Ransomware**
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 5 - Network Analysis
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 38 – Attack Analysis - New Payload UUID  
+Challenge | Level: II  
+          | Points: 10  
+          | Prompt:  
+          |     "What is the payload UUID for the new Meterpreter session on the host at 192.168.10.112?  
+          |      Enter answer in this format: \x11\x22\x33\x44\x55\x66\x77\x88\x99\xaa\xbb\xcc\xdd\xee\xff\"
+
+          | Steps Taken:  
+          |     1. Opened the PCAP file in Wireshark.  
+          |     2. Applied display filter to isolate traffic between the attacker and target:  
+          |        - `ip.addr == 192.168.10.112 && ip.addr == 192.168.10.101 && tcp.port == 444`  
+          |     3. Located the relevant TCP stream for the Meterpreter session:  
+          |        - Frame 85476  
+          |        - Stream index: 515  
+          |     4. Followed the TCP stream to inspect payload data.  
+          |     5. Searched the TCP payload for a 16-byte UUID in hexadecimal format.  
+          |     6. Successfully extracted the UUID from the payload.
+
+          | ✅ Final Answer:  
+          |     **\xc5\x0f\xbc\x3a\x9f\x31\x91\x0b\x42\x66\x51\x69\x1b\x5c\x43\xa3**
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 5 - Network Analysis
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 39 – Attack Analysis - Malware Location  
+Challenge | Level: II  
+          | Points: 10  
+          | Prompt:  
+          |     "Refer back to challenge 37, the malware referenced in this question was identified as ransomware.  
+          |      What is the GitHub repo from which the malware is downloaded?  
+          |      (submit your answer in the following format: https://github.com/horst_simco/malwarez)"
+
+          | Steps Taken:  
+          |     1. Revisited challenge 37, which confirmed the malware downloaded to 192.168.10.112 was ransomware.  
+          |     2. Followed the TCP stream of the reverse shell connection initiated by msf2.php.  
+          |     3. Inspected the payload data exchanged between 192.168.10.101 and 192.168.10.112 on port 444.  
+          |     4. Located embedded references to a GitHub repository within the TCP payload.  
+          |     5. Identified the full repository path:  
+          |        - `github.com/mauri870/ransomware`  
+          |     6. Verified that this repository contains a Go-based ransomware framework, matching the observed behavior and function names in the stream.
+
+          | ✅ Final Answer:  
+          |     **https://github.com/mauri870/ransomware**
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 5 - Network Analysis
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 40 – Attack Analysis - Malware Language  
+Challenge | Level: II  
+          | Points: 10  
+          | Prompt:  
+          |     "According to the GitHub site, the malware was determined to be ransomware.  
+          |      What programming language was used to write this?"
+
+          | Steps Taken:  
+          |     1. Revisited challenge 39, which identified the malware repository as:  
+          |        - `https://github.com/mauri870/ransomware`  
+          |     2. Inspected the GitHub repository contents directly.  
+          |     3. Observed the presence of Go-specific files:  
+          |        - `go.mod`, `go.sum`, and multiple `.go` source files  
+          |     4. Verified that the ransomware was written in the **Go programming language**, also known as Golang.  
+          |     5. Confirmed via the repository README and file structure that Go was used for both the core logic and supporting modules.
+
+          | ✅ Final Answer:  
+          |     **Go**
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 5 - Network Analysis
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 41 – Attack Analysis - OS Target  
+Challenge | Level: II  
+          | Points: 10  
+          | Prompt:  
+          |     "Refer back to challenge 38, the malware referenced in this question was identified as ransomware.  
+          |      What OS is targeted by the malware?"
+
+          | Steps Taken:  
+          |     1. Revisited challenge 38, which extracted the payload UUID from the Meterpreter session on 192.168.10.112.  
+          |     2. Reconfirmed from challenge 37 and 39 that the malware was downloaded from:  
+          |        - `https://github.com/mauri870/ransomware`  
+          |     3. Inspected the GitHub repository and observed that the ransomware is written in Go.  
+          |     4. Reviewed the source code and README, which reference Windows-specific APIs and behaviors.  
+          |     5. Observed functions and modules tailored for Windows environments, such as file system access and OS detection logic.  
+          |     6. Verified that the ransomware targets **Windows OS** systems.
+
+          | ✅ Final Answer:  
+          |     **Windows**
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 5 - Network Analysis
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 42 – Attack Analysis - Architecture  
+Challenge | Level: II  
+          | Points: 10  
+          | Prompt:  
+          |     "The ransomware indicated in challenge 37 targets what type of system architecture?"
+
+          | Steps Taken:  
+          |     1. Revisited challenge 37, which identified the ransomware downloaded from:  
+          |        - `https://github.com/mauri870/ransomware`  
+          |     2. Inspected the GitHub repository and reviewed the README and source files.  
+          |     3. Observed that the project includes a `ransomware.manifest` file and Windows-specific build instructions.  
+          |     4. Noted that the compiled binary is named `ransomware.exe`, indicating a Windows PE format.  
+          |     5. Verified that the malware is designed to run on **32-bit Windows systems**, consistent with the `Win32` classification.  
+          |     6. Confirmed via Microsoft Defender detection name: `Ransom:Win32/MauriCrypt.MK!MTB`, which indicates a 32-bit architecture target.
+
+          | ✅ Final Answer:  
+          |     **x86**
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 5 - Network Analysis
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 43 – Attack Analysis - Assembly Description  
+Challenge | Level: II  
+          | Points: 10  
+          | Prompt:  
+          |     "What is the assembly description attribute in the assembly manifest for the ransomware?"
+
+          | Steps Taken:  
+          |     1. Revisited challenge 39, which identified the ransomware source as:  
+          |        - `https://github.com/mauri870/ransomware`  
+          |     2. Navigated to the `ransomware.manifest` file within the repository.  
+          |     3. Inspected the XML structure of the manifest to locate the `<description>` tag.  
+          |     4. Found the assembly description attribute embedded in the manifest metadata.  
+          |     5. Verified the exact value of the description field.
+
+          | ✅ Final Answer:  
+          |     **Nothing to see here**
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 5 - Network Analysis
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Question 44 – Attack Analysis - Date  
+Challenge | Level: II  
+          | Points: 10  
+          | Prompt:  
+          |     "In the PCAP, there is a protocol that provides clock synchronization between systems over packet-switched networks in this PCAP.  
+          |      Use the information within this protocol's header to determine the date of this packet capture.  
+          |      (format your answer as follows: Oct 1, 2019)"
+
+          | Steps Taken:  
+          |     1. Opened the PCAP file in Wireshark.  
+          |     2. Searched for a protocol used for clock synchronization.  
+          |     3. Identified the **Network Time Protocol (NTP)** as the relevant protocol.  
+          |     4. Applied display filter to isolate NTP traffic:  
+          |        - `ntp`  
+          |     5. Located Frame 7, which contains an NTP request from 192.168.41.130 to ntp.ubuntu.com (91.189.89.199).  
+          |     6. Inspected the NTP header and extracted the **Transmit Timestamp** field.  
+          |     7. The timestamp value was:  
+          |        - `Jun 9, 2017 01:59:27.092172825 UTC`  
+          |     8. Used this timestamp to determine the date of the packet capture.
+
+          | ✅ Final Answer:  
+          |     **Jun 9, 2017**
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - 6 - Filtering
+-----------------------------------------------------------------------------------------------------------------------------------------
 
 
 
