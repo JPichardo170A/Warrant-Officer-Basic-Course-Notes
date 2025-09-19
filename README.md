@@ -90,9 +90,50 @@ While this is a personal learning repository, I welcome constructive feedback, a
 
 # 🛠️ Tools & Platforms
 
-- [PCTE Dashboard](https://dash.ent1.pcte.mil/app/app)  
-- [Miro Networking Board](https://miro.com/app/board/o9J_klSqCSY=/?share_link_id=16)  
-- [CyberChef – Data Analysis & Encoding Tool](https://gchq.github.io/CyberChef/)
+### Core Resources
+- 🔗 [PCTE Dashboard](https://dash.ent1.pcte.mil/app/app)  
+  Centralized access to training modules and operational tools.
+
+- 🧠 [CyberChef – Data Analysis & Encoding Tool](https://gchq.github.io/CyberChef/)  
+  Versatile tool for decoding, encoding, and analyzing data formats.
+
+- 🗺️ [Miro Networking Board](https://miro.com/app/board/o9J_klSqCSY=/?share_link_id=16)  
+  Interactive whiteboard used for visualizing networking concepts and lab activities.
+
+---
+
+### ⚠️ Miro Resource Disclaimer
+This Miro board is not officially supported by CCTC. It is maintained by an instructor via a third-party platform and provided *as-is*. Due to the volume of embedded content, performance may vary—especially during peak usage. For best results, use **Google Chrome** when accessing the board.
+
+---
+
+### 🧩 CCTC Networking Miro Whiteboard  
+Main Board: [Miro Networking Board](https://miro.com/app/board/o9J_klSqCSY=/?share_link_id=16)
+
+#### 📚 Individual Section Boards
+- **Day 1 & 2 – Network Fundamentals**  
+  [View Board](https://miro.com/app/board/uXjVL5Xh8-k=/?share_link_id=227946247596)
+
+- **Day 3 – Traffic Capture**  
+  [View Board](https://miro.com/app/board/uXjVL4x9aPI=/?share_link_id=69452653029)
+
+- **Day 4 – Socket Programming**  
+  [View Board](https://miro.com/app/board/uXjVL4wawbY=/?share_link_id=785182427927)
+
+- **Day 5 – Network Reconnaissance**  
+  [View Board](https://miro.com/app/board/uXjVL4wUR4Q=/?share_link_id=922899713175)
+
+- **Day 6 – File Transfer & Redirection**  
+  [View Board](https://miro.com/app/board/uXjVL4xZJ54=/?share_link_id=42990380004)
+
+- **Day 7 & 8 – SSH Tunneling & Covert Channels**  
+  [View Board](https://miro.com/app/board/uXjVL4x58qg=/?share_link_id=164190037374)
+
+- **Day 9 – Network Analysis**  
+  [View Board](https://miro.com/app/board/uXjVL4xYU9Q=/?share_link_id=148729317405)
+
+- **Day 10 & 11 – Traffic Filtering**  
+  [View Board](https://miro.com/app/board/uXjVL43JXxg=/?share_link_id=404073487405)
 
 ---
 
