@@ -5012,5 +5012,35 @@ Challenge | Level: II
           |     alerticmpanyany->anyany(msg:"Cows";content:"|DEADBEEF|";sid:1000001;)  
 
 -----------------------------------------------------------------------------------------------------------------------------------------
+                                             Title: NETWORKING – 6 – FILTERING – TASK 3 – SIGNATURES
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+| ICMP 3 – DEADBEEF Content Alert Count  
+Challenge | Level: II  
+          | Points: 10  
+          | Prompt:  
+          |     "Utilizing your INTERNET_HOST, and the provided Traffic Capture,  
+          |      how many alerts are created with the content of DEADBEEF?"
+
+          | Host Information:  
+          |     - INTERNET_HOST: Analysis system  
+          |     - PCAP File: /home/student/ids.pcap  
+          |     - Rule File: /etc/snort/rules/cows.rules  
+
+          | Steps Taken:  
+          |     1. Verified cows.rules contains correct rule syntax:  
+          |        - `alerticmpanyany->anyany(msg:"Cows";content:"|DEADBEEF|";sid:1000001;)`  
+          |     2. Ran Snort against the PCAP file using the custom rule:  
+          |        - `sudo snort -r /home/student/ids.pcap -c /etc/snort/rules/cows.rules`  
+          |     3. Observed total alerts triggered by DEADBEEF content match.  
+
+          | ✅ Final Answer:  
+          |     80  
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
                                                   Title: Networking - 7 - Capstone v2
 -----------------------------------------------------------------------------------------------------------------------------------------
