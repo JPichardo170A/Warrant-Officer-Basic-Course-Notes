@@ -5037,8 +5037,200 @@ Challenge | Level: II
           | ✅ Final Answer:  
           |     80  
 
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                             Title: NETWORKING – 6 – FILTERING – TASK 3 – SIGNATURES
+-----------------------------------------------------------------------------------------------------------------------------------------
 
+| ICMP 4 – DMZ Ping Detection – dmz.rules  
+Challenge | Level: II  
+          | Points: 10  
+          | Prompt:  
+          |     "Utilizing your INTERNET_HOST, create a new rule called dmz.rules.  
+          |      Rule Definition:  
+          |         - alert  
+          |         - any ICMP Echo Requests  
+          |         - Detects Type 8 / Code 0  
+          |         - Destination: 10.3.0.0/24  
+          |         - Message: DMZ Ping  
+          |         - SID: 1000002  
+          |      Provide the complete working rule that you created as the flag."
 
+          | Host Information:  
+          |     - INTERNET_HOST: Rule creation target  
+          |     - Rule File: dmz.rules  
+
+          | Steps Taken:  
+          |     1. Created new rule file: `dmz.rules`  
+          |     2. Defined alert rule for ICMP Echo Request traffic to DMZ subnet  
+          |     3. Specified ICMP Type 8 and Code 0  
+          |     4. Verified rule syntax and SID assignment  
+
+          | ✅ Final Answer:  
+          |     alerticmpanyany->10.3.0.0/24any(msg:"DMZ Ping";itype:8;icode:0;sid:1000002;)  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                             Title: NETWORKING – 6 – FILTERING – TASK 3 – SIGNATURES
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+| ICMP 5 – DMZ Echo Request Alert Count  
+Challenge | Level: II  
+          | Points: 10  
+          | Prompt:  
+          |     "Utilizing your INTERNET_HOST, and the provided Traffic Capture,  
+          |      how many alerts are created for ICMP Echo Request messages to 10.3.0.0/24?  
+          |      Command used:  
+          |         sudo snort -r /home/student/ids.pcap -c /etc/snort/rules/dmz.rules"
+
+          | Host Information:  
+          |     - INTERNET_HOST: Analysis system  
+          |     - PCAP File: /home/student/ids.pcap  
+          |     - Rule File: /etc/snort/rules/dmz.rules  
+
+          | Steps Taken:  
+          |     1. Verified dmz.rules contains correct rule syntax:  
+          |        - `alert icmp any any -> 10.3.0.0/24 any (msg:"DMZ Ping";itype:8;icode:0;sid:1000002;)`  
+          |     2. Ran Snort against the PCAP file using the DMZ rule:  
+          |        - `sudo snort -r /home/student/ids.pcap -c /etc/snort/rules/dmz.rules`  
+          |     3. Observed total alerts triggered by ICMP Echo Requests to 10.3.0.0/24.  
+
+          | ✅ Final Answer:  
+          |     120  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                             Title: NETWORKING – 6 – FILTERING – TASK 3 – SIGNATURES
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+| SSH Brute – Threshold-Based Detection  
+Challenge | Level: II  
+          | Points: 10  
+          | Prompt:  
+          |     "Utilizing your INTERNET_HOST, create a new rule that will:  
+          |      - Track 3 SSH authentication attempts within 10 seconds  
+          |      - From a specific source  
+          |      - Using both threshold  
+          |      Utilizing the provided Traffic Capture, how many alerts are created for SSH Brute Force attempts?"
+
+          | Host Information:  
+          |     - INTERNET_HOST: Rule creation target  
+          |     - PCAP File: /home/student/ids.pcap  
+          |     - Rule File: sshbrute.rules  
+
+          | Rule Definition:  
+          |     alert tcp any any -> any 22 (msg:"SSH Brute Force - 3 failed login attempts in 10s";threshold:type both, track by_src, count 3,seconds 10;sid:3000006;)  
+
+          | Steps Taken:  
+          |     1. Created new rule file: `sshbrute.rules`  
+          |     2. Defined alert rule for TCP port 22 with SSH brute force threshold  
+          |     3. Ran Snort against the PCAP file:  
+          |        - `sudo snort -r /home/student/ids.pcap -c /etc/snort/rules/sshbrute.rules`  
+          |     4. Counted total alerts triggered by SSH brute force attempts  
+
+          | ✅ Final Answer:  
+          |     9  
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                             Title: NETWORKING – 6 – FILTERING – TASK 3 – SIGNATURES
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+| RDP – TCP/UDP Detection to Specific Host  
+Challenge | Level: II  
+          | Points: 10  
+          | Prompt:  
+          |     "Utilizing your INTERNET_HOST, create a new rule that will:  
+          |      - Identify traffic using both TCP and UDP Protocols  
+          |      - For RDP traffic going to 192.168.65.20  
+          |      Utilizing the provided Traffic Capture, how many alerts are created for RDP messages?"
+
+          | Host Information:  
+          |     - INTERNET_HOST: Rule creation target  
+          |     - PCAP File: /home/student/ids.pcap  
+          |     - Rule File: showme.rules  
+
+          | Rule Definitions:  
+          |     alert tcp any any -> 192.168.65.20 3389 (msg:"Show Me The Alerts";sid:1562345;)  
+          |     alert udp any any -> 192.168.65.20 3389 (msg:"Show Me The Alerts";sid:1562346;)  
+
+          | Steps Taken:  
+          |     1. Created new rule file: `showme.rules`  
+          |     2. Defined alert rules for both TCP and UDP RDP traffic to 192.168.65.20  
+          |     3. Ran Snort against the PCAP file:  
+          |        - `sudo snort -r /home/student/ids.pcap -c /etc/snort/rules/showme.rules`  
+          |     4. Counted total alerts triggered by RDP traffic  
+
+          | ✅ Final Answer:  
+          |     234  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                             Title: NETWORKING – 6 – FILTERING – TASK 3 – SIGNATURES
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+| Null Scan – TCP Scan Detection  
+Challenge | Level: II  
+          | Points: 10  
+          | Prompt:  
+          |     "Utilizing your INTERNET_HOST, create a new rule that will:  
+          |      - Detect TCP Null scan to 10.3.0.0/24  
+          |      - Regardless of the traffic flow state  
+          |      Utilizing the provided Traffic Capture, how many alerts are created for TCP Null scan?"
+
+          | Host Information:  
+          |     - INTERNET_HOST: Rule creation target  
+          |     - PCAP File: /home/student/ids.pcap  
+          |     - Rule File: null.rules  
+
+          | Rule Definition:  
+          |     alert tcp any any -> 10.3.0.0/24 any (msg:"SMBE BRUH";flags:0;sid:100123;)  
+
+          | Steps Taken:  
+          |     1. Created new rule file: `null.rules`  
+          |     2. Defined alert rule for TCP traffic with no flags to 10.3.0.0/24  
+          |     3. Ensured no flow state restrictions were applied  
+          |     4. Ran Snort against the PCAP file:  
+          |        - `sudo snort -r /home/student/ids.pcap -c /etc/snort/rules/null.rules`  
+          |     5. Counted total alerts triggered by TCP Null scan  
+
+          | ✅ Final Answer:  
+          |     327  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                             Title: NETWORKING – 6 – FILTERING – TASK 3 – SIGNATURES
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+| WannaCry – SMB/CIFS Port-Based Detection  
+Challenge | Level: III  
+          | Points: 15  
+          | Prompt:  
+          |     "WannaCry ransomware and other Malware often use SMB and CIFS protocols as an attack vector for propagation.  
+          |      Identify the ports these protocols use.  
+          |      Utilizing your INTERNET_HOST, and the provided Traffic Capture:  
+          |      How many alerts are created for WannaCry using the Identified Ports regardless of the traffic flow state going to 10.0.0.0/8."
+
+          | Host Information:  
+          |     - INTERNET_HOST: Rule creation target  
+          |     - PCAP File: /home/student/ids.pcap  
+          |     - Rule File: cry.rules  
+
+          | Identified Ports for SMB/CIFS:  
+          |     - TCP 445 (SMB over TCP)  
+          |     - TCP 139 (NetBIOS Session Service)  
+          |     - UDP 137 (NetBIOS Name Service)  
+          |     - UDP 138 (NetBIOS Datagram Service)  
+
+          | Rule Definitions:  
+          |     alert tcp any any -> 10.0.0.0/8 445 (msg:"MakeThemCry";sid:99997;)  
+          |     alert udp any any -> 10.0.0.0/8 137 (msg:"MakeThemCry";sid:99998;)  
+          |     alert tcp any any -> 10.0.0.0/8 139 (msg:"MakeThemCry";sid:99999;)  
+          |     alert udp any any -> 10.0.0.0/8 138 (msg:"MakeThemCry";sid:99910;)  
+
+          | Steps Taken:  
+          |     1. Created new rule file: `cry.rules`  
+          |     2. Defined alert rules for SMB/CIFS ports targeting 10.0.0.0/8  
+          |     3. Ensured rules are protocol-specific and flow-agnostic  
+          |     4. Ran Snort against the PCAP file:  
+          |        - `sudo snort -r /home/student/ids.pcap -c /etc/snort/rules/cry.rules`  
+          |     5. Counted total alerts triggered by WannaCry-related traffic  
+
+          | ✅ Final Answer:  
+          |     33  
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------
