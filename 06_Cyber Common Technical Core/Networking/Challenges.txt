@@ -4519,6 +4519,8 @@ Challenge | Level: II
           |     **Jun 9, 2017**
 
 -----------------------------------------------------------------------------------------------------------------------------------------
+                                      Networking - 6 - Filtering - Task 1 - Host Filtering
+-----------------------------------------------------------------------------------------------------------------------------------------
                                               Title: Networking - 6 - Filtering T1
 -----------------------------------------------------------------------------------------------------------------------------------------
 
@@ -4698,10 +4700,12 @@ Challenge | Level: II
           | ✅ Final Answer:  
           |     Validation Flag: d3b88e04de1e76482a1972f36734a7d8
 
------------------------------------------------------------------------------------------------------------------------------------------
-                                              Title: Networking - NAT - 01 - NAT T5
------------------------------------------------------------------------------------------------------------------------------------------
 
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                           Networking - 6 - Filtering - Task 2 - NAT
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                              Title: Networking - NAT - 02 - NAT T6
+-----------------------------------------------------------------------------------------------------------------------------------------
 | Question 01 – IPTables/NFTables – NAT Configuration  
 Challenge | Level: I  
           | Points: 5  
@@ -4798,23 +4802,214 @@ Challenge | Level: II
           |     NAT Validation Flag: e4f4c65b3884eadf7986adc76caea32c
 
 
-
 -----------------------------------------------------------------------------------------------------------------------------------------
-                                      Networking - 6 - Filtering - Task 1 - Host Filtering
+                                             Title: NETWORKING – 6 – FILTERING – TASK 3 – SIGNATURES
 -----------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
------------------------------------------------------------------------------------------------------------------------------------------
-                                           Networking - 6 - Filtering - Task 2 - NAT
+                                                                 SIGNATURES
 -----------------------------------------------------------------------------------------------------------------------------------------
 
+| Confirm 1 – Snort Passive Recon  
+Challenge | Level: I  
+          | Points: 5  
+          | Prompt:  
+          |     "Enumerate services on T4 to gain access, and perform Passive Recon.  
+          |      What command was used to run Snort on that machine?  
+          |      Provide exact syntax with associated options."
 
+          | Host Information:  
+          |     - T4: Target system  
+          |     - Access Method:  
+          |         ssh -p 25 net7_student10@10.50.37.214  
 
+          | Steps Taken:  
+          |     1. Connected to T4 via SSH.  
+          |     2. Ran process inspection command:  
+          |        - `ps -elf | grep snort`  
+          |     3. Identified Snort running as root with the following command:  
+          |        - `/usr/bin/snort -D -c /etc/snort/snort.conf`  
 
+          | Option Breakdown:  
+          |     - `-D`: Run Snort as a daemon (background process)  
+          |     - `-c`: Specify the configuration file to use  
 
+          | ✅ Final Answer:  
+          |     /usr/bin/snort -D -c /etc/snort/snort.conf  
 
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                             Title: NETWORKING – 6 – FILTERING – TASK 3 – SIGNATURES
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+| Confirm 2 – Snort TCP Flag Alert  
+Challenge | Level: I  
+          | Points: 5  
+          | Prompt:  
+          |     "Utilizing T4, which SNORT rule would create an alert when  
+          |      No TCP Flags are set or the URG, PUSH, and FIN TCP Flags are set?  
+          |      Provide the full filename of the rule (not the entire path)."
+
+          | Host Information:  
+          |     - T4: Target system  
+          |     - Access Method:  
+          |         ssh -p 25 net7_student10@10.50.37.214  
+
+          | Steps Taken:  
+          |     1. Attempted to locate rules directory:  
+          |        - `cd /etc/ver/rules` → Not found  
+          |        - `cd /etc/var/rules` → Not found  
+          |        - `cd /etc/snort/rules` → Success  
+          |     2. Listed rule files:  
+          |        - Found: dzt.rules, icmp.rules, lshell.rules, nm.rules, shell.rules, wbcm.rules  
+          |     3. Inspected `nm.rules` contents:  
+          |        - Rule for no TCP flags:  
+          |          `alert tcp any any -> any any (msg:"NULL Scan"; flags: 0;sid:9000007;)`  
+          |        - Rule for URG, PUSH, FIN flags:  
+          |          `alert tcp any any -> any any (msg:"XMAS Scan"; flags: FPU;sid:9000008;)`  
+
+          | ✅ Final Answer:  
+          |     nm.rules  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                             Title: NETWORKING – 6 – FILTERING – TASK 3 – SIGNATURES
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+| Confirm 3 – Snort NOP Sled Detection  
+Challenge | Level: I  
+          | Points: 5  
+          | Prompt:  
+          |     "Utilizing T4, which SNORT rule would create an alert when the Hex Indicator of a NOP Sled are detected?  
+          |      Provide the full filename of the rule (not the entire path)."
+
+          | Host Information:  
+          |     - T4: Target system  
+          |     - Access Method:  
+          |         ssh -p 25 net7_student10@10.50.37.214  
+
+          | Steps Taken:  
+          |     1. Verified active rule files via Snort configuration:  
+          |        - `cat /etc/snort/snort.conf`  
+          |        - Included: icmp.rules, nm.rules, shell.rules, dzt.rules  
+          |     2. Searched for NOP sled hex pattern using grep:  
+          |        - `grep -i '90 90' /etc/snort/rules/*`  
+          |     3. Found matching rule in shell.rules:  
+          |        - `alert ip any any -> any any ( msg:"INDICATOR-SHELLCODE x86"; content:"|90 90 90 90 90 90 90 90 90 90 90 90 90 90|",fast_pattern,nocase; metadata:policy max-detect-ips drop,ruleset community; sid:648; rev:18; )`  
+
+          | ✅ Final Answer:  
+          |     shell.rules  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                             Title: NETWORKING – 6 – FILTERING – TASK 3 – SIGNATURES
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+| Confirm 4 – DNS Zone Transfer Detection  
+Challenge | Level: I  
+          | Points: 5  
+          | Prompt:  
+          |     "Utilizing T4, which SNORT rule would create an alert when a DNS Zone Transfer is detected  
+          |      with the content specified in CVE-1999-0532.  
+          |      Provide the full filename of the rule (not the entire path)."
+
+          | Host Information:  
+          |     - T4: Target system  
+          |     - Access Method:  
+          |         ssh -p 25 net7_student10@10.50.37.214  
+
+          | Steps Taken:  
+          |     1. Accessed T4 and navigated to Snort rules directory:  
+          |        - `cd /etc/snort/rules`  
+          |     2. Searched for DNS zone transfer indicators related to CVE-1999-0532.  
+          |     3. Identified rule containing relevant content in:  
+          |        - `dzt.rules`  
+          |     4. Rule matched zone transfer pattern and CVE reference.  
+
+          | ✅ Final Answer:  
+          |     dzt.rules  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                             Title: NETWORKING – 6 – FILTERING – TASK 3 – SIGNATURES
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+| Confirm 5 – ICMP Message Detection  
+Challenge | Level: I  
+          | Points: 5  
+          | Prompt:  
+          |     "Utilizing T4, which SNORT rule would create an alert when an ICMP Message is detected.  
+          |      Provide the full filename of the rule (not the entire path)."
+
+          | Host Information:  
+          |     - T4: Target system  
+          |     - Access Method:  
+          |         ssh -p 25 net7_student10@10.50.37.214  
+
+          | Steps Taken:  
+          |     1. Navigated to Snort rules directory:  
+          |        - `cd /etc/snort/rules`  
+          |     2. Verified rule file inclusion via Snort config:  
+          |        - `cat /etc/snort/snort.conf`  
+          |        - Included: icmp.rules  
+          |     3. Confirmed presence of ICMP detection rule in:  
+          |        - `icmp.rules`  
+
+          | ✅ Final Answer:  
+          |     icmp.rules  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                             Title: NETWORKING – 6 – FILTERING – TASK 3 – SIGNATURES
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+| ICMP 1 – Default ICMP Rule Alert Count  
+Challenge | Level: II  
+          | Points: 10  
+          | Prompt:  
+          |     "From here on you will create your rules on either your Opstation or INTERNET-HOST.  
+          |      Using the provided Traffic Capture (/home/activity_resources/pcaps/ids.pcap),  
+          |      how many alerts are created with the default ICMP rule?"
+
+          | Resource Information:  
+          |     - PCAP File: /home/activity_resources/pcaps/ids.pcap  
+          |     - Optional Download:  
+          |         wget --no-check-certificate https://git.cybbh.space/net/public/raw/master/modules/networking/activities/resources/ids.pcap  
+
+          | Steps Taken:  
+          |     1. Downloaded the PCAP file to analysis host.  
+          |     2. Opened the file using Snort with default ICMP rule enabled.  
+          |     3. Filtered results for ICMP traffic.  
+          |     4. Matched alert count with displayed ICMP packets.  
+
+          | ✅ Final Answer:  
+          |     431  
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                             Title: NETWORKING – 6 – FILTERING – TASK 3 – SIGNATURES
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+| ICMP 2 – Custom Rule Creation – cows.rules  
+Challenge | Level: II  
+          | Points: 10  
+          | Prompt:  
+          |     "Utilizing your INTERNET_HOST, create a new rule called cows.rules.  
+          |      Rule Definition:  
+          |         - alert  
+          |         - any ICMP Messages Source to destination  
+          |         - Message = Cows  
+          |         - HEX content = DEADBEEF  
+          |         - Set sid to 1000001  
+          |      Provide the complete working rule that you created as the flag with NO SPACES between the ( ).  
+          |      To verify if your rule is correct:  
+          |         - cat cows.rules | md5sum  
+          |         - Confirmation MD5sum: 5e68869ecd077d427c182a392fa8b858"
+
+          | Host Information:  
+          |     - INTERNET_HOST: Rule creation target  
+          |     - Rule File: cows.rules  
+
+          | Steps Taken:  
+          |     1. Created new rule file: `cows.rules`  
+          |     2. Defined alert rule for ICMP traffic with HEX content match  
+          |     3. Ensured formatting met flag requirements (no spaces between parentheses)  
+          |     4. Verified rule integrity using md5sum  
+
+          | ✅ Final Answer:  
+          |     alerticmpanyany->anyany(msg:"Cows";content:"|DEADBEEF|";sid:1000001;)  
 
 -----------------------------------------------------------------------------------------------------------------------------------------
                                                   Title: Networking - 7 - Capstone v2
