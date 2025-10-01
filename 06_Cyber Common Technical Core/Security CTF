@@ -189,28 +189,89 @@ Answer: yXw56JqEaI4EpyI2qa6A
 
 ________________________________________________________________________________________________________________________
 
-SMB
-5
-Level II Challenge
+=== SMB Level II Challenge Report ===
 
-Your team has received intelligence related to Server Message Block being available. Identify the host and associated flag.
+Challenge ID: SMB-5  
+Level: II  
+Category: Server Message Block (SMB)  
+Objective: Identify the host with SMB available and retrieve the associated flag.  
+Flag Format: Unique string of twenty random characters
 
-Your flag will be a unique string of twenty random characters.
+-- Initial Access --
 
-You will need to gain initial access to a system in 192.168.28.96/27 subnet utilizing passwords gathered through recon.
+Target Subnet: 192.168.28.96/27  
+Access Method: SSH tunnel via jump box  
+Credentials Used:
+  - Username: student
+  - Password: YourTempPassword
 
---script 
+Command:
+  proxychains ssh student@192.168.28.120 -p 4242
 
--->Network scan:192.168.150.224/27
+Purpose:
+  - Establishes access to internal network via grey box
 
-proxychains ssh archive@192.168.28.120 -p 4242
+-- Tunnel Architecture --
 
-Pass: YourTempPassword
+Step 1: Local Port Forwarding from linops to Jump Box (.118)
+Command:
+  ssh student@10.50.11.118 -L 2222:192.168.28.120:4242
 
-student@grey:~$  for i in {1..254} ;do (ping -c 1 192.168.150.$i | grep "bytes from" &) 2>/dev/null ;done
+Step 2: Dynamic SOCKS Proxy from Jump Box to Grey Box
+Command (run from jump box):
+  ssh student@192.168.28.120 -p 4242 -D 9050
 
-64 bytes from 192.168.150.225: icmp_seq=1 ttl=64 time=0.255 ms
-64 bytes from 192.168.150.245: icmp_seq=1 ttl=127 time=1.64 ms
+Proxychains Configuration:
+  socks5 127.0.0.1 9050
+
+-- Network Reconnaissance --
+
+Scan Target: 192.168.150.224/27  
+Command:
+  for i in {1..254} ;do (ping -c 1 192.168.150.$i | grep "bytes from" &) 2>/dev/null ;done
+
+Live Hosts Identified:
+  - 192.168.150.225
+  - 192.168.150.245
+
+-- SMB Port Scanning --
+
+Tool: proxychains + nmap  
+Command:
+  proxychains nmap -Pn -sV -p 445,139 192.168.150.245
+
+Results:
+  - Port 139/tcp: open (Microsoft Windows netbios-ssn)
+  - Port 445/tcp: open (Microsoft Windows 7 - 10 microsoft-ds)
+  - Workgroup: WORKGROUP
+  - Hostname: 7QZVXOXE1VJXCPR
+
+-- Enumeration via NSE Scripts --
+
+Command:
+  proxychains nmap -Pn -p 445 \
+  --script smb-enum-shares,smb-ls,smb-mbenum,smb-enum-users,smb-os-discovery \
+  192.168.150.245
+
+Key Output:
+  - Access denied to ADMIN$, C$, IPC$ (except READ on IPC$)
+  - OS Discovery revealed:
+      Computer name: 7qzvXoxE1VJXcPr84wsx
+      OS: Windows 10 Enterprise
+      Workgroup: WORKGROUP
+
+-- Flag Extraction --
+
+Flag Source: Computer name field from `smb-os-discovery` script  
+Flag Value: **7qzvXoxE1VJXcPr84wsx**
+
+-- Final Status --
+
+✅ Host Identified: 192.168.150.245  
+✅ SMB Service Confirmed  
+✅ Flag Retrieved: 7qzvXoxE1VJXcPr84wsx
+
+_____________________________________________________________________________________________________________________________________________
 
 
 
