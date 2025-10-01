@@ -128,10 +128,11 @@ drwxrwxr-x 2 student student   4096 Sep 30 14:31 js
 -rw-rw-r-- 1 student student  17721 Sep 26 18:47 speakers.html
 
 
-  student@lin-ops:~/192.168.28.111:8080$ cat speakers.html
+I had to to go into the browser network seetings and set up my proxy to my local and port 9050 in order to go to the website ip on my browaser and do my search of the speakersa and index.html files and ounfd the answer. 
 
-Answer: 
+  student@lin-ops:~/192.168.28.111:8080$ cat index.html
 
+Answer: uz181llAEc9HZFon69mU
 
 ________________________________________________________________________________________________________________________
 
@@ -163,17 +164,53 @@ student@lin-ops:~/192.168.28.111:8080$ cat news.html | grep -oP '[A-Za-z0-9]{20}
 
 answer: gRl3iMBv2pMmL4TNn9t4
 
+________________________________________________________________________________________________________________________
+
+Contact Info
+5
+Level II Challenge
+
+Intelligence suggests that the Donovian Consulting Group appears to have sensitive contacts available on their public facing site. Scrape the data and piece together the flag.
+
+Your flag will be a unique string of twenty random characters.
 
 
+opened up site on the browser to this: view-source:http://192.168.28.111/sites/NSC-Contacts.html
 
+was able to find the pieces and sort through it which the example where. 
 
+1. <td class="f1aG">f1rstpArt@<strong>yXw56</strong></td>
+2. <td class="f1aG" style="opacity: .0;">s3cond0n3@<strong>JqEaI</strong></td>
+3. <td class="f1aG">th1rd@<strong>4EpyI</strong></td>
+4. <td class="f1aG" style="opacity: .0;">f0urthpArt@<strong>2qa6A</strong></td>
+5. <td class="f1aG" style="opacity: .0;">s3cond0n3@<strong>JqEaI</strong></td>
 
+Answer: yXw56JqEaI4EpyI2qa6A
 
+________________________________________________________________________________________________________________________
 
+SMB
+5
+Level II Challenge
 
+Your team has received intelligence related to Server Message Block being available. Identify the host and associated flag.
 
+Your flag will be a unique string of twenty random characters.
 
+You will need to gain initial access to a system in 192.168.28.96/27 subnet utilizing passwords gathered through recon.
 
+--script 
+
+-->Network scan:192.168.150.224/27
+
+proxychains ssh archive@192.168.28.120 -p 4242
+
+Pass: YourTempPassword
+
+student@grey:~$  for i in {1..254} ;do (ping -c 1 192.168.150.$i | grep "bytes from" &) 2>/dev/null ;done
+
+64 bytes from 192.168.150.225: icmp_seq=1 ttl=64 time=0.255 ms
+64 bytes from 192.168.150.245: icmp_seq=1 ttl=127 time=1.64 ms
 
 
 
