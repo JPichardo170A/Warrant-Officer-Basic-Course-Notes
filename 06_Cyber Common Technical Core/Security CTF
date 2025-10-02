@@ -305,7 +305,7 @@ Challenge | Level: Mission Initialization
           |     - SSH access authorized on host: `Donovian_MI_websvr`  
           |     - Student may browse additional Ministry web sites to collect intelligence  
           |       for answering CTFd challenges  
-
+d
           | Scheme of Maneuver:  
           |     > Jump Box  
           |     -> T1: `10.100.28.40`  
@@ -321,12 +321,61 @@ Challenge | Level: Mission Initialization
           |     Malware: Unknown  
           |     Action: Conduct approved web exploitation techniques to collect intelligence  
 
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                     Title: Donovian Web Exploitation - 5 - VIP Email Address
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+VIP Email Address  
+Level I Challenge — Question 5
+
+Objective:  
+Through website reconnaissance, determine Romanoff’s email address.
+
+Recon Steps:  
+1. Navigated to: http://10.100.28.40/net_test/industry_check.php  
+2. Identified vulnerable input field: `IP`  
+3. Submitted command injection payload via browser:  
+   Payload: `127.0.0.1; find / | grep -i romanoff`  
+4. Server executed payload and returned matching string containing Romanoff’s email address.
+
+Extracted Artifact:  
+Romanoff’s Email Address: N.Romanoff@MI.ru
+
+Outcome:  
+Challenge successfully completed through command injection and filesystem enumeration.
 
 
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                     Title: Donovian Web Exploitation - 8 - Training Site Location
+-----------------------------------------------------------------------------------------------------------------------------------------
 
+Training Site Location  
+Level I Challenge — Question 8
 
+Objective:  
+Determine the IPv4 address of the Training Site website through web reconnaissance.
 
+Recon Steps:  
+1. Executed targeted Nmap scan using SQL injection NSE script:  
+   Command:  
+   proxychains nmap -Pn -T5 -sT -p 80 --script http-sql-injection.nse 10.100.28.40
 
+2. Scan revealed accessible file directories on host 10.100.28.40.
+
+3. Navigated to the /uploads directory via Firefox browser:  
+   URL: http://10.100.28.40/uploads
+
+4. Message displayed within the /uploads directory disclosed the IPv4 address of the Training Site.
+
+Extracted Artifact:  
+Training Site IPv4 Address: 10.100.28.55
+
+student@lin-ops:~$ proxychains curl http://10.100.28.40/uploads/message 
+ProxyChains-3.1 (http://proxychains.sf.net) |S-chain|-<>-127.0.0.1:9050-<><>-10.100.28.40:80-<><>-OK 
+Just completed my Cyber Awareness training and it says ATOPIA. Last I checked that is a whole other country. 
+Please send me a corrected cert with the right now. 
+I took my online training from the following website 
+10.100.28.55
 
 
 
