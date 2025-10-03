@@ -1122,6 +1122,57 @@ Challenge | Level: 2
           |     - Refer to Section 10.6 in Student Resources for string comparison and control flow  
 
 -----------------------------------------------------------------------------------------------------------------------------------------
+
+                                     Title: Gorgas Reverse Engineering - 0 - Mission Briefing
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+          | Operation – Gorgas Reverse Engineering (GRE)  
+Challenge | Level: Mission Initialization  
+          | Points: N/A  
+          | Prompt:  
+          |     "Intel has identified that the Donovian_Webserver (192.168.28.111) is hosting binaries via port 80  
+          |      at the URI /longTermStorage. Extract binaries and conduct Reverse Engineering (disassemble, debug)  
+          |      on collected files to determine functionality and methods for successful execution."  
+
+          | Reference Intelligence:  
+          |     - Date: XX SEP 2025  
+          |     - Start Time: 1300  
+          |     - Duration: 4 hours  
+          |     - Type of Operation: DEVOPS  
+          |     - Objective: Extract and analyze binaries hosted on Donovian_Webserver at /longTermStorage  
+          |     - Scenario Flag: `R3V3R535t@rt0F@ct1v1ty`  
+          |     - Approved Tools/Techniques:  
+          |         • Ghidra  
+          |         • IDA Pro  
+          |         • GDB  
+          |     - Connection Methods:  
+          |         • Web access via port 80  
+          |         • SSH (if applicable)  
+          |     - Extraction and reverse engineering permitted only on authorized Analyst Workstations  
+
+          | Prior Approvals:  
+          |     - Extraction authorized from host: `Donovian-Webserver`  
+          |     - Tasks limited to Analyst Workstations only  
+
+          | Scheme of Maneuver:  
+          |     > Analyst Workstation  
+          |     -> T1: `192.168.28.111`  
+
+          | Target Section:  
+          |     T1  
+          |     Hostname: `web.site.donovia`  
+          |     IP Address: `192.168.28.111`  
+          |     OS: Unknown  
+          |     Credentials: comrade::StudentWebExploitPassword  
+          |     Last Known SSH Port: Unknown  
+          |     PSP: Unknown  
+          |     Malware: Unknown  
+          |     Action: Extract approved binaries under directory titled "longTermStorage" and perform  
+          |             reverse engineering analysis (disassemble, debug) on collected files  
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
                                               Title: Reverse Engineering - Binary Analysis
 -----------------------------------------------------------------------------------------------------------------------------------------
 
