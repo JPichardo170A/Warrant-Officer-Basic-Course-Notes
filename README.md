@@ -1,166 +1,154 @@
-# 📘 WOBC Knowledge Repository
+<div align="center">
 
-> Warrant Officer Basic Course (WOBC) — Centralized notebook repository for lessons, labs, and key takeaways across all course modules.
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,50:1a1f2e,100:00ff88&height=200&section=header&text=WOBC%20Knowledge%20Repository&fontSize=36&fontColor=00ff88&fontAlignY=38&desc=Warrant%20Officer%20Basic%20Course%20%7C%20Cyber%20Common%20Technical%20Core&descAlignY=58&descSize=16&descColor=8b949e" />
 
----
+[![Author](https://img.shields.io/badge/WO1%20Pichardo-Jonathan-00ff88?style=for-the-badge&logo=shield&logoColor=white)](https://github.com/JPichardo170A)
+[![Unit](https://img.shields.io/badge/Unit-169th%20Cyber%20Protection%20Team-1a1f2e?style=for-the-badge&logo=shield&logoColor=00ff88)](https://github.com/JPichardo170A)
+[![Course](https://img.shields.io/badge/Course-WOBC%20%7C%20CCTC-blueviolet?style=for-the-badge&logo=bookstack&logoColor=white)](https://github.com/JPichardo170A)
+[![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge&logo=statuspage&logoColor=white)](.)
 
-## 📑 Module Index
+[![Modules](https://img.shields.io/badge/Modules-5-blue?style=for-the-badge&logo=bookstack&logoColor=white)](.)
+[![Files](https://img.shields.io/badge/Files-53-orange?style=for-the-badge&logo=files&logoColor=white)](.)
+[![Format](https://img.shields.io/badge/Format-Markdown-lightgrey?style=for-the-badge&logo=markdown&logoColor=white)](.)
+[![Updated](https://img.shields.io/badge/Updated-March%202026-blue?style=for-the-badge&logo=github&logoColor=white)](.)
 
-| # | Module | Folder | Description | Files |
-|---|--------|--------|-------------|-------|
-| 00 | [CVTE HowTo](00_WOBC_Cvte_HowTo/) | `00_WOBC_Cvte_HowTo/` | CVTE virtual machine setup and orientation | 1 |
-| 01 | [Python](01_Python/) | `01_Python/` | Python fundamentals — data types, functions, OOP, networking, regex | 17 |
-| 02 | [PowerShell](02_PowerShell/) | `02_PowerShell/` | PowerShell scripting, remoting, automation, and troubleshooting | 10 |
-| 03 | [Defensive Cyberspace Operations](03_Defensive%20Cyberspace%20Operations/) | `03_Defensive Cyberspace Operations/` | DCO foundations, reconnaissance, analysis, and crew lead ops | 4 |
-| 04 | [Cloud Foundations](04_Cloud%20Foundations/) | `04_Cloud Foundations/` | Cloud fundamentals — IAM, AWS/Azure infrastructure, IR, threat hunting | 5 |
+![Kali Linux](https://img.shields.io/badge/Kali_Linux-557C94?style=flat-square&logo=kali-linux&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![PowerShell](https://img.shields.io/badge/PowerShell-5391FE?style=flat-square&logo=powershell&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazonaws&logoColor=white)
+![Azure](https://img.shields.io/badge/Azure-0078D4?style=flat-square&logo=microsoftazure&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black)
+![Windows](https://img.shields.io/badge/Windows-0078D6?style=flat-square&logo=windows&logoColor=white)
+![Wireshark](https://img.shields.io/badge/Wireshark-1679A7?style=flat-square&logo=wireshark&logoColor=white)
 
----
+</div>
 
-## 🎯 Purpose
+<br>
 
-The primary goal of this repository is to:
+## Companion Repository
 
-- Consolidate course materials, notes, and personal reflections
-- Highlight key lessons learned and practical applications
-- Showcase references and resources used throughout the course
-- Provide a structured framework for future review and continued learning
+> This repository covers WOBC course notes and study material. All **CCTC technical labs, operational reference, and hands-on lab environments** live in the companion repo:
 
----
+<div align="center">
 
-## 📂 Structure
+[![169CPT-CCTC](https://img.shields.io/badge/169CPT--CCTC-Technical%20Labs%20%26%20Reference-00ff88?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JPichardo170A/169CPT-CCTC)
 
-The repository is organized into five module folders:
+| Repo | Purpose | Contains |
+|------|---------|----------|
+| **WOBC-Notes** *(this repo)* | Course notes & study material | Python · PowerShell · DCO · Cloud |
+| **[169CPT-CCTC](https://github.com/JPichardo170A/169CPT-CCTC)** | Technical labs & operational reference | OS · Networking · Security · SSH Tunneling |
 
-- `00_WOBC_Cvte_HowTo/` — CVTE virtual machine setup and orientation
-- `01_Python/` — Python programming fundamentals (17 notebooks covering data types through regex)
-- `02_PowerShell/` — PowerShell scripting and automation (4 daily lesson notebooks + 6 supplemental notebooks)
-- `03_Defensive Cyberspace Operations/` — DCO foundations, reconnaissance, and crew lead operations
-- `04_Cloud Foundations/` — Cloud infrastructure, IAM, incident response, and threat hunting
+</div>
 
----
+<br>
 
-## 📚 References & Resources
+## Module Index
 
-This notebook draws from a variety of official and supplemental sources, including but not limited to:
+<div align="center">
 
-- **Army Doctrine Publications (ADPs)**
-- **Army Techniques Publications (ATPs)**
-- **Field Manuals (FMs)**
-- **WOBC Course Materials**
-- **Leadership Development Guides**
-- **Peer and Instructor Insights**
-- **Online Military Forums and Knowledge Bases**
+| # | Module | Topics Covered | Files |
+|:-:|--------|----------------|:-----:|
+| `00` | [CVTE HowTo](00_WOBC_Cvte_HowTo/) | VM setup · CVTE orientation | 1 |
+| `01` | [Python](01_Python/) | Data types · Functions · OOP · Networking · Regex | 28 |
+| `02` | [PowerShell](02_PowerShell/) | Scripting · Remoting · Automation · Troubleshooting | 11 |
+| `03` | [Defensive Cyberspace Ops](03_Defensive%20Cyberspace%20Operations/) | DCO Foundations · Recon · Analysis · Crew Lead Ops | 5 |
+| `04` | [Cloud Foundations](04_Cloud%20Foundations/) | IAM · AWS/Azure · Incident Response · Threat Hunting | 6 |
 
-All referenced materials are cited appropriately within each section, and links to publicly available resources are provided where possible.
+</div>
 
----
+<br>
 
-## 🚀 How to Use
+## Purpose
 
-Whether you're a fellow Warrant Officer candidate, a mentor, or simply curious about the WOBC experience, feel free to explore the repository. Each module folder contains a README with a file listing and descriptions. Notebooks are designed to be self-contained yet interconnected, offering both tactical knowledge and strategic perspective.
+<div align="center">
 
----
+| Goal | Description |
+|:----:|-------------|
+| Notes | Consolidate course materials, notes, and personal reflections |
+| Lessons | Document lessons learned and practical applications |
+| References | Provide references and resources used throughout WOBC |
+| Growth | Grow continuously with learning and professional development |
+| Community | Support future Warrant Officers and cyber professionals |
 
-## 🛠️ Future Updates
+</div>
 
-This repository will continue to grow as I progress through the course. Planned updates include:
+<br>
 
-- Annotated diagrams and visual aids
-- Leadership case studies
-- Integration of feedback from instructors and peers
-- Post-course reflections and career planning notes
+## How to Navigate
 
----
+Each module folder contains a `README.md` with a full file listing, individual topic files organized by day or concept, fenced code examples with correct language tags, and numbered step-by-step procedures with verification checkpoints.
 
-## 🤝 Contributions
+> **New here?** Start at [`01_Python`](01_Python/) or [`02_PowerShell`](02_PowerShell/) for core technical content, or jump to [`03_DCO`](03_Defensive%20Cyberspace%20Operations/) for operational foundations.
 
-While this is a personal learning repository, I welcome constructive feedback, additional resources, or shared experiences from others who have gone through WOBC or similar training.
+<br>
 
----
+## Official Course References
 
-# 📚 Reference Links – WOBC (CBTC) Modules
+<div align="center">
 
-## WOBC Course Portal
-- [CBTC Student Guide Portal](https://cted.cybbh.io/tech-college/cbtc/public/cbtc/latest/index.html)
+| Resource | Description | Link |
+|----------|-------------|------|
+| WOBC / CBTC Portal | Student guide and course materials | [View](https://cted.cybbh.io/tech-college/cbtc/public/cbtc/latest/index.html) |
+| CCTC OS Module | Operating systems curriculum | [View](https://os.cybbh.io/public/os/latest/index.html) |
+| CCTC Networking Module | Networking curriculum portal | [View](https://cted.cybbh.io/tech-college/cttsb/cctc/net/Net/) |
+| CCTC Security Module | Security curriculum and op stations | [View](https://sec-cted-tech-college-cttsb-cctc-sec-12e0e75a1babbeec38083447b9.cybbh.io/) |
 
----
+</div>
 
-# 🧠 Reference Links – CCTC Modules & Access
+<br>
 
-## Operating Systems Module
-- [OS Module Public Index](https://os.cybbh.io/public/os/latest/index.html)
-- [CCTC OS Curriculum Portal](https://cted.cybbh.io/tech-college/cttsb/cctc/os/os/index.html)
+## Tools & Platforms
 
-## Networking Module
-- [CCTC Networking Curriculum Portal](https://cted.cybbh.io/tech-college/cttsb/cctc/net/Net/)
+<div align="center">
 
-## Security Module
-- [CCTC Security Module – Building Op Stations](https://sec-cted-tech-college-cttsb-cctc-sec-12e0e75a1babbeec38083447b9.cybbh.io/#building-op-stations)
-- [CCTC Security Module Main Portal](https://sec-cted-tech-college-cttsb-cctc-sec-12e0e75a1babbeec38083447b9.cybbh.io/)
+| Tool | Purpose | Link |
+|------|---------|------|
+| PCTE Dashboard | Training modules and operational tools | [dash.ent1.pcte.mil](https://dash.ent1.pcte.mil/app/app) |
+| CyberChef | Data encoding, decoding, and analysis | [gchq.github.io/CyberChef](https://gchq.github.io/CyberChef/) |
+| Miro Main Board | Visual networking concepts and lab diagrams | [View Board](https://miro.com/app/board/o9J_klSqCSY=/?share_link_id=16) |
 
----
+</div>
 
-# 🛠️ Tools & Platforms
+<br>
 
-### Core Resources
-- 🔗 [PCTE Dashboard](https://dash.ent1.pcte.mil/app/app)
-  Centralized access to training modules and operational tools.
+## CCTC Networking — Miro Section Boards
 
-- 🧠 [CyberChef – Data Analysis & Encoding Tool](https://gchq.github.io/CyberChef/)
-  Versatile tool for decoding, encoding, and analyzing data formats.
+<div align="center">
 
-- 🗺️ [Miro Networking Board](https://miro.com/app/board/o9J_klSqCSY=/?share_link_id=16)
-  Interactive whiteboard used for visualizing networking concepts and lab activities.
+> Instructor-maintained via third-party platform — not officially supported by CCTC. Use **Google Chrome** for best results.
 
----
+| Day | Topic | Board |
+|:---:|-------|:-----:|
+| 1-2 | Network Fundamentals | [View](https://miro.com/app/board/uXjVL5Xh8-k=/?share_link_id=227946247596) |
+| 3 | Traffic Capture | [View](https://miro.com/app/board/uXjVL4x9aPI=/?share_link_id=69452653029) |
+| 4 | Socket Programming | [View](https://miro.com/app/board/uXjVL4wawbY=/?share_link_id=785182427927) |
+| 5 | Network Reconnaissance | [View](https://miro.com/app/board/uXjVL4wUR4Q=/?share_link_id=922899713175) |
+| 6 | File Transfer & Redirection | [View](https://miro.com/app/board/uXjVL4xZJ54=/?share_link_id=42990380004) |
+| 7-8 | SSH Tunneling & Covert Channels | [View](https://miro.com/app/board/uXjVL4x58qg=/?share_link_id=164190037374) |
+| 9 | Network Analysis | [View](https://miro.com/app/board/uXjVL4xYU9Q=/?share_link_id=148729317405) |
+| 10-11 | Traffic Filtering | [View](https://miro.com/app/board/uXjVL43JXxg=/?share_link_id=404073487405) |
 
-### ⚠️ Miro Resource Disclaimer
-This Miro board is not officially supported by CCTC. It is maintained by an instructor via a third-party platform and provided *as-is*. Due to the volume of embedded content, performance may vary—especially during peak usage. For best results, use **Google Chrome** when accessing the board.
+</div>
 
----
+<br>
 
-### 🧩 CCTC Networking Miro Whiteboard
-Main Board: [Miro Networking Board](https://miro.com/app/board/o9J_klSqCSY=/?share_link_id=16)
+## Contact
 
-#### 📚 Individual Section Boards
-- **Day 1 & 2 – Network Fundamentals**
-  [View Board](https://miro.com/app/board/uXjVL5Xh8-k=/?share_link_id=227946247596)
+<div align="center">
 
-- **Day 3 – Traffic Capture**
-  [View Board](https://miro.com/app/board/uXjVL4x9aPI=/?share_link_id=69452653029)
+**WO1 Jonathan Pichardo**
+169th Cyber Protection Team · US Army Cyber Branch
 
-- **Day 4 – Socket Programming**
-  [View Board](https://miro.com/app/board/uXjVL4wawbY=/?share_link_id=785182427927)
+[![Email](https://img.shields.io/badge/Army%20Email-Contact-red?style=for-the-badge&logo=gmail&logoColor=white)](mailto:jonathan.a.pichardo2.mil@army.mil)
+[![GitHub](https://img.shields.io/badge/GitHub-JPichardo170A-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JPichardo170A)
+[![CCTC Repo](https://img.shields.io/badge/CCTC%20Labs-169CPT--CCTC-00ff88?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JPichardo170A/169CPT-CCTC)
 
-- **Day 5 – Network Reconnaissance**
-  [View Board](https://miro.com/app/board/uXjVL4wUR4Q=/?share_link_id=922899713175)
+<br>
 
-- **Day 6 – File Transfer & Redirection**
-  [View Board](https://miro.com/app/board/uXjVL4xZJ54=/?share_link_id=42990380004)
-
-- **Day 7 & 8 – SSH Tunneling & Covert Channels**
-  [View Board](https://miro.com/app/board/uXjVL4x58qg=/?share_link_id=164190037374)
-
-- **Day 9 – Network Analysis**
-  [View Board](https://miro.com/app/board/uXjVL4xYU9Q=/?share_link_id=148729317405)
-
-- **Day 10 & 11 – Traffic Filtering**
-  [View Board](https://miro.com/app/board/uXjVL43JXxg=/?share_link_id=404073487405)
-
----
-
-## 📬 Contact
-
-For questions, collaboration, or resource sharing, feel free to reach out:
-
-**WO1 Pichardo, Jonathan**
-Crew Lead, 169th Cyber Protection Team
-📧 [jonathan.a.pichardo2.mil@army.mil](mailto:jonathan.a.pichardo2.mil@army.mil)
-
----
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00ff88,50:1a1f2e,100:0d1117&height=100&section=footer" />
 
 **Stay sharp. Stay curious. Lead with purpose.**
 
----
+*Last Updated: March 2026*
 
-*Last Updated: 2026-03-21*
+</div>
