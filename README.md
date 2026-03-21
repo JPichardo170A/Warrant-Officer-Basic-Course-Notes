@@ -60,17 +60,17 @@
 
 ## 🎯 Purpose
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│  This repository is a living knowledge base designed to:        │
-│                                                                  │
-│  📝  Consolidate course materials, notes, and reflections       │
-│  🔍  Document lessons learned and practical applications        │
-│  🔗  Provide references and resources used throughout WOBC      │
-│  🔄  Grow continuously with learning and professional dev       │
-│  👥  Support future WOs and cyber professionals                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+<div align="center">
+
+| Goal | Description |
+|:----:|-------------|
+| 📝 | Consolidate course materials, notes, and personal reflections |
+| 🔍 | Document lessons learned and practical applications |
+| 🔗 | Provide references and resources used throughout WOBC |
+| 🔄 | Grow continuously with learning and professional development |
+| 👥 | Support future Warrant Officers and cyber professionals |
+
+</div>
 
 <br>
 
