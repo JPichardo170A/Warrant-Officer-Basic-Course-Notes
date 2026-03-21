@@ -6,20 +6,34 @@ This module covers Python programming fundamentals across 8 days of instruction,
 
 | File | Topic | Description |
 |------|-------|-------------|
-| [00_Personal Python Notes + Quizes.ipynb](00_Personal%20Python%20Notes%20+%20Quizes.ipynb) | Complete Reference | All 8 days of notes + exam quizzes in one notebook |
-| [01_Fundamentals_02_Data_Types.ipynb](01_Fundamentals_02_Data_Types.ipynb) | Fundamentals & Data Types | Syntax, semantics, grammar, `int`, `float`, `bool`, `str`, `list`, `tuple` |
-| [03_Lists_and_Strings.ipynb](03_Lists_and_Strings.ipynb) | Lists & Strings | Indexing, list methods, string methods, `split`/`join`, `is` methods |
-| [04_Functions.ipynb](04_Functions.ipynb) | Functions | Defining, calling, returning data, LEGB scope |
-| [05_Conditional_Expressions.ipynb](05_Conditional_Expressions.ipynb) | Conditionals | Relational, logical, membership operators; `if`/`elif`/`else` |
-| [06_Slicing.ipynb](06_Slicing.ipynb) | Slicing | `[start:stop:step]`, `len()`, `range()`, `sum()`, `round()` |
-| [07_Loops.ipynb](07_Loops.ipynb) | Loops | `while`, `for`, `break`, `continue`, `enumerate()` |
-| [08_File_IO.ipynb](08_File_IO.ipynb) | File I/O | `open`, `read`, `write`, `with` statement, `seek`/`tell` |
-| [09_Libraies.ipynb](09_Libraies.ipynb) | Libraries | `import`, `math`, `random`, aliases |
-| [10_Dictionaries_Sets.ipynb](10_Dictionaries_Sets.ipynb) | Dictionaries & Sets | Key-value pairs, set operations, membership testing |
-| [11_args_kwargs.ipynb](11_args_kwargs.ipynb) | Args, Kwargs & Lambdas | `*args`, `**kwargs`, default params, lambda functions |
-| [12_Sorting.ipynb](12_Sorting.ipynb) | Sorting | `sorted()`, `.sort()`, custom keys, `ord()`/`chr()` |
-| [13_Debugging.ipynb](13_Debugging.ipynb) | Debugging | `try`/`except`, error handling, `raise` |
-| [14_Number_Systems.ipynb](14_Number_Systems.ipynb) | Number Systems | Binary, octal, hex, `bin()`, `oct()`, `hex()`, bitwise ops |
-| [15_Objects_and_Classes.ipynb](15_Objects_and_Classes.ipynb) | Objects & Classes | OOP, `__init__`, `__str__`, inheritance, polymorphism |
-| [16_Networking.ipynb](16_Networking.ipynb) | Networking | Sockets, TCP client/server, `send`/`recv` |
-| [17_Regex.ipynb](17_Regex.ipynb) | Regular Expressions | `re` module, `compile`, `search`, `findall`, patterns |
+| [00_Personal_Python_Notes_and_Quizzes.md](00_Personal_Python_Notes_and_Quizzes.md) | Complete Reference | All 8 days of notes + exam quizzes in one file |
+| [01_Fundamentals_02_Data_Types.md](01_Fundamentals_02_Data_Types.md) | Fundamentals & Data Types | Syntax, semantics, grammar, `int`, `float`, `bool`, `str`, `list`, `tuple` |
+| [03_Lists_and_Strings.md](03_Lists_and_Strings.md) | Lists & Strings | Indexing, list methods, string methods, `split`/`join`, `is` methods |
+| [04_Functions.md](04_Functions.md) | Functions | Defining, calling, returning data, LEGB scope |
+| [05_Conditional_Expressions.md](05_Conditional_Expressions.md) | Conditionals | Relational, logical, membership operators; `if`/`elif`/`else` |
+| [06_Slicing.md](06_Slicing.md) | Slicing | `[start:stop:step]`, `len()`, `range()`, `sum()`, `round()` |
+| [07_Loops.md](07_Loops.md) | Loops | `while`, `for`, `break`, `continue`, `enumerate()` |
+| [08_File_IO.md](08_File_IO.md) | File I/O | `open`, `read`, `write`, `with` statement, `seek`/`tell` |
+| [09_Libraies.md](09_Libraies.md) | Libraries | `import`, `math`, `random`, aliases |
+| [10_Dictionaries_Sets.md](10_Dictionaries_Sets.md) | Dictionaries & Sets | Key-value pairs, set operations, membership testing |
+| [11_args_kwargs.md](11_args_kwargs.md) | Args, Kwargs & Lambdas | `*args`, `**kwargs`, default params, lambda functions |
+| [12_Sorting.md](12_Sorting.md) | Sorting | `sorted()`, `.sort()`, custom keys, `ord()`/`chr()` |
+| [13_Debugging.md](13_Debugging.md) | Debugging | `try`/`except`, error handling, `raise` |
+| [14_Number_Systems.md](14_Number_Systems.md) | Number Systems | Binary, octal, hex, `bin()`, `oct()`, `hex()`, bitwise ops |
+| [15_Objects_and_Classes.md](15_Objects_and_Classes.md) | Objects & Classes | OOP, `__init__`, `__str__`, inheritance, polymorphism |
+| [16_Networking.md](16_Networking.md) | Networking | Sockets, TCP client/server, `send`/`recv` |
+| [17_Regex.md](17_Regex.md) | Regular Expressions | `re` module, `compile`, `search`, `findall`, patterns |
+
+## 🧪 Quizzes & Exam Prep
+
+| File | Day | Topics |
+|------|-----|--------|
+| [Quizzes/Quiz_Day_01.md](Quizzes/Quiz_Day_01.md) | Day 1 | REPL, syntax, data types, variables |
+| [Quizzes/Quiz_Day_02.md](Quizzes/Quiz_Day_02.md) | Day 2 | Lists, tuples, strings, functions |
+| [Quizzes/Quiz_Day_03.md](Quizzes/Quiz_Day_03.md) | Day 3 | Operators, conditionals, slicing, booleans |
+| [Quizzes/Quiz_Day_04.md](Quizzes/Quiz_Day_04.md) | Day 4 | Loops, `chr()`/`ord()`, list manipulation |
+| [Quizzes/Quiz_Day_05.md](Quizzes/Quiz_Day_05.md) | Day 5 | File I/O, `read`, `write`, `with` statement |
+| [Quizzes/Quiz_Day_06.md](Quizzes/Quiz_Day_06.md) | Day 6 | Dictionaries, sets, tuples, sorting |
+| [Quizzes/Quiz_Day_07.md](Quizzes/Quiz_Day_07.md) | Day 7 | `*args`, `**kwargs`, file sorting, lambdas |
+| [Quizzes/Quiz_Day_08.md](Quizzes/Quiz_Day_08.md) | Day 8 | Classes, `__init__`, `__str__`, OOP concepts |
+| [Quizzes/Quiz_Day_09.md](Quizzes/Quiz_Day_09.md) | Day 9 | Practice Test — comprehensive review |

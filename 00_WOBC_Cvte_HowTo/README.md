@@ -6,4 +6,4 @@ This module covers how to access and configure your CVTE (Cyber Virtual Training
 
 | File | Topic | Description |
 |------|-------|-------------|
-| [CVTE Virtual Machine.ipynb](CVTE%20Virtual%20Machine.ipynb) | VM Access Setup | Step-by-step guide to accessing CVTE VMs via VMware Horizon and RDP |
+| [CVTE_Virtual_Machine.md](CVTE_Virtual_Machine.md) | VM Access Setup | Step-by-step guide to accessing CVTE VMs via VMware Horizon and RDP |
