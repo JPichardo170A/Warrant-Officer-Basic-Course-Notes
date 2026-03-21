@@ -1,12 +1,24 @@
 # 📘 WOBC Knowledge Repository
 
-Welcome to the Warrant Officer Basic Course (WOBC) Notebook Repository. This repository serves as a centralized, structured archive for capturing all lessons, insights, and key takeaways throughout my time at WOBC. It is designed to be a living document that evolves with my learning, reflections, and professional development.
+> Warrant Officer Basic Course (WOBC) — Centralized notebook repository for lessons, labs, and key takeaways across all course modules.
+
+---
+
+## 📑 Module Index
+
+| # | Module | Folder | Description | Files |
+|---|--------|--------|-------------|-------|
+| 00 | [CVTE HowTo](00_WOBC_Cvte_HowTo/) | `00_WOBC_Cvte_HowTo/` | CVTE virtual machine setup and orientation | 1 |
+| 01 | [Python](01_Python/) | `01_Python/` | Python fundamentals — data types, functions, OOP, networking, regex | 17 |
+| 02 | [PowerShell](02_PowerShell/) | `02_PowerShell/` | PowerShell scripting, remoting, automation, and troubleshooting | 10 |
+| 03 | [Defensive Cyberspace Operations](03_Defensive%20Cyberspace%20Operations/) | `03_Defensive Cyberspace Operations/` | DCO foundations, reconnaissance, analysis, and crew lead ops | 4 |
+| 04 | [Cloud Foundations](04_Cloud%20Foundations/) | `04_Cloud Foundations/` | Cloud fundamentals — IAM, AWS/Azure infrastructure, IR, threat hunting | 5 |
 
 ---
 
 ## 🎯 Purpose
 
-The primary goal of this notebook is to:
+The primary goal of this repository is to:
 
 - Consolidate course materials, notes, and personal reflections
 - Highlight key lessons learned and practical applications
@@ -17,13 +29,13 @@ The primary goal of this notebook is to:
 
 ## 📂 Structure
 
-The repository is organized into the following sections:
+The repository is organized into five module folders:
 
-- `Lessons/`: Detailed breakdowns of each module or topic covered  
-- `Reflections/`: Personal insights and leadership takeaways  
-- `Resources/`: External references, manuals, and supplemental materials  
-- `Assignments/`: Completed tasks, projects, and assessments  
-- `Tools/`: Useful software, templates, and utilities for WOBC success  
+- `00_WOBC_Cvte_HowTo/` — CVTE virtual machine setup and orientation
+- `01_Python/` — Python programming fundamentals (17 notebooks covering data types through regex)
+- `02_PowerShell/` — PowerShell scripting and automation (4 daily lesson notebooks + 6 supplemental notebooks)
+- `03_Defensive Cyberspace Operations/` — DCO foundations, reconnaissance, and crew lead operations
+- `04_Cloud Foundations/` — Cloud infrastructure, IAM, incident response, and threat hunting
 
 ---
 
@@ -31,13 +43,13 @@ The repository is organized into the following sections:
 
 This notebook draws from a variety of official and supplemental sources, including but not limited to:
 
-- **Army Doctrine Publications (ADPs)**  
-- **Army Techniques Publications (ATPs)**  
-- **Field Manuals (FMs)**  
-- **WOBC Course Materials**  
-- **Leadership Development Guides**  
-- **Peer and Instructor Insights**  
-- **Online Military Forums and Knowledge Bases**  
+- **Army Doctrine Publications (ADPs)**
+- **Army Techniques Publications (ATPs)**
+- **Field Manuals (FMs)**
+- **WOBC Course Materials**
+- **Leadership Development Guides**
+- **Peer and Instructor Insights**
+- **Online Military Forums and Knowledge Bases**
 
 All referenced materials are cited appropriately within each section, and links to publicly available resources are provided where possible.
 
@@ -45,7 +57,7 @@ All referenced materials are cited appropriately within each section, and links 
 
 ## 🚀 How to Use
 
-Whether you're a fellow Warrant Officer candidate, a mentor, or simply curious about the WOBC experience, feel free to explore the repository. Each section is designed to be self-contained yet interconnected, offering both tactical knowledge and strategic perspective.
+Whether you're a fellow Warrant Officer candidate, a mentor, or simply curious about the WOBC experience, feel free to explore the repository. Each module folder contains a README with a file listing and descriptions. Notebooks are designed to be self-contained yet interconnected, offering both tactical knowledge and strategic perspective.
 
 ---
 
@@ -53,10 +65,10 @@ Whether you're a fellow Warrant Officer candidate, a mentor, or simply curious a
 
 This repository will continue to grow as I progress through the course. Planned updates include:
 
-- Annotated diagrams and visual aids  
-- Leadership case studies  
-- Integration of feedback from instructors and peers  
-- Post-course reflections and career planning notes  
+- Annotated diagrams and visual aids
+- Leadership case studies
+- Integration of feedback from instructors and peers
+- Post-course reflections and career planning notes
 
 ---
 
@@ -76,14 +88,14 @@ While this is a personal learning repository, I welcome constructive feedback, a
 # 🧠 Reference Links – CCTC Modules & Access
 
 ## Operating Systems Module
-- [OS Module Public Index](https://os.cybbh.io/public/os/latest/index.html)  
+- [OS Module Public Index](https://os.cybbh.io/public/os/latest/index.html)
 - [CCTC OS Curriculum Portal](https://cted.cybbh.io/tech-college/cttsb/cctc/os/os/index.html)
 
 ## Networking Module
 - [CCTC Networking Curriculum Portal](https://cted.cybbh.io/tech-college/cttsb/cctc/net/Net/)
 
 ## Security Module
-- [CCTC Security Module – Building Op Stations](https://sec-cted-tech-college-cttsb-cctc-sec-12e0e75a1babbeec38083447b9.cybbh.io/#building-op-stations)  
+- [CCTC Security Module – Building Op Stations](https://sec-cted-tech-college-cttsb-cctc-sec-12e0e75a1babbeec38083447b9.cybbh.io/#building-op-stations)
 - [CCTC Security Module Main Portal](https://sec-cted-tech-college-cttsb-cctc-sec-12e0e75a1babbeec38083447b9.cybbh.io/)
 
 ---
@@ -91,13 +103,13 @@ While this is a personal learning repository, I welcome constructive feedback, a
 # 🛠️ Tools & Platforms
 
 ### Core Resources
-- 🔗 [PCTE Dashboard](https://dash.ent1.pcte.mil/app/app)  
+- 🔗 [PCTE Dashboard](https://dash.ent1.pcte.mil/app/app)
   Centralized access to training modules and operational tools.
 
-- 🧠 [CyberChef – Data Analysis & Encoding Tool](https://gchq.github.io/CyberChef/)  
+- 🧠 [CyberChef – Data Analysis & Encoding Tool](https://gchq.github.io/CyberChef/)
   Versatile tool for decoding, encoding, and analyzing data formats.
 
-- 🗺️ [Miro Networking Board](https://miro.com/app/board/o9J_klSqCSY=/?share_link_id=16)  
+- 🗺️ [Miro Networking Board](https://miro.com/app/board/o9J_klSqCSY=/?share_link_id=16)
   Interactive whiteboard used for visualizing networking concepts and lab activities.
 
 ---
@@ -107,32 +119,32 @@ This Miro board is not officially supported by CCTC. It is maintained by an inst
 
 ---
 
-### 🧩 CCTC Networking Miro Whiteboard  
+### 🧩 CCTC Networking Miro Whiteboard
 Main Board: [Miro Networking Board](https://miro.com/app/board/o9J_klSqCSY=/?share_link_id=16)
 
 #### 📚 Individual Section Boards
-- **Day 1 & 2 – Network Fundamentals**  
+- **Day 1 & 2 – Network Fundamentals**
   [View Board](https://miro.com/app/board/uXjVL5Xh8-k=/?share_link_id=227946247596)
 
-- **Day 3 – Traffic Capture**  
+- **Day 3 – Traffic Capture**
   [View Board](https://miro.com/app/board/uXjVL4x9aPI=/?share_link_id=69452653029)
 
-- **Day 4 – Socket Programming**  
+- **Day 4 – Socket Programming**
   [View Board](https://miro.com/app/board/uXjVL4wawbY=/?share_link_id=785182427927)
 
-- **Day 5 – Network Reconnaissance**  
+- **Day 5 – Network Reconnaissance**
   [View Board](https://miro.com/app/board/uXjVL4wUR4Q=/?share_link_id=922899713175)
 
-- **Day 6 – File Transfer & Redirection**  
+- **Day 6 – File Transfer & Redirection**
   [View Board](https://miro.com/app/board/uXjVL4xZJ54=/?share_link_id=42990380004)
 
-- **Day 7 & 8 – SSH Tunneling & Covert Channels**  
+- **Day 7 & 8 – SSH Tunneling & Covert Channels**
   [View Board](https://miro.com/app/board/uXjVL4x58qg=/?share_link_id=164190037374)
 
-- **Day 9 – Network Analysis**  
+- **Day 9 – Network Analysis**
   [View Board](https://miro.com/app/board/uXjVL4xYU9Q=/?share_link_id=148729317405)
 
-- **Day 10 & 11 – Traffic Filtering**  
+- **Day 10 & 11 – Traffic Filtering**
   [View Board](https://miro.com/app/board/uXjVL43JXxg=/?share_link_id=404073487405)
 
 ---
@@ -141,10 +153,14 @@ Main Board: [Miro Networking Board](https://miro.com/app/board/o9J_klSqCSY=/?sha
 
 For questions, collaboration, or resource sharing, feel free to reach out:
 
-**WO1 Pichardo, Jonathan**  
-Crew Lead, 169th Cyber Protection Team  
+**WO1 Pichardo, Jonathan**
+Crew Lead, 169th Cyber Protection Team
 📧 [jonathan.a.pichardo2.mil@army.mil](mailto:jonathan.a.pichardo2.mil@army.mil)
 
 ---
 
 **Stay sharp. Stay curious. Lead with purpose.**
+
+---
+
+*Last Updated: 2026-03-21*
