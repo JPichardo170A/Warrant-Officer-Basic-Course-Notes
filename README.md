@@ -14,7 +14,7 @@
 
 A structured knowledge base for the **Warrant Officer Basic Course (WOBC)** — covering the foundational technical and operational training every Army cyber warrant officer completes. This repo contains course notes, scripting references, defensive operations concepts, and cloud fundamentals organized by module and topic.
 
-Built as a study companion during WOBC and a long-term reference for warrant officers across the cyber branch.
+Designed for aspiring and in-pipeline **170A** (Cyber Operations Technicians) preparing for or currently attending WOBC, and as a long-term reference for warrant officers across the cyber branch.
 
 > Looking for **CCTC technical labs**, CTF walkthroughs, and operational references? See the companion repo:
 >
