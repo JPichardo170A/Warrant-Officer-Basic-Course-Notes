@@ -1,44 +1,24 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,50:1a1f2e,100:00ff88&height=200&section=header&text=WOBC%20Knowledge%20Repository&fontSize=36&fontColor=00ff88&fontAlignY=38&desc=Warrant%20Officer%20Basic%20Course%20%7C%20Cyber%20Common%20Technical%20Core&descAlignY=58&descSize=16&descColor=8b949e" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,50:1a1f2e,100:00ff88&height=200&section=header&text=WOBC%20Knowledge%20Repository&fontSize=36&fontColor=00ff88&fontAlignY=38&desc=Warrant%20Officer%20Basic%20Course%20%7C%20Cyber%20Branch&descAlignY=58&descSize=16&descColor=8b949e" />
 
-[![Author](https://img.shields.io/badge/WO1%20Pichardo-Jonathan-00ff88?style=for-the-badge&logo=shield&logoColor=white)](https://github.com/JPichardo170A)
-[![Unit](https://img.shields.io/badge/Unit-169th%20Cyber%20Protection%20Team-1a1f2e?style=for-the-badge&logo=shield&logoColor=00ff88)](https://github.com/JPichardo170A)
-[![Course](https://img.shields.io/badge/Course-WOBC%20%7C%20CCTC-blueviolet?style=for-the-badge&logo=bookstack&logoColor=white)](https://github.com/JPichardo170A)
-[![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge&logo=statuspage&logoColor=white)](.)
-
-[![Modules](https://img.shields.io/badge/Modules-5-blue?style=for-the-badge&logo=bookstack&logoColor=white)](.)
-[![Files](https://img.shields.io/badge/Files-53-orange?style=for-the-badge&logo=files&logoColor=white)](.)
-[![Format](https://img.shields.io/badge/Format-Markdown-lightgrey?style=for-the-badge&logo=markdown&logoColor=white)](.)
-[![Updated](https://img.shields.io/badge/Updated-March%202026-blue?style=for-the-badge&logo=github&logoColor=white)](.)
-
-![Kali Linux](https://img.shields.io/badge/Kali_Linux-557C94?style=flat-square&logo=kali-linux&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
-![PowerShell](https://img.shields.io/badge/PowerShell-5391FE?style=flat-square&logo=powershell&logoColor=white)
-![AWS](https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazonaws&logoColor=white)
-![Azure](https://img.shields.io/badge/Azure-0078D4?style=flat-square&logo=microsoftazure&logoColor=white)
-![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black)
-![Windows](https://img.shields.io/badge/Windows-0078D6?style=flat-square&logo=windows&logoColor=white)
-![Wireshark](https://img.shields.io/badge/Wireshark-1679A7?style=flat-square&logo=wireshark&logoColor=white)
+[![Author](https://img.shields.io/badge/WO1%20Pichardo-169th%20CPT-4B5320?style=for-the-badge&logoColor=white)](https://github.com/JPichardo170A)
+[![Status](https://img.shields.io/badge/Status-Active-556B2F?style=for-the-badge)](.)
+[![Updated](https://img.shields.io/badge/Updated-March%202026-36454F?style=for-the-badge)](.)
 
 </div>
 
 <br>
 
-## Companion Repository
+## About This Repository
 
-> This repository covers WOBC course notes and study material. All **CCTC technical labs, operational reference, and hands-on lab environments** live in the companion repo:
+A structured knowledge base for the **Warrant Officer Basic Course (WOBC)** — covering the foundational technical and operational training every Army cyber warrant officer completes. This repo contains course notes, scripting references, defensive operations concepts, and cloud fundamentals organized by module and topic.
 
-<div align="center">
+Built as a study companion during WOBC and a long-term reference for warrant officers across the cyber branch.
 
-[![169CPT-CCTC](https://img.shields.io/badge/169CPT--CCTC-Technical%20Labs%20%26%20Reference-00ff88?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JPichardo170A/169CPT-CCTC)
-
-| Repo | Purpose | Contains |
-|------|---------|----------|
-| **WOBC-Notes** *(this repo)* | Course notes & study material | Python · PowerShell · DCO · Cloud |
-| **[169CPT-CCTC](https://github.com/JPichardo170A/169CPT-CCTC)** | Technical labs & operational reference | OS · Networking · Security · SSH Tunneling |
-
-</div>
+> Looking for **CCTC technical labs**, CTF walkthroughs, and operational references? See the companion repo:
+>
+> [![169CPT-CCTC](https://img.shields.io/badge/169CPT%20CCTC-Technical%20Labs%20%26%20Reference-4B5320?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JPichardo170A/169CPT-CCTC)
 
 <br>
 
@@ -58,17 +38,18 @@
 
 <br>
 
-## Purpose
+## Technologies Covered
 
 <div align="center">
 
-| Goal | Description |
-|:----:|-------------|
-| Notes | Consolidate course materials, notes, and personal reflections |
-| Lessons | Document lessons learned and practical applications |
-| References | Provide references and resources used throughout WOBC |
-| Growth | Grow continuously with learning and professional development |
-| Community | Support future Warrant Officers and cyber professionals |
+![Python](https://img.shields.io/badge/Python-36454F?style=flat-square&logo=python&logoColor=white)
+![PowerShell](https://img.shields.io/badge/PowerShell-36454F?style=flat-square&logo=powershell&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-36454F?style=flat-square&logo=amazonaws&logoColor=white)
+![Azure](https://img.shields.io/badge/Azure-36454F?style=flat-square&logo=microsoftazure&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-36454F?style=flat-square&logo=linux&logoColor=white)
+![Windows](https://img.shields.io/badge/Windows-36454F?style=flat-square&logo=windows&logoColor=white)
+![Wireshark](https://img.shields.io/badge/Wireshark-36454F?style=flat-square&logo=wireshark&logoColor=white)
+![Kali Linux](https://img.shields.io/badge/Kali_Linux-36454F?style=flat-square&logo=kali-linux&logoColor=white)
 
 </div>
 
@@ -134,12 +115,12 @@ Each module folder contains a `README.md` with a full file listing, individual t
 
 ## Feedback & Suggestions
 
+Your input directly improves these materials for current and future warrant officers. Have a better way to explain a concept? Found outdated information? Want to recommend a resource that helped you through WOBC?
+
 <div align="center">
 
-Your input helps improve these training materials for current and future warrant officers. Whether it's a correction, a new topic idea, or a resource to share — we want to hear from you.
-
-[![Discussions](https://img.shields.io/badge/Join%20the%20Discussion-00ff88?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JPichardo170A/Warrant-Officer-Basic-Course-Notes/discussions)
-[![Submit Feedback](https://img.shields.io/badge/Submit%20Feedback-1a1f2e?style=for-the-badge&logo=github&logoColor=00ff88)](https://github.com/JPichardo170A/Warrant-Officer-Basic-Course-Notes/issues/new/choose)
+[![Discussions](https://img.shields.io/badge/Join%20the%20Discussion-4B5320?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JPichardo170A/Warrant-Officer-Basic-Course-Notes/discussions)
+[![Submit Feedback](https://img.shields.io/badge/Submit%20Feedback-556B2F?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JPichardo170A/Warrant-Officer-Basic-Course-Notes/issues/new/choose)
 
 | Channel | Use It For |
 |---------|------------|
@@ -157,9 +138,9 @@ Your input helps improve these training materials for current and future warrant
 **WO1 Jonathan Pichardo**
 169th Cyber Protection Team · US Army Cyber Branch
 
-[![Email](https://img.shields.io/badge/Army%20Email-Contact-red?style=for-the-badge&logo=gmail&logoColor=white)](mailto:jonathan.a.pichardo2.mil@army.mil)
-[![GitHub](https://img.shields.io/badge/GitHub-JPichardo170A-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JPichardo170A)
-[![CCTC Repo](https://img.shields.io/badge/CCTC%20Labs-169CPT--CCTC-00ff88?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JPichardo170A/169CPT-CCTC)
+[![Email](https://img.shields.io/badge/Army%20Email-Contact-36454F?style=for-the-badge&logo=gmail&logoColor=white)](mailto:jonathan.a.pichardo2.mil@army.mil)
+[![GitHub](https://img.shields.io/badge/GitHub-JPichardo170A-4B5320?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JPichardo170A)
+[![CCTC Repo](https://img.shields.io/badge/CCTC%20Labs-Companion%20Repo-556B2F?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JPichardo170A/169CPT-CCTC)
 
 <br>
 
