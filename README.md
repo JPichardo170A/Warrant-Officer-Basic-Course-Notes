@@ -12,7 +12,7 @@
 
 ## About This Repository
 
-A structured knowledge base for the **Warrant Officer Basic Course (WOBC)** — covering the foundational technical and operational training every Army cyber warrant officer completes. This repo contains course notes, scripting references, defensive operations concepts, and cloud fundamentals organized by module and topic.
+A structured knowledge base for the **Warrant Officer Basic Course (WOBC)**, covering the foundational technical and operational training every Army cyber warrant officer completes. This repo contains course notes, scripting references, defensive operations concepts, and cloud fundamentals organized by module and topic.
 
 Designed for aspiring and in-pipeline **170A** (Cyber Operations Technicians) preparing for or currently attending WOBC, and as a long-term reference for warrant officers across the cyber branch.
 
@@ -92,11 +92,11 @@ Each module folder contains a `README.md` with a full file listing, individual t
 
 <br>
 
-## CCTC Networking — Miro Section Boards
+## CCTC Networking: Miro Section Boards
 
 <div align="center">
 
-> Instructor-maintained via third-party platform — not officially supported by CCTC. Use **Google Chrome** for best results.
+> Instructor-maintained via third-party platform, not officially supported by CCTC. Use **Google Chrome** for best results.
 
 | Day | Topic | Board |
 |:---:|-------|:-----:|
